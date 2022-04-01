@@ -1,0 +1,1569 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @upper on FIELD_DEFINITION
+
+type Dummy {
+  id: ID!
+  created: DateTime!
+  floaty: Float!
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+  json: JSON
+  friends: [String!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""An arbitrary-precision Decimal type"""
+scalar Decimal
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type TagCount {
+  articles: Int!
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  articles: [Article!]
+  _count: TagCount!
+}
+
+type Comment {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  body: String!
+  author: User!
+  authorId: String!
+  article: Article
+  articleId: String
+}
+
+type ArticleCount {
+  tags: Int!
+  favoritedBy: Int!
+  comments: Int!
+}
+
+type Article {
+  id: ID!
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tags: [Tag!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  favoritesCount: Int!
+  author: User!
+  authorId: String!
+  favoritedBy: [User!]
+  comments: [Comment!]
+  active: Boolean
+  _count: ArticleCount!
+}
+
+type UserCount {
+  following: Int!
+  followers: Int!
+  favoriteArticles: Int!
+  articles: Int!
+  comments: Int!
+}
+
+"""User really"""
+type User {
+  id: ID!
+  email: String!
+
+  """User's name"""
+  name: String!
+  bio: String
+  image: String
+  following: [User!]
+  followers: [User!]
+  favoriteArticles: [Article!]
+  articles: [Article!]
+  comments: [Comment!]
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: Profile
+  _count: UserCount!
+}
+
+enum Role {
+  USER
+}
+
+type Profile {
+  id: ID!
+  user: User!
+  userId: String!
+  dummy: String
+}
+
+type UserCountAggregate {
+  id: Int!
+  email: Int!
+  name: Int!
+  bio: Int!
+  image: Int!
+  countComments: Int!
+  rating: Int!
+  role: Int!
+  _all: Int!
+}
+
+type UserAvgAggregate {
+  countComments: Float
+  rating: Float
+}
+
+type UserSumAggregate {
+  countComments: Int
+  rating: Float
+}
+
+type UserMinAggregate {
+  id: String
+  email: String
+  name: String
+  bio: String
+  image: String
+  countComments: Int
+  rating: Float
+  role: Role
+}
+
+type UserMaxAggregate {
+  id: String
+  email: String
+  name: String
+  bio: String
+  image: String
+  countComments: Int
+  rating: Float
+  role: Role
+}
+
+type AggregateUser {
+  _count: UserCountAggregate
+  _avg: UserAvgAggregate
+  _sum: UserSumAggregate
+  _min: UserMinAggregate
+  _max: UserMaxAggregate
+}
+
+type Query {
+  users(where: UserWhereInput!): [User!]!
+  userAggregate(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, _count: UserCountAggregateInput, _avg: UserAvgAggregateInput, _sum: UserSumAggregateInput, _min: UserMinAggregateInput, _max: UserMaxAggregateInput): AggregateUser!
+  queryProfile: Profile!
+  dummies: [Dummy!]!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: StringFilter
+  email: StringFilter
+  name: StringFilter
+  password: StringFilter
+  bio: StringNullableFilter
+  image: StringNullableFilter
+  following: UserListRelationFilter
+  followers: UserListRelationFilter
+  favoriteArticles: ArticleListRelationFilter
+  articles: ArticleListRelationFilter
+  comments: CommentListRelationFilter
+  countComments: IntNullableFilter
+  rating: FloatNullableFilter
+  role: EnumRoleNullableFilter
+  profile: ProfileWhereInput
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  search: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  search: String
+  not: NestedStringFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  search: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  search: String
+  not: NestedStringNullableFilter
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  some: UserWhereInput
+  none: UserWhereInput
+}
+
+input ArticleListRelationFilter {
+  every: ArticleWhereInput
+  some: ArticleWhereInput
+  none: ArticleWhereInput
+}
+
+input ArticleWhereInput {
+  AND: [ArticleWhereInput!]
+  OR: [ArticleWhereInput!]
+  NOT: [ArticleWhereInput!]
+  id: StringFilter
+  slug: StringFilter
+  title: StringFilter
+  description: StringFilter
+  body: StringFilter
+  tags: TagListRelationFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  favoritesCount: IntFilter
+  author: UserWhereInput
+  authorId: StringFilter
+  favoritedBy: UserListRelationFilter
+  comments: CommentListRelationFilter
+  active: BoolNullableFilter
+}
+
+input TagListRelationFilter {
+  every: TagWhereInput
+  some: TagWhereInput
+  none: TagWhereInput
+}
+
+input TagWhereInput {
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  articles: ArticleListRelationFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input CommentListRelationFilter {
+  every: CommentWhereInput
+  some: CommentWhereInput
+  none: CommentWhereInput
+}
+
+input CommentWhereInput {
+  AND: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  body: StringFilter
+  author: UserWhereInput
+  authorId: StringFilter
+  article: ArticleWhereInput
+  articleId: StringNullableFilter
+}
+
+input BoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
+input NestedBoolNullableFilter {
+  equals: Boolean
+  not: NestedBoolNullableFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input FloatNullableFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatNullableFilter
+}
+
+input NestedFloatNullableFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatNullableFilter
+}
+
+input EnumRoleNullableFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleNullableFilter
+}
+
+input NestedEnumRoleNullableFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleNullableFilter
+}
+
+input ProfileWhereInput {
+  AND: [ProfileWhereInput!]
+  OR: [ProfileWhereInput!]
+  NOT: [ProfileWhereInput!]
+  id: IntFilter
+  user: UserWhereInput
+  userId: StringFilter
+  dummy: StringNullableFilter
+}
+
+input UserOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  email: SortOrder
+  name: SortOrder
+  password: SortOrder
+  bio: SortOrder
+  image: SortOrder
+  following: UserOrderByRelationAggregateInput
+  followers: UserOrderByRelationAggregateInput
+  favoriteArticles: ArticleOrderByRelationAggregateInput
+  articles: ArticleOrderByRelationAggregateInput
+  comments: CommentOrderByRelationAggregateInput
+  countComments: SortOrder
+  rating: SortOrder
+  role: SortOrder
+  profile: ProfileOrderByWithRelationAndSearchRelevanceInput
+  _relevance: UserOrderByRelevanceInput
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input UserOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ArticleOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input CommentOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProfileOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  user: UserOrderByWithRelationAndSearchRelevanceInput
+  userId: SortOrder
+  dummy: SortOrder
+  _relevance: ProfileOrderByRelevanceInput
+}
+
+input ProfileOrderByRelevanceInput {
+  fields: [ProfileOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum ProfileOrderByRelevanceFieldEnum {
+  userId
+  dummy
+}
+
+input UserOrderByRelevanceInput {
+  fields: [UserOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum UserOrderByRelevanceFieldEnum {
+  id
+  email
+  name
+  password
+  bio
+  image
+}
+
+input UserWhereUniqueInput {
+  id: String
+  email: EmailAddress
+  name: String
+  email_name: UserEmailNameCompoundUniqueInput
+}
+
+"""
+A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.
+"""
+scalar EmailAddress @specifiedBy(url: "https://www.w3.org/Protocols/rfc822/")
+
+input UserEmailNameCompoundUniqueInput {
+  email: EmailAddress!
+  name: String!
+}
+
+input UserCountAggregateInput {
+  id: Boolean
+  email: Boolean
+  name: Boolean
+  password: Boolean
+  bio: Boolean
+  image: Boolean
+  countComments: Boolean
+  rating: Boolean
+  role: Boolean
+  _all: Boolean
+}
+
+input UserAvgAggregateInput {
+  countComments: Boolean
+  rating: Boolean
+}
+
+input UserSumAggregateInput {
+  countComments: Boolean
+  rating: Boolean
+}
+
+input UserMinAggregateInput {
+  id: Boolean
+  email: Boolean
+  name: Boolean
+  password: Boolean
+  bio: Boolean
+  image: Boolean
+  countComments: Boolean
+  rating: Boolean
+  role: Boolean
+}
+
+input UserMaxAggregateInput {
+  id: Boolean
+  email: Boolean
+  name: Boolean
+  password: Boolean
+  bio: Boolean
+  image: Boolean
+  countComments: Boolean
+  rating: Boolean
+  role: Boolean
+}
+
+type Mutation {
+  userUpdate(user: UserUpdateInput!): User
+  userCreate(user: UserCreateInput!): User
+  createOneUser(data: UserCreateInput!): User
+  userInfo(user: UserDateInput!): User
+  createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): [User!]
+}
+
+input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+input UserUpdateManyWithoutFollowersInput {
+  create: [UserCreateWithoutFollowersInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowersInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowersInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowersInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutFollowersInput!]
+  deleteMany: [UserScalarWhereInput!]
+}
+
+input UserCreateWithoutFollowersInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
+}
+
+input UserCreateNestedManyWithoutFollowersInput {
+  create: [UserCreateWithoutFollowersInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowersInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOrConnectWithoutFollowersInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutFollowersInput!
+}
+
+input ArticleCreateNestedManyWithoutFavoritedByInput {
+  create: [ArticleCreateWithoutFavoritedByInput!]
+  connectOrCreate: [ArticleCreateOrConnectWithoutFavoritedByInput!]
+  connect: [ArticleWhereUniqueInput!]
+}
+
+input ArticleCreateWithoutFavoritedByInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tags: TagCreateNestedManyWithoutArticlesInput
+  updatedAt: DateTime
+  favoritesCount: Int
+  author: UserCreateNestedOneWithoutArticlesInput!
+  comments: CommentCreateNestedManyWithoutArticleInput
+  active: Boolean
+}
+
+input TagCreateNestedManyWithoutArticlesInput {
+  create: [TagCreateWithoutArticlesInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutArticlesInput!]
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutArticlesInput {
+  id: String
+  name: String!
+}
+
+input TagCreateOrConnectWithoutArticlesInput {
+  where: TagWhereUniqueInput!
+  create: TagCreateWithoutArticlesInput!
+}
+
+input TagWhereUniqueInput {
+  id: String
+  name: String
+}
+
+input UserCreateNestedOneWithoutArticlesInput {
+  create: UserCreateWithoutArticlesInput
+  connectOrCreate: UserCreateOrConnectWithoutArticlesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutArticlesInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  followers: UserCreateNestedManyWithoutFollowingInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
+}
+
+input UserCreateNestedManyWithoutFollowingInput {
+  create: [UserCreateWithoutFollowingInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowingInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateWithoutFollowingInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  followers: UserCreateNestedManyWithoutFollowingInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
+}
+
+input ArticleCreateNestedManyWithoutAuthorInput {
+  create: [ArticleCreateWithoutAuthorInput!]
+  connectOrCreate: [ArticleCreateOrConnectWithoutAuthorInput!]
+  createMany: ArticleCreateManyAuthorInputEnvelope
+  connect: [ArticleWhereUniqueInput!]
+}
+
+input ArticleCreateWithoutAuthorInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tags: TagCreateNestedManyWithoutArticlesInput
+  updatedAt: DateTime
+  favoritesCount: Int
+  favoritedBy: UserCreateNestedManyWithoutFavoriteArticlesInput
+  comments: CommentCreateNestedManyWithoutArticleInput
+  active: Boolean
+}
+
+input UserCreateNestedManyWithoutFavoriteArticlesInput {
+  create: [UserCreateWithoutFavoriteArticlesInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFavoriteArticlesInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateWithoutFavoriteArticlesInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  followers: UserCreateNestedManyWithoutFollowingInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
+}
+
+input CommentCreateNestedManyWithoutAuthorInput {
+  create: [CommentCreateWithoutAuthorInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput!]
+  createMany: CommentCreateManyAuthorInputEnvelope
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutAuthorInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String!
+  article: ArticleCreateNestedOneWithoutCommentsInput
+}
+
+input ArticleCreateNestedOneWithoutCommentsInput {
+  create: ArticleCreateWithoutCommentsInput
+  connectOrCreate: ArticleCreateOrConnectWithoutCommentsInput
+  connect: ArticleWhereUniqueInput
+}
+
+input ArticleCreateWithoutCommentsInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tags: TagCreateNestedManyWithoutArticlesInput
+  updatedAt: DateTime
+  favoritesCount: Int
+  author: UserCreateNestedOneWithoutArticlesInput!
+  favoritedBy: UserCreateNestedManyWithoutFavoriteArticlesInput
+  active: Boolean
+}
+
+input ArticleCreateOrConnectWithoutCommentsInput {
+  where: ArticleWhereUniqueInput!
+  create: ArticleCreateWithoutCommentsInput!
+}
+
+input ArticleWhereUniqueInput {
+  id: String
+  slug: String
+}
+
+input CommentCreateOrConnectWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  create: CommentCreateWithoutAuthorInput!
+}
+
+input CommentWhereUniqueInput {
+  id: String
+}
+
+input CommentCreateManyAuthorInputEnvelope {
+  data: [CommentCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyAuthorInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String!
+  articleId: String
+}
+
+input ProfileCreateNestedOneWithoutUserInput {
+  create: ProfileCreateWithoutUserInput
+  connectOrCreate: ProfileCreateOrConnectWithoutUserInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateWithoutUserInput {
+  dummy: String
+}
+
+input ProfileCreateOrConnectWithoutUserInput {
+  where: ProfileWhereUniqueInput!
+  create: ProfileCreateWithoutUserInput!
+}
+
+input ProfileWhereUniqueInput {
+  id: Int
+  userId: String
+}
+
+input UserCreateOrConnectWithoutFavoriteArticlesInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutFavoriteArticlesInput!
+}
+
+input CommentCreateNestedManyWithoutArticleInput {
+  create: [CommentCreateWithoutArticleInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutArticleInput!]
+  createMany: CommentCreateManyArticleInputEnvelope
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutArticleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String!
+  author: UserCreateNestedOneWithoutCommentsInput!
+}
+
+input UserCreateNestedOneWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCommentsInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  followers: UserCreateNestedManyWithoutFollowingInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
+}
+
+input UserCreateOrConnectWithoutCommentsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutCommentsInput!
+}
+
+input CommentCreateOrConnectWithoutArticleInput {
+  where: CommentWhereUniqueInput!
+  create: CommentCreateWithoutArticleInput!
+}
+
+input CommentCreateManyArticleInputEnvelope {
+  data: [CommentCreateManyArticleInput!]!
+  skipDuplicates: Boolean
+}
+
+input CommentCreateManyArticleInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String!
+  authorId: String!
+}
+
+input ArticleCreateOrConnectWithoutAuthorInput {
+  where: ArticleWhereUniqueInput!
+  create: ArticleCreateWithoutAuthorInput!
+}
+
+input ArticleCreateManyAuthorInputEnvelope {
+  data: [ArticleCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input ArticleCreateManyAuthorInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  updatedAt: DateTime
+  favoritesCount: Int
+  active: Boolean
+}
+
+input UserCreateOrConnectWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutFollowingInput!
+}
+
+input UserCreateOrConnectWithoutArticlesInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutArticlesInput!
+}
+
+input ArticleCreateOrConnectWithoutFavoritedByInput {
+  where: ArticleWhereUniqueInput!
+  create: ArticleCreateWithoutFavoritedByInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowersInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFollowersInput!
+  create: UserCreateWithoutFollowersInput!
+}
+
+input UserUpdateWithoutFollowersInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input ArticleUpdateManyWithoutFavoritedByInput {
+  create: [ArticleCreateWithoutFavoritedByInput!]
+  connectOrCreate: [ArticleCreateOrConnectWithoutFavoritedByInput!]
+  upsert: [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput!]
+  set: [ArticleWhereUniqueInput!]
+  disconnect: [ArticleWhereUniqueInput!]
+  delete: [ArticleWhereUniqueInput!]
+  connect: [ArticleWhereUniqueInput!]
+  update: [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput!]
+  updateMany: [ArticleUpdateManyWithWhereWithoutFavoritedByInput!]
+  deleteMany: [ArticleScalarWhereInput!]
+}
+
+input ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
+  where: ArticleWhereUniqueInput!
+  update: ArticleUpdateWithoutFavoritedByInput!
+  create: ArticleCreateWithoutFavoritedByInput!
+}
+
+input ArticleUpdateWithoutFavoritedByInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  tags: TagUpdateManyWithoutArticlesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  author: UserUpdateOneRequiredWithoutArticlesInput
+  comments: CommentUpdateManyWithoutArticleInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input TagUpdateManyWithoutArticlesInput {
+  create: [TagCreateWithoutArticlesInput!]
+  connectOrCreate: [TagCreateOrConnectWithoutArticlesInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutArticlesInput!]
+  set: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  delete: [TagWhereUniqueInput!]
+  connect: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutArticlesInput!]
+  updateMany: [TagUpdateManyWithWhereWithoutArticlesInput!]
+  deleteMany: [TagScalarWhereInput!]
+}
+
+input TagUpsertWithWhereUniqueWithoutArticlesInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutArticlesInput!
+  create: TagCreateWithoutArticlesInput!
+}
+
+input TagUpdateWithoutArticlesInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutArticlesInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutArticlesInput!
+}
+
+input TagUpdateManyWithWhereWithoutArticlesInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyMutationInput!
+}
+
+input TagScalarWhereInput {
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
+  id: StringFilter
+  name: StringFilter
+}
+
+input TagUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input UserUpdateOneRequiredWithoutArticlesInput {
+  create: UserCreateWithoutArticlesInput
+  connectOrCreate: UserCreateOrConnectWithoutArticlesInput
+  upsert: UserUpsertWithoutArticlesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutArticlesInput
+}
+
+input UserUpsertWithoutArticlesInput {
+  update: UserUpdateWithoutArticlesInput!
+  create: UserCreateWithoutArticlesInput!
+}
+
+input UserUpdateWithoutArticlesInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input UserUpdateManyWithoutFollowingInput {
+  create: [UserCreateWithoutFollowingInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowingInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowingInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowingInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutFollowingInput!]
+  deleteMany: [UserScalarWhereInput!]
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFollowingInput!
+  create: UserCreateWithoutFollowingInput!
+}
+
+input UserUpdateWithoutFollowingInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  followers: UserUpdateManyWithoutFollowingInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input ArticleUpdateManyWithoutAuthorInput {
+  create: [ArticleCreateWithoutAuthorInput!]
+  connectOrCreate: [ArticleCreateOrConnectWithoutAuthorInput!]
+  upsert: [ArticleUpsertWithWhereUniqueWithoutAuthorInput!]
+  createMany: ArticleCreateManyAuthorInputEnvelope
+  set: [ArticleWhereUniqueInput!]
+  disconnect: [ArticleWhereUniqueInput!]
+  delete: [ArticleWhereUniqueInput!]
+  connect: [ArticleWhereUniqueInput!]
+  update: [ArticleUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [ArticleUpdateManyWithWhereWithoutAuthorInput!]
+  deleteMany: [ArticleScalarWhereInput!]
+}
+
+input ArticleUpsertWithWhereUniqueWithoutAuthorInput {
+  where: ArticleWhereUniqueInput!
+  update: ArticleUpdateWithoutAuthorInput!
+  create: ArticleCreateWithoutAuthorInput!
+}
+
+input ArticleUpdateWithoutAuthorInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  tags: TagUpdateManyWithoutArticlesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
+  comments: CommentUpdateManyWithoutArticleInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input UserUpdateManyWithoutFavoriteArticlesInput {
+  create: [UserCreateWithoutFavoriteArticlesInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFavoriteArticlesInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutFavoriteArticlesInput!]
+  deleteMany: [UserScalarWhereInput!]
+}
+
+input UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFavoriteArticlesInput!
+  create: UserCreateWithoutFavoriteArticlesInput!
+}
+
+input UserUpdateWithoutFavoriteArticlesInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input CommentUpdateManyWithoutAuthorInput {
+  create: [CommentCreateWithoutAuthorInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutAuthorInput!]
+  createMany: CommentCreateManyAuthorInputEnvelope
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [CommentUpdateManyWithWhereWithoutAuthorInput!]
+  deleteMany: [CommentScalarWhereInput!]
+}
+
+input CommentUpsertWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutAuthorInput!
+  create: CommentCreateWithoutAuthorInput!
+}
+
+input CommentUpdateWithoutAuthorInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  article: ArticleUpdateOneWithoutCommentsInput
+}
+
+input ArticleUpdateOneWithoutCommentsInput {
+  create: ArticleCreateWithoutCommentsInput
+  connectOrCreate: ArticleCreateOrConnectWithoutCommentsInput
+  upsert: ArticleUpsertWithoutCommentsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: ArticleWhereUniqueInput
+  update: ArticleUpdateWithoutCommentsInput
+}
+
+input ArticleUpsertWithoutCommentsInput {
+  update: ArticleUpdateWithoutCommentsInput!
+  create: ArticleCreateWithoutCommentsInput!
+}
+
+input ArticleUpdateWithoutCommentsInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  tags: TagUpdateManyWithoutArticlesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  author: UserUpdateOneRequiredWithoutArticlesInput
+  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input NullableBoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input CommentUpdateWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutAuthorInput!
+}
+
+input CommentUpdateManyWithWhereWithoutAuthorInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyMutationInput!
+}
+
+input CommentScalarWhereInput {
+  AND: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  NOT: [CommentScalarWhereInput!]
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  body: StringFilter
+  authorId: StringFilter
+  articleId: StringNullableFilter
+}
+
+input CommentUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+}
+
+input NullableIntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input NullableFloatFieldUpdateOperationsInput {
+  set: Float
+  increment: Float
+  decrement: Float
+  multiply: Float
+  divide: Float
+}
+
+input NullableEnumRoleFieldUpdateOperationsInput {
+  set: Role
+}
+
+input ProfileUpdateOneWithoutUserInput {
+  create: ProfileCreateWithoutUserInput
+  connectOrCreate: ProfileCreateOrConnectWithoutUserInput
+  upsert: ProfileUpsertWithoutUserInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutUserInput
+}
+
+input ProfileUpsertWithoutUserInput {
+  update: ProfileUpdateWithoutUserInput!
+  create: ProfileCreateWithoutUserInput!
+}
+
+input ProfileUpdateWithoutUserInput {
+  dummy: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFavoriteArticlesInput!
+}
+
+input UserUpdateManyWithWhereWithoutFavoriteArticlesInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyMutationInput!
+}
+
+input UserScalarWhereInput {
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+  id: StringFilter
+  email: StringFilter
+  name: StringFilter
+  password: StringFilter
+  bio: StringNullableFilter
+  image: StringNullableFilter
+  countComments: IntNullableFilter
+  rating: FloatNullableFilter
+  role: EnumRoleNullableFilter
+}
+
+input UserUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+}
+
+input CommentUpdateManyWithoutArticleInput {
+  create: [CommentCreateWithoutArticleInput!]
+  connectOrCreate: [CommentCreateOrConnectWithoutArticleInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutArticleInput!]
+  createMany: CommentCreateManyArticleInputEnvelope
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutArticleInput!]
+  updateMany: [CommentUpdateManyWithWhereWithoutArticleInput!]
+  deleteMany: [CommentScalarWhereInput!]
+}
+
+input CommentUpsertWithWhereUniqueWithoutArticleInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutArticleInput!
+  create: CommentCreateWithoutArticleInput!
+}
+
+input CommentUpdateWithoutArticleInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  author: UserUpdateOneRequiredWithoutCommentsInput
+}
+
+input UserUpdateOneRequiredWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connectOrCreate: UserCreateOrConnectWithoutCommentsInput
+  upsert: UserUpsertWithoutCommentsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutCommentsInput
+}
+
+input UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsInput!
+  create: UserCreateWithoutCommentsInput!
+}
+
+input UserUpdateWithoutCommentsInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutArticleInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutArticleInput!
+}
+
+input CommentUpdateManyWithWhereWithoutArticleInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyMutationInput!
+}
+
+input ArticleUpdateWithWhereUniqueWithoutAuthorInput {
+  where: ArticleWhereUniqueInput!
+  data: ArticleUpdateWithoutAuthorInput!
+}
+
+input ArticleUpdateManyWithWhereWithoutAuthorInput {
+  where: ArticleScalarWhereInput!
+  data: ArticleUpdateManyMutationInput!
+}
+
+input ArticleScalarWhereInput {
+  AND: [ArticleScalarWhereInput!]
+  OR: [ArticleScalarWhereInput!]
+  NOT: [ArticleScalarWhereInput!]
+  id: StringFilter
+  slug: StringFilter
+  title: StringFilter
+  description: StringFilter
+  body: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  favoritesCount: IntFilter
+  authorId: StringFilter
+  active: BoolNullableFilter
+}
+
+input ArticleUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input UserUpdateWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFollowingInput!
+}
+
+input UserUpdateManyWithWhereWithoutFollowingInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyMutationInput!
+}
+
+input ArticleUpdateWithWhereUniqueWithoutFavoritedByInput {
+  where: ArticleWhereUniqueInput!
+  data: ArticleUpdateWithoutFavoritedByInput!
+}
+
+input ArticleUpdateManyWithWhereWithoutFavoritedByInput {
+  where: ArticleScalarWhereInput!
+  data: ArticleUpdateManyMutationInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutFollowersInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFollowersInput!
+}
+
+input UserUpdateManyWithWhereWithoutFollowersInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyMutationInput!
+}
+
+input UserCreateInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  followers: UserCreateNestedManyWithoutFollowingInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
+}
+
+input UserDateInput {
+  date: DateTime
+}
+
+input UserCreateManyInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  countComments: Int
+  rating: Float
+  role: Role
+}
