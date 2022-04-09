@@ -12,20 +12,21 @@ import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args';
 import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args';
+import { UserWhereUniqueInput } from '../../@generated/user/user-where-unique.input';
 import { UserDateInput } from './user-date.input';
 
 const prisma = new PrismaClient({
-  errorFormat: 'colorless',
-  log: [
-    {
-      emit: 'event',
-      level: 'query',
-    },
-  ],
+    errorFormat: 'colorless',
+    log: [
+        {
+            emit: 'event',
+            level: 'query',
+        },
+    ],
 });
 
 prisma.$on('query', (event) => {
-  console.log('查询日志', event);
+    console.log('查询日志', event);
 });
 
 /**
@@ -33,63 +34,69 @@ prisma.$on('query', (event) => {
  */
 @Resolver(() => User)
 export class UserResolver {
-  /**
-   * Query for single user.
-   */
-  @Query(() => [User])
-  async users(
-    @Args('where') where: UserWhereInput,
-    @Info() info: GraphQLResolveInfo,
-  ) {
-    const select = new PrismaSelect(info).value;
-    console.log('select', select);
-    return await prisma.user.findMany({ where, ...select });
-  }
+    /**
+     * Query for single user.
+     */
+    @Query(() => [User])
+    async users(
+        @Args('where') where: UserWhereInput,
+        @Info() info: GraphQLResolveInfo,
+    ) {
+        const select = new PrismaSelect(info).value;
+        console.log('select', select);
+        return await prisma.user.findMany({ where, ...select });
+    }
 
-  @Mutation(() => User, { nullable: true })
-  async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
-    return;
-  }
+    @Mutation(() => User, { nullable: true })
+    async userUpdate(
+        @Args('data') data: UserUpdateInput,
+        @Args('where') where: UserWhereUniqueInput,
+        @Info() info: GraphQLResolveInfo,
+    ): Promise<any> {
+        const select = new PrismaSelect(info).value;
+        console.log('select', select);
+        return await prisma.user.update({ data, where, ...select });
+    }
 
-  @Mutation(() => User, { nullable: true })
-  async userCreate(@Args('user') user: UserCreateInput): Promise<any> {
-    return;
-  }
+    // @Mutation(() => User, { nullable: true })
+    // async userCreate(@Args('user') user: UserCreateInput): Promise<any> {
+    //     return;
+    // }
 
-  @Mutation(() => User, { nullable: true })
-  async createOneUser(@Args() args: CreateOneUserArgs): Promise<any> {
-    console.log('args', args);
-    return;
-  }
+    @Mutation(() => User, { nullable: true })
+    async createOneUser(@Args() args: CreateOneUserArgs): Promise<any> {
+        console.log('args', args);
+        return await prisma.user.create(args);
+    }
 
-  @Mutation(() => User, { nullable: true })
-  async userInfo(@Args('user') user: UserDateInput): Promise<any> {
-    console.log(
-      'userInfo Args',
-      user.date,
-      typeof user.date,
-      user.date?.constructor,
-    );
-    return;
-  }
+    @Mutation(() => User, { nullable: true })
+    async userInfo(@Args('user') user: UserDateInput): Promise<any> {
+        console.log(
+            'userInfo Args',
+            user.date,
+            typeof user.date,
+            user.date?.constructor,
+        );
+        return;
+    }
 
-  @Mutation(() => [User], { nullable: true })
-  async createManyUsers(
-    @Args() createManyUserArgs: CreateManyUserArgs,
-  ): Promise<any> {
-    console.log('createManyUserArgs', createManyUserArgs);
-    return;
-  }
+    @Mutation(() => [User], { nullable: true })
+    async createManyUsers(
+        @Args() createManyUserArgs: CreateManyUserArgs,
+    ): Promise<any> {
+        console.log('createManyUserArgs', createManyUserArgs);
+        return await prisma.user.createMany(createManyUserArgs);
+    }
 
-  @Query(() => AggregateUser)
-  userAggregate(@Args() args: UserAggregateArgs) {
-    return prisma.user.aggregate(args);
-  }
+    @Query(() => AggregateUser)
+    userAggregate(@Args() args: UserAggregateArgs) {
+        return prisma.user.aggregate(args);
+    }
 
-  @Query(() => Profile)
-  queryProfile() {
-    const p = new Profile();
-    p.id = 1;
-    return p;
-  }
+    @Query(() => Profile)
+    queryProfile() {
+        const p = new Profile();
+        p.id = 1;
+        return p;
+    }
 }

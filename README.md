@@ -2,3 +2,4 @@
 
 > Nest Prisma Graphql 可以使用指令
 > prisma的指令实现通过 `prisma-nestjs-graphql` 来实现
+> 切换node版本为12版本再启动

@@ -4,6 +4,8 @@
 
 directive @upper on FIELD_DEFINITION
 
+directive @lower on FIELD_DEFINITION
+
 type Dummy {
   id: ID!
   created: DateTime!
@@ -587,8 +589,7 @@ input UserMaxAggregateInput {
 }
 
 type Mutation {
-  userUpdate(user: UserUpdateInput!): User
-  userCreate(user: UserCreateInput!): User
+  userUpdate(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   createOneUser(data: UserCreateInput!): User
   userInfo(user: UserDateInput!): User
   createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): [User!]

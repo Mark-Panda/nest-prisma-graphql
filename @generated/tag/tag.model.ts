@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { Directive } from '@nestjs/graphql';
 import { Article } from '../article/article.model';
 import { TagCount } from './tag-count.output';
 
@@ -11,6 +12,7 @@ export class Tag {
     id!: string;
 
     @Field(() => String, {nullable:false})
+    @Directive('@lower')
     name!: string;
 
     @Field(() => [Article], {nullable:true})

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { Directive } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
@@ -22,6 +23,7 @@ export class User {
 
     /** User's name */
     @Field(() => String, {nullable:false,description:"User's name"})
+    @Directive('@upper')
     name!: string;
 
     @HideField()

@@ -44,6 +44,7 @@ model User {
     /// User's name
     /// @Validator.MinLength(3)
     /// @Validator.MaxLength(50)
+    /// @Directive({ arguments: ['@upper'] })
     name             String    @unique
     /// @HideField()
     password         String
@@ -64,6 +65,7 @@ model User {
 
 model Tag {
     id       String    @id @default(cuid())
+    /// @Directive({ arguments: ['@lower'] })
     name     String    @unique
     articles Article[]
 }
