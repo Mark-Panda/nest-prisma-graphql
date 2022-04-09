@@ -78,6 +78,13 @@ type Article {
   _count: ArticleCount!
 }
 
+type Profile {
+  id: ID!
+  user: User!
+  userId: String!
+  dummy: String
+}
+
 type UserCount {
   following: Int!
   followers: Int!
@@ -109,13 +116,6 @@ type User {
 
 enum Role {
   USER
-}
-
-type Profile {
-  id: ID!
-  user: User!
-  userId: String!
-  dummy: String
 }
 
 type UserCountAggregate {
@@ -170,12 +170,15 @@ type AggregateUser {
   _max: UserMaxAggregate
 }
 
+type AffectedRows {
+  count: Int!
+}
+
 type Query {
   user(where: UserWhereUniqueInput!): User!
   userFirst(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User!
-  users(where: UserWhereInput!): [User!]!
+  users(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
   userAggregate(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, _count: UserCountAggregateInput, _avg: UserAvgAggregateInput, _sum: UserSumAggregateInput, _min: UserMinAggregateInput, _max: UserMaxAggregateInput): AggregateUser!
-  queryProfile: Profile!
   dummies: [Dummy!]!
 }
 
@@ -605,10 +608,11 @@ input UserMaxAggregateInput {
 type Mutation {
   createOneUser(data: UserCreateInput!): User
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  upsertOneUser(update: UserUpdateInput!, where: UserWhereUniqueInput!, create: UserCreateInput!): User
+  upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
   deleteOneUser(where: UserWhereUniqueInput!): User
-  userInfo(user: UserDateInput!): User
-  createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): [User!]
+  createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRows
+  deleteManyUsers(where: UserWhereInput): AffectedRows
 }
 
 input UserCreateInput {
@@ -1567,10 +1571,6 @@ input UserUpdateWithWhereUniqueWithoutFollowersInput {
 input UserUpdateManyWithWhereWithoutFollowersInput {
   where: UserScalarWhereInput!
   data: UserUpdateManyMutationInput!
-}
-
-input UserDateInput {
-  date: DateTime
 }
 
 input UserCreateManyInput {

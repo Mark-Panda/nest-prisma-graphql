@@ -18,6 +18,7 @@ import { DeleteOneUserArgs } from '@generated/user/delete-one-user.args';
 // import { UserGroupBy } from '@generated/user/user-group-by.output';
 import { UpdateManyUserArgs } from '@generated/user/update-many-user.args';
 import { DeleteManyUserArgs } from '@generated/user/delete-many-user.args';
+import { AffectedRows } from '@generated/prisma/affected-rows.output';
 
 const prisma = new PrismaClient({
     errorFormat: 'colorless',
@@ -195,9 +196,11 @@ export class UserResolver {
      *  @param args 请求参数
      * @returns 返回
      */
-    @Mutation(() => [User], { nullable: true })
+    @Mutation(() => AffectedRows, { nullable: true })
     async createManyUsers(@Args() args: CreateManyUserArgs): Promise<any> {
-        return await prisma.user.createMany(args);
+        const result = await prisma.user.createMany(args);
+        console.log('result', result);
+        return result;
     }
 
     /**
@@ -205,7 +208,7 @@ export class UserResolver {
      * @param args 请求参数
      * @returns 返回
      */
-    @Mutation(() => [User], { nullable: true })
+    @Mutation(() => AffectedRows, { nullable: true })
     async updateManyUsers(@Args() args: UpdateManyUserArgs): Promise<any> {
         return await prisma.user.updateMany(args);
     }
@@ -215,7 +218,7 @@ export class UserResolver {
      *  @param args 请求参数
      * @returns 返回
      */
-    @Mutation(() => [User], { nullable: true })
+    @Mutation(() => AffectedRows, { nullable: true })
     async deleteManyUsers(@Args() args: DeleteManyUserArgs): Promise<any> {
         return await prisma.user.deleteMany(args);
     }
