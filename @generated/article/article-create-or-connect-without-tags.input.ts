@@ -5,10 +5,9 @@ import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.inp
 
 @InputType()
 export class ArticleCreateOrConnectWithoutTagsInput {
-
-    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Field(() => ArticleWhereUniqueInput, { nullable: false })
     where!: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleCreateWithoutTagsInput, {nullable:false})
+    @Field(() => ArticleCreateWithoutTagsInput, { nullable: false })
     create!: ArticleCreateWithoutTagsInput;
 }

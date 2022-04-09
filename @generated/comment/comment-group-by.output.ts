@@ -6,31 +6,30 @@ import { CommentMaxAggregate } from './comment-max-aggregate.output';
 
 @ObjectType()
 export class CommentGroupBy {
-
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     id!: string;
 
-    @Field(() => Date, {nullable:false})
+    @Field(() => Date, { nullable: false })
     createdAt!: Date | string;
 
-    @Field(() => Date, {nullable:false})
+    @Field(() => Date, { nullable: false })
     updatedAt!: Date | string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     authorId!: string;
 
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     articleId?: string;
 
-    @Field(() => CommentCountAggregate, {nullable:true})
+    @Field(() => CommentCountAggregate, { nullable: true })
     _count?: CommentCountAggregate;
 
-    @Field(() => CommentMinAggregate, {nullable:true})
+    @Field(() => CommentMinAggregate, { nullable: true })
     _min?: CommentMinAggregate;
 
-    @Field(() => CommentMaxAggregate, {nullable:true})
+    @Field(() => CommentMaxAggregate, { nullable: true })
     _max?: CommentMaxAggregate;
 }

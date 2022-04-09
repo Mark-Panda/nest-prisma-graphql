@@ -6,13 +6,12 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 
 @InputType()
 export class ProfileUncheckedUpdateInput {
-
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
     id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     userId?: StringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     dummy?: NullableStringFieldUpdateOperationsInput;
 }

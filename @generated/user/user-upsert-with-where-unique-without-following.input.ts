@@ -6,13 +6,12 @@ import { UserCreateWithoutFollowingInput } from './user-create-without-following
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFollowingInput {
-
-    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Field(() => UserWhereUniqueInput, { nullable: false })
     where!: UserWhereUniqueInput;
 
-    @Field(() => UserUpdateWithoutFollowingInput, {nullable:false})
+    @Field(() => UserUpdateWithoutFollowingInput, { nullable: false })
     update!: UserUpdateWithoutFollowingInput;
 
-    @Field(() => UserCreateWithoutFollowingInput, {nullable:false})
+    @Field(() => UserCreateWithoutFollowingInput, { nullable: false })
     create!: UserCreateWithoutFollowingInput;
 }

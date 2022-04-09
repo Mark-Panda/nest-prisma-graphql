@@ -5,10 +5,9 @@ import { CommentCreateWithoutArticleInput } from './comment-create-without-artic
 
 @InputType()
 export class CommentCreateOrConnectWithoutArticleInput {
-
-    @Field(() => CommentWhereUniqueInput, {nullable:false})
+    @Field(() => CommentWhereUniqueInput, { nullable: false })
     where!: CommentWhereUniqueInput;
 
-    @Field(() => CommentCreateWithoutArticleInput, {nullable:false})
+    @Field(() => CommentCreateWithoutArticleInput, { nullable: false })
     create!: CommentCreateWithoutArticleInput;
 }

@@ -5,10 +5,9 @@ import { UserCreateWithoutCommentsInput } from './user-create-without-comments.i
 
 @InputType()
 export class UserCreateOrConnectWithoutCommentsInput {
-
-    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Field(() => UserWhereUniqueInput, { nullable: false })
     where!: UserWhereUniqueInput;
 
-    @Field(() => UserCreateWithoutCommentsInput, {nullable:false})
+    @Field(() => UserCreateWithoutCommentsInput, { nullable: false })
     create!: UserCreateWithoutCommentsInput;
 }

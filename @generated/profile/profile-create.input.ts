@@ -4,10 +4,9 @@ import { UserCreateNestedOneWithoutProfileInput } from '../user/user-create-nest
 
 @InputType()
 export class ProfileCreateInput {
-
-    @Field(() => UserCreateNestedOneWithoutProfileInput, {nullable:false})
+    @Field(() => UserCreateNestedOneWithoutProfileInput, { nullable: false })
     user!: UserCreateNestedOneWithoutProfileInput;
 
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     dummy?: string;
 }

@@ -4,10 +4,9 @@ import { ProfileCreateManyInput } from './profile-create-many.input';
 
 @ArgsType()
 export class CreateManyProfileArgs {
-
-    @Field(() => [ProfileCreateManyInput], {nullable:false})
+    @Field(() => [ProfileCreateManyInput], { nullable: false })
     data!: Array<ProfileCreateManyInput>;
 
-    @Field(() => Boolean, {nullable:true})
+    @Field(() => Boolean, { nullable: true })
     skipDuplicates?: boolean;
 }

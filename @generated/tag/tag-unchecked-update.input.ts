@@ -5,13 +5,12 @@ import { ArticleUncheckedUpdateManyWithoutTagsInput } from '../article/article-u
 
 @InputType()
 export class TagUncheckedUpdateInput {
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUncheckedUpdateManyWithoutTagsInput, {nullable:true})
+    @Field(() => ArticleUncheckedUpdateManyWithoutTagsInput, { nullable: true })
     articles?: ArticleUncheckedUpdateManyWithoutTagsInput;
 }

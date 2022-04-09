@@ -13,37 +13,36 @@ import { UserMaxAggregateInput } from './user-max-aggregate.input';
 
 @ArgsType()
 export class UserGroupByArgs {
-
-    @Field(() => UserWhereInput, {nullable:true})
+    @Field(() => UserWhereInput, { nullable: true })
     where?: UserWhereInput;
 
-    @Field(() => [UserOrderByWithAggregationInput], {nullable:true})
+    @Field(() => [UserOrderByWithAggregationInput], { nullable: true })
     orderBy?: Array<UserOrderByWithAggregationInput>;
 
-    @Field(() => [UserScalarFieldEnum], {nullable:false})
+    @Field(() => [UserScalarFieldEnum], { nullable: false })
     by!: Array<keyof typeof UserScalarFieldEnum>;
 
-    @Field(() => UserScalarWhereWithAggregatesInput, {nullable:true})
+    @Field(() => UserScalarWhereWithAggregatesInput, { nullable: true })
     having?: UserScalarWhereWithAggregatesInput;
 
-    @Field(() => Int, {nullable:true})
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {nullable:true})
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => UserCountAggregateInput, {nullable:true})
+    @Field(() => UserCountAggregateInput, { nullable: true })
     _count?: UserCountAggregateInput;
 
-    @Field(() => UserAvgAggregateInput, {nullable:true})
+    @Field(() => UserAvgAggregateInput, { nullable: true })
     _avg?: UserAvgAggregateInput;
 
-    @Field(() => UserSumAggregateInput, {nullable:true})
+    @Field(() => UserSumAggregateInput, { nullable: true })
     _sum?: UserSumAggregateInput;
 
-    @Field(() => UserMinAggregateInput, {nullable:true})
+    @Field(() => UserMinAggregateInput, { nullable: true })
     _min?: UserMinAggregateInput;
 
-    @Field(() => UserMaxAggregateInput, {nullable:true})
+    @Field(() => UserMaxAggregateInput, { nullable: true })
     _max?: UserMaxAggregateInput;
 }

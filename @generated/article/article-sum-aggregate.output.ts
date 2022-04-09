@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class ArticleSumAggregate {
-
-    @Field(() => Int, {nullable:true})
+    @Field(() => Int, { nullable: true })
     favoritesCount?: number;
 }

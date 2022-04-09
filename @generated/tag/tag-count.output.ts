@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class TagCount {
-
-    @Field(() => Int, {nullable:false})
+    @Field(() => Int, { nullable: false })
     articles?: number;
 }

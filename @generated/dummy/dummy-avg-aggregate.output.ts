@@ -5,19 +5,18 @@ import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @ObjectType()
 export class DummyAvgAggregate {
-
-    @Field(() => Float, {nullable:true})
+    @Field(() => Float, { nullable: true })
     floaty?: number;
 
-    @Field(() => Float, {nullable:true})
+    @Field(() => Float, { nullable: true })
     int?: number;
 
-    @Field(() => Float, {nullable:true})
+    @Field(() => Float, { nullable: true })
     float?: number;
 
-    @Field(() => GraphQLDecimal, {nullable:true})
+    @Field(() => GraphQLDecimal, { nullable: true })
     decimal?: any;
 
-    @Field(() => Float, {nullable:true})
+    @Field(() => Float, { nullable: true })
     bigInt?: number;
 }

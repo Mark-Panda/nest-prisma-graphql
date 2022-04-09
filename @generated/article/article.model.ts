@@ -9,49 +9,48 @@ import { ArticleCount } from './article-count.output';
 
 @ObjectType()
 export class Article {
-
-    @Field(() => ID, {nullable:false})
+    @Field(() => ID, { nullable: false })
     id!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     slug!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     title!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     description!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => [Tag], {nullable:true})
+    @Field(() => [Tag], { nullable: true })
     tags?: Array<Tag>;
 
-    @Field(() => Date, {nullable:false})
+    @Field(() => Date, { nullable: false })
     createdAt!: Date;
 
-    @Field(() => Date, {nullable:false})
+    @Field(() => Date, { nullable: false })
     updatedAt!: Date;
 
-    @Field(() => Int, {nullable:false,defaultValue:0})
+    @Field(() => Int, { nullable: false, defaultValue: 0 })
     favoritesCount!: number;
 
-    @Field(() => User, {nullable:false})
+    @Field(() => User, { nullable: false })
     author?: User;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     authorId!: string;
 
-    @Field(() => [User], {nullable:true})
+    @Field(() => [User], { nullable: true })
     favoritedBy?: Array<User>;
 
-    @Field(() => [Comment], {nullable:true})
+    @Field(() => [Comment], { nullable: true })
     comments?: Array<Comment>;
 
-    @Field(() => Boolean, {nullable:true,defaultValue:true})
+    @Field(() => Boolean, { nullable: true, defaultValue: true })
     active!: boolean | null;
 
-    @Field(() => ArticleCount, {nullable:false})
+    @Field(() => ArticleCount, { nullable: false })
     _count?: ArticleCount;
 }

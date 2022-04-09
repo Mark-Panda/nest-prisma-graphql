@@ -6,16 +6,15 @@ import { TagOrderByRelevanceInput } from './tag-order-by-relevance.input';
 
 @InputType()
 export class TagOrderByWithRelationAndSearchRelevanceInput {
-
-    @Field(() => SortOrder, {nullable:true})
+    @Field(() => SortOrder, { nullable: true })
     id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
+    @Field(() => SortOrder, { nullable: true })
     name?: keyof typeof SortOrder;
 
-    @Field(() => ArticleOrderByRelationAggregateInput, {nullable:true})
+    @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
     articles?: ArticleOrderByRelationAggregateInput;
 
-    @Field(() => TagOrderByRelevanceInput, {nullable:true})
+    @Field(() => TagOrderByRelevanceInput, { nullable: true })
     _relevance?: TagOrderByRelevanceInput;
 }

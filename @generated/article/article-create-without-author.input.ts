@@ -8,40 +8,41 @@ import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-c
 
 @InputType()
 export class ArticleCreateWithoutAuthorInput {
-
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     id?: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     slug!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     title!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     description!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => TagCreateNestedManyWithoutArticlesInput, {nullable:true})
+    @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
     tags?: TagCreateNestedManyWithoutArticlesInput;
 
     @HideField()
     createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
+    @Field(() => Date, { nullable: true })
     updatedAt?: Date | string;
 
-    @Field(() => Int, {nullable:true})
+    @Field(() => Int, { nullable: true })
     favoritesCount?: number;
 
-    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {nullable:true})
+    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
+        nullable: true,
+    })
     favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 
-    @Field(() => CommentCreateNestedManyWithoutArticleInput, {nullable:true})
+    @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
     comments?: CommentCreateNestedManyWithoutArticleInput;
 
-    @Field(() => Boolean, {nullable:true})
+    @Field(() => Boolean, { nullable: true })
     active?: boolean;
 }

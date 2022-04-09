@@ -5,10 +5,9 @@ import { ArticleUpdateWithoutFavoritedByInput } from './article-update-without-f
 
 @InputType()
 export class ArticleUpdateWithWhereUniqueWithoutFavoritedByInput {
-
-    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Field(() => ArticleWhereUniqueInput, { nullable: false })
     where!: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleUpdateWithoutFavoritedByInput, {nullable:false})
+    @Field(() => ArticleUpdateWithoutFavoritedByInput, { nullable: false })
     data!: ArticleUpdateWithoutFavoritedByInput;
 }

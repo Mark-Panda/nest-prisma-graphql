@@ -13,46 +13,45 @@ import { ProfileUpdateOneWithoutUserInput } from '../profile/profile-update-one-
 
 @InputType()
 export class UserUpdateWithoutArticlesInput {
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     bio?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     image?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateManyWithoutFollowersInput, {nullable:true})
+    @Field(() => UserUpdateManyWithoutFollowersInput, { nullable: true })
     following?: UserUpdateManyWithoutFollowersInput;
 
-    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    @Field(() => UserUpdateManyWithoutFollowingInput, { nullable: true })
     followers?: UserUpdateManyWithoutFollowingInput;
 
-    @Field(() => ArticleUpdateManyWithoutFavoritedByInput, {nullable:true})
+    @Field(() => ArticleUpdateManyWithoutFavoritedByInput, { nullable: true })
     favoriteArticles?: ArticleUpdateManyWithoutFavoritedByInput;
 
-    @Field(() => CommentUpdateManyWithoutAuthorInput, {nullable:true})
+    @Field(() => CommentUpdateManyWithoutAuthorInput, { nullable: true })
     comments?: CommentUpdateManyWithoutAuthorInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
     countComments?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
     rating?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
     role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => ProfileUpdateOneWithoutUserInput, {nullable:true})
+    @Field(() => ProfileUpdateOneWithoutUserInput, { nullable: true })
     profile?: ProfileUpdateOneWithoutUserInput;
 }

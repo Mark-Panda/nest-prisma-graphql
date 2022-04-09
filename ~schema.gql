@@ -171,10 +171,29 @@ type AggregateUser {
 }
 
 type Query {
+  user(where: UserWhereUniqueInput!): User!
+  userFirst(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User!
   users(where: UserWhereInput!): [User!]!
   userAggregate(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, _count: UserCountAggregateInput, _avg: UserAvgAggregateInput, _sum: UserSumAggregateInput, _min: UserMinAggregateInput, _max: UserMaxAggregateInput): AggregateUser!
   queryProfile: Profile!
   dummies: [Dummy!]!
+}
+
+input UserWhereUniqueInput {
+  id: String
+  email: EmailAddress
+  name: String
+  email_name: UserEmailNameCompoundUniqueInput
+}
+
+"""
+A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.
+"""
+scalar EmailAddress @specifiedBy(url: "https://www.w3.org/Protocols/rfc822/")
+
+input UserEmailNameCompoundUniqueInput {
+  email: EmailAddress!
+  name: String!
 }
 
 input UserWhereInput {
@@ -524,21 +543,16 @@ enum UserOrderByRelevanceFieldEnum {
   image
 }
 
-input UserWhereUniqueInput {
-  id: String
-  email: EmailAddress
-  name: String
-  email_name: UserEmailNameCompoundUniqueInput
-}
-
-"""
-A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.
-"""
-scalar EmailAddress @specifiedBy(url: "https://www.w3.org/Protocols/rfc822/")
-
-input UserEmailNameCompoundUniqueInput {
-  email: EmailAddress!
-  name: String!
+enum UserScalarFieldEnum {
+  id
+  email
+  name
+  password
+  bio
+  image
+  countComments
+  rating
+  role
 }
 
 input UserCountAggregateInput {
@@ -589,49 +603,36 @@ input UserMaxAggregateInput {
 }
 
 type Mutation {
-  userUpdate(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   createOneUser(data: UserCreateInput!): User
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  upsertOneUser(update: UserUpdateInput!, where: UserWhereUniqueInput!, create: UserCreateInput!): User
+  deleteOneUser(where: UserWhereUniqueInput!): User
   userInfo(user: UserDateInput!): User
   createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): [User!]
 }
 
-input UserUpdateInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  followers: UserUpdateManyWithoutFollowingInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
+input UserCreateInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  followers: UserCreateNestedManyWithoutFollowingInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+  profile: ProfileCreateNestedOneWithoutUserInput
 }
 
-input StringFieldUpdateOperationsInput {
-  set: String
-}
-
-input NullableStringFieldUpdateOperationsInput {
-  set: String
-}
-
-input UserUpdateManyWithoutFollowersInput {
+input UserCreateNestedManyWithoutFollowersInput {
   create: [UserCreateWithoutFollowersInput!]
   connectOrCreate: [UserCreateOrConnectWithoutFollowersInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutFollowersInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  delete: [UserWhereUniqueInput!]
   connect: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutFollowersInput!]
-  updateMany: [UserUpdateManyWithWhereWithoutFollowersInput!]
-  deleteMany: [UserScalarWhereInput!]
 }
 
 input UserCreateWithoutFollowersInput {
@@ -649,17 +650,6 @@ input UserCreateWithoutFollowersInput {
   rating: Float
   role: Role
   profile: ProfileCreateNestedOneWithoutUserInput
-}
-
-input UserCreateNestedManyWithoutFollowersInput {
-  create: [UserCreateWithoutFollowersInput!]
-  connectOrCreate: [UserCreateOrConnectWithoutFollowersInput!]
-  connect: [UserWhereUniqueInput!]
-}
-
-input UserCreateOrConnectWithoutFollowersInput {
-  where: UserWhereUniqueInput!
-  create: UserCreateWithoutFollowersInput!
 }
 
 input ArticleCreateNestedManyWithoutFavoritedByInput {
@@ -980,6 +970,50 @@ input UserCreateOrConnectWithoutArticlesInput {
 input ArticleCreateOrConnectWithoutFavoritedByInput {
   where: ArticleWhereUniqueInput!
   create: ArticleCreateWithoutFavoritedByInput!
+}
+
+input UserCreateOrConnectWithoutFollowersInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutFollowersInput!
+}
+
+input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+  profile: ProfileUpdateOneWithoutUserInput
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+input UserUpdateManyWithoutFollowersInput {
+  create: [UserCreateWithoutFollowersInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowersInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowersInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowersInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutFollowersInput!]
+  deleteMany: [UserScalarWhereInput!]
 }
 
 input UserUpsertWithWhereUniqueWithoutFollowersInput {
@@ -1533,24 +1567,6 @@ input UserUpdateWithWhereUniqueWithoutFollowersInput {
 input UserUpdateManyWithWhereWithoutFollowersInput {
   where: UserScalarWhereInput!
   data: UserUpdateManyMutationInput!
-}
-
-input UserCreateInput {
-  id: String
-  email: EmailAddress!
-  name: String!
-  password: String!
-  bio: String
-  image: String
-  following: UserCreateNestedManyWithoutFollowersInput
-  followers: UserCreateNestedManyWithoutFollowingInput
-  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
-  articles: ArticleCreateNestedManyWithoutAuthorInput
-  comments: CommentCreateNestedManyWithoutAuthorInput
-  countComments: Int
-  rating: Float
-  role: Role
-  profile: ProfileCreateNestedOneWithoutUserInput
 }
 
 input UserDateInput {

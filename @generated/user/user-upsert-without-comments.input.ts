@@ -5,10 +5,9 @@ import { UserCreateWithoutCommentsInput } from './user-create-without-comments.i
 
 @InputType()
 export class UserUpsertWithoutCommentsInput {
-
-    @Field(() => UserUpdateWithoutCommentsInput, {nullable:false})
+    @Field(() => UserUpdateWithoutCommentsInput, { nullable: false })
     update!: UserUpdateWithoutCommentsInput;
 
-    @Field(() => UserCreateWithoutCommentsInput, {nullable:false})
+    @Field(() => UserCreateWithoutCommentsInput, { nullable: false })
     create!: UserCreateWithoutCommentsInput;
 }

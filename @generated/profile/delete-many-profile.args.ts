@@ -4,7 +4,6 @@ import { ProfileWhereInput } from './profile-where.input';
 
 @ArgsType()
 export class DeleteManyProfileArgs {
-
-    @Field(() => ProfileWhereInput, {nullable:true})
+    @Field(() => ProfileWhereInput, { nullable: true })
     where?: ProfileWhereInput;
 }

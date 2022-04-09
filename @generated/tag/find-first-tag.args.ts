@@ -8,22 +8,23 @@ import { TagScalarFieldEnum } from './tag-scalar-field.enum';
 
 @ArgsType()
 export class FindFirstTagArgs {
-
-    @Field(() => TagWhereInput, {nullable:true})
+    @Field(() => TagWhereInput, { nullable: true })
     where?: TagWhereInput;
 
-    @Field(() => [TagOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
+    @Field(() => [TagOrderByWithRelationAndSearchRelevanceInput], {
+        nullable: true,
+    })
     orderBy?: Array<TagOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => TagWhereUniqueInput, {nullable:true})
+    @Field(() => TagWhereUniqueInput, { nullable: true })
     cursor?: TagWhereUniqueInput;
 
-    @Field(() => Int, {nullable:true})
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {nullable:true})
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => [TagScalarFieldEnum], {nullable:true})
+    @Field(() => [TagScalarFieldEnum], { nullable: true })
     distinct?: Array<keyof typeof TagScalarFieldEnum>;
 }

@@ -7,19 +7,18 @@ import { ArticleUpdateOneWithoutCommentsInput } from '../article/article-update-
 
 @InputType()
 export class CommentUpdateWithoutAuthorInput {
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
     @HideField()
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     body?: StringFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUpdateOneWithoutCommentsInput, {nullable:true})
+    @Field(() => ArticleUpdateOneWithoutCommentsInput, { nullable: true })
     article?: ArticleUpdateOneWithoutCommentsInput;
 }

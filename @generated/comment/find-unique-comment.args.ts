@@ -4,7 +4,6 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @ArgsType()
 export class FindUniqueCommentArgs {
-
-    @Field(() => CommentWhereUniqueInput, {nullable:false})
+    @Field(() => CommentWhereUniqueInput, { nullable: false })
     where!: CommentWhereUniqueInput;
 }

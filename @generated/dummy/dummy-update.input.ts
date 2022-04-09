@@ -13,34 +13,33 @@ import { DummyUpdatefriendsInput } from '../prisma/dummy-updatefriends.input';
 
 @InputType()
 export class DummyUpdateInput {
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
     created?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => FloatFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => FloatFieldUpdateOperationsInput, { nullable: true })
     floaty?: FloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
     int?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
     float?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableBytesFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableBytesFieldUpdateOperationsInput, { nullable: true })
     bytes?: NullableBytesFieldUpdateOperationsInput;
 
-    @Field(() => NullableDecimalFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
     decimal?: NullableDecimalFieldUpdateOperationsInput;
 
-    @Field(() => NullableBigIntFieldUpdateOperationsInput, {nullable:true})
+    @Field(() => NullableBigIntFieldUpdateOperationsInput, { nullable: true })
     bigInt?: NullableBigIntFieldUpdateOperationsInput;
 
-    @Field(() => GraphQLJSON, {nullable:true})
+    @Field(() => GraphQLJSON, { nullable: true })
     json?: any;
 
-    @Field(() => DummyUpdatefriendsInput, {nullable:true})
+    @Field(() => DummyUpdatefriendsInput, { nullable: true })
     friends?: DummyUpdatefriendsInput;
 }
