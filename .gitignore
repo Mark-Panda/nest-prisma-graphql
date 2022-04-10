@@ -3,6 +3,8 @@
 /node_modules
 /@generated
 /volumes
+/prisma
+/services
 # Logs
 logs
 *.log
