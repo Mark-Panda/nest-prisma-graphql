@@ -1,6 +1,6 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/common/db/prisma';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { User } from '@generated/user/user.model';
@@ -19,20 +19,6 @@ import { DeleteOneUserArgs } from '@generated/user/delete-one-user.args';
 import { UpdateManyUserArgs } from '@generated/user/update-many-user.args';
 import { DeleteManyUserArgs } from '@generated/user/delete-many-user.args';
 import { AffectedRows } from '@generated/prisma/affected-rows.output';
-
-const prisma = new PrismaClient({
-    errorFormat: 'colorless',
-    log: [
-        {
-            emit: 'event',
-            level: 'query',
-        },
-    ],
-});
-
-prisma.$on('query', (event) => {
-    console.log('查询日志', event);
-});
 
 /**
  * Resolves User object type.

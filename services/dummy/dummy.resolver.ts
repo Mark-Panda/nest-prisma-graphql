@@ -1,6 +1,6 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/common/db/prisma';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Dummy } from '@generated/dummy/dummy.model';
@@ -19,20 +19,6 @@ import { DeleteOneDummyArgs } from '@generated/dummy/delete-one-dummy.args';
 import { UpdateManyDummyArgs } from '@generated/dummy/update-many-dummy.args';
 import { DeleteManyDummyArgs } from '@generated/dummy/delete-many-dummy.args';
 import { AffectedRows } from '@generated/prisma/affected-rows.output';
-
-const prisma = new PrismaClient({
-    errorFormat: 'colorless',
-    log: [
-        {
-            emit: 'event',
-            level: 'query',
-        },
-    ],
-});
-
-prisma.$on('query', (event) => {
-    console.log('查询日志', event);
-});
 
 /**
  * Resolves Dummy object type.

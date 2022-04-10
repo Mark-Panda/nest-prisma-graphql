@@ -1,6 +1,6 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/common/db/prisma';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Comment } from '@generated/comment/comment.model';
@@ -19,20 +19,6 @@ import { DeleteOneCommentArgs } from '@generated/comment/delete-one-comment.args
 import { UpdateManyCommentArgs } from '@generated/comment/update-many-comment.args';
 import { DeleteManyCommentArgs } from '@generated/comment/delete-many-comment.args';
 import { AffectedRows } from '@generated/prisma/affected-rows.output';
-
-const prisma = new PrismaClient({
-    errorFormat: 'colorless',
-    log: [
-        {
-            emit: 'event',
-            level: 'query',
-        },
-    ],
-});
-
-prisma.$on('query', (event) => {
-    console.log('查询日志', event);
-});
 
 /**
  * Resolves Comment object type.

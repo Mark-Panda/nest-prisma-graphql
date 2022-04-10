@@ -1,6 +1,6 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { PrismaClient } from '@prisma/client';
+import prisma from 'src/common/db/prisma';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Tag } from '@generated/tag/tag.model';
@@ -19,20 +19,6 @@ import { DeleteOneTagArgs } from '@generated/tag/delete-one-tag.args';
 import { UpdateManyTagArgs } from '@generated/tag/update-many-tag.args';
 import { DeleteManyTagArgs } from '@generated/tag/delete-many-tag.args';
 import { AffectedRows } from '@generated/prisma/affected-rows.output';
-
-const prisma = new PrismaClient({
-    errorFormat: 'colorless',
-    log: [
-        {
-            emit: 'event',
-            level: 'query',
-        },
-    ],
-});
-
-prisma.$on('query', (event) => {
-    console.log('查询日志', event);
-});
 
 /**
  * Resolves Tag object type.
