@@ -3,16 +3,14 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { mergeDirectiveTransformer } from './common/directives/index.directive';
-import { DummyModule } from './dummy/dummy.module';
-import { UserModule } from './user/user.module';
+import { AllModules } from '../services/index';
 import { LoggingPlugin } from './common/plugins/logging.plugin';
 import { ComplexityPlugin } from './common/plugins/complexity.plugin';
 
 @Module({
     providers: [LoggingPlugin, ComplexityPlugin],
     imports: [
-        UserModule,
-        DummyModule,
+        AllModules,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             // 多个指令如何实现

@@ -6,32 +6,6 @@ directive @upper on FIELD_DEFINITION
 
 directive @lower on FIELD_DEFINITION
 
-type Dummy {
-  id: ID!
-  created: DateTime!
-  floaty: Float!
-  int: Int
-  float: Float
-  bytes: String
-  decimal: Decimal
-  bigInt: String
-  json: JSON
-  friends: [String!]
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-"""An arbitrary-precision Decimal type"""
-scalar Decimal
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
 type TagCount {
   articles: Int!
 }
@@ -53,6 +27,11 @@ type Comment {
   article: Article
   articleId: String
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type ArticleCount {
   tags: Int!
@@ -174,12 +153,259 @@ type AffectedRows {
   count: Int!
 }
 
+type TagCountAggregate {
+  id: Int!
+  name: Int!
+  _all: Int!
+}
+
+type TagMinAggregate {
+  id: String
+  name: String
+}
+
+type TagMaxAggregate {
+  id: String
+  name: String
+}
+
+type AggregateTag {
+  _count: TagCountAggregate
+  _min: TagMinAggregate
+  _max: TagMaxAggregate
+}
+
+type ArticleCountAggregate {
+  id: Int!
+  slug: Int!
+  title: Int!
+  description: Int!
+  body: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  favoritesCount: Int!
+  authorId: Int!
+  active: Int!
+  _all: Int!
+}
+
+type ArticleAvgAggregate {
+  favoritesCount: Float
+}
+
+type ArticleSumAggregate {
+  favoritesCount: Int
+}
+
+type ArticleMinAggregate {
+  id: String
+  slug: String
+  title: String
+  description: String
+  body: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  favoritesCount: Int
+  authorId: String
+  active: Boolean
+}
+
+type ArticleMaxAggregate {
+  id: String
+  slug: String
+  title: String
+  description: String
+  body: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  favoritesCount: Int
+  authorId: String
+  active: Boolean
+}
+
+type AggregateArticle {
+  _count: ArticleCountAggregate
+  _avg: ArticleAvgAggregate
+  _sum: ArticleSumAggregate
+  _min: ArticleMinAggregate
+  _max: ArticleMaxAggregate
+}
+
+type CommentCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  body: Int!
+  authorId: Int!
+  articleId: Int!
+  _all: Int!
+}
+
+type CommentMinAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String
+  authorId: String
+  articleId: String
+}
+
+type CommentMaxAggregate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String
+  authorId: String
+  articleId: String
+}
+
+type AggregateComment {
+  _count: CommentCountAggregate
+  _min: CommentMinAggregate
+  _max: CommentMaxAggregate
+}
+
+type ProfileCountAggregate {
+  id: Int!
+  userId: Int!
+  dummy: Int!
+  _all: Int!
+}
+
+type ProfileAvgAggregate {
+  id: Float
+}
+
+type ProfileSumAggregate {
+  id: Int
+}
+
+type ProfileMinAggregate {
+  id: Int
+  userId: String
+  dummy: String
+}
+
+type ProfileMaxAggregate {
+  id: Int
+  userId: String
+  dummy: String
+}
+
+type AggregateProfile {
+  _count: ProfileCountAggregate
+  _avg: ProfileAvgAggregate
+  _sum: ProfileSumAggregate
+  _min: ProfileMinAggregate
+  _max: ProfileMaxAggregate
+}
+
+type Dummy {
+  id: ID!
+  created: DateTime!
+  floaty: Float!
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+  json: JSON
+  friends: [String!]
+}
+
+"""An arbitrary-precision Decimal type"""
+scalar Decimal
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type DummyCountAggregate {
+  id: Int!
+  created: Int!
+  floaty: Int!
+  int: Int!
+  float: Int!
+  bytes: Int!
+  decimal: Int!
+  bigInt: Int!
+  json: Int!
+  friends: Int!
+  _all: Int!
+}
+
+type DummyAvgAggregate {
+  floaty: Float
+  int: Float
+  float: Float
+  decimal: Decimal
+  bigInt: Float
+}
+
+type DummySumAggregate {
+  floaty: Float
+  int: Int
+  float: Float
+  decimal: Decimal
+  bigInt: String
+}
+
+type DummyMinAggregate {
+  id: String
+  created: DateTime
+  floaty: Float
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+}
+
+type DummyMaxAggregate {
+  id: String
+  created: DateTime
+  floaty: Float
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+}
+
+type AggregateDummy {
+  _count: DummyCountAggregate
+  _avg: DummyAvgAggregate
+  _sum: DummySumAggregate
+  _min: DummyMinAggregate
+  _max: DummyMaxAggregate
+}
+
 type Query {
   user(where: UserWhereUniqueInput!): User!
   userFirst(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User!
   users(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
   userAggregate(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, _count: UserCountAggregateInput, _avg: UserAvgAggregateInput, _sum: UserSumAggregateInput, _min: UserMinAggregateInput, _max: UserMaxAggregateInput): AggregateUser!
-  dummies: [Dummy!]!
+  tag(where: TagWhereUniqueInput!): Tag!
+  tagFirst(where: TagWhereInput, orderBy: [TagOrderByWithRelationAndSearchRelevanceInput!], cursor: TagWhereUniqueInput, take: Int, skip: Int, distinct: [TagScalarFieldEnum!]): Tag!
+  tags(where: TagWhereInput, orderBy: [TagOrderByWithRelationAndSearchRelevanceInput!], cursor: TagWhereUniqueInput, take: Int, skip: Int, distinct: [TagScalarFieldEnum!]): [Tag!]!
+  tagAggregate(where: TagWhereInput, orderBy: [TagOrderByWithRelationAndSearchRelevanceInput!], cursor: TagWhereUniqueInput, take: Int, skip: Int, _count: TagCountAggregateInput, _min: TagMinAggregateInput, _max: TagMaxAggregateInput): AggregateTag!
+  article(where: ArticleWhereUniqueInput!): Article!
+  articleFirst(where: ArticleWhereInput, orderBy: [ArticleOrderByWithRelationAndSearchRelevanceInput!], cursor: ArticleWhereUniqueInput, take: Int, skip: Int, distinct: [ArticleScalarFieldEnum!]): Article!
+  articles(where: ArticleWhereInput, orderBy: [ArticleOrderByWithRelationAndSearchRelevanceInput!], cursor: ArticleWhereUniqueInput, take: Int, skip: Int, distinct: [ArticleScalarFieldEnum!]): [Article!]!
+  articleAggregate(where: ArticleWhereInput, orderBy: [ArticleOrderByWithRelationAndSearchRelevanceInput!], cursor: ArticleWhereUniqueInput, take: Int, skip: Int, _count: ArticleCountAggregateInput, _avg: ArticleAvgAggregateInput, _sum: ArticleSumAggregateInput, _min: ArticleMinAggregateInput, _max: ArticleMaxAggregateInput): AggregateArticle!
+  comment(where: CommentWhereUniqueInput!): Comment!
+  commentFirst(where: CommentWhereInput, orderBy: [CommentOrderByWithRelationAndSearchRelevanceInput!], cursor: CommentWhereUniqueInput, take: Int, skip: Int, distinct: [CommentScalarFieldEnum!]): Comment!
+  comments(where: CommentWhereInput, orderBy: [CommentOrderByWithRelationAndSearchRelevanceInput!], cursor: CommentWhereUniqueInput, take: Int, skip: Int, distinct: [CommentScalarFieldEnum!]): [Comment!]!
+  commentAggregate(where: CommentWhereInput, orderBy: [CommentOrderByWithRelationAndSearchRelevanceInput!], cursor: CommentWhereUniqueInput, take: Int, skip: Int, _count: CommentCountAggregateInput, _min: CommentMinAggregateInput, _max: CommentMaxAggregateInput): AggregateComment!
+  profile(where: ProfileWhereUniqueInput!): Profile!
+  profileFirst(where: ProfileWhereInput, orderBy: [ProfileOrderByWithRelationAndSearchRelevanceInput!], cursor: ProfileWhereUniqueInput, take: Int, skip: Int, distinct: [ProfileScalarFieldEnum!]): Profile!
+  profiles(where: ProfileWhereInput, orderBy: [ProfileOrderByWithRelationAndSearchRelevanceInput!], cursor: ProfileWhereUniqueInput, take: Int, skip: Int, distinct: [ProfileScalarFieldEnum!]): [Profile!]!
+  profileAggregate(where: ProfileWhereInput, orderBy: [ProfileOrderByWithRelationAndSearchRelevanceInput!], cursor: ProfileWhereUniqueInput, take: Int, skip: Int, _count: ProfileCountAggregateInput, _avg: ProfileAvgAggregateInput, _sum: ProfileSumAggregateInput, _min: ProfileMinAggregateInput, _max: ProfileMaxAggregateInput): AggregateProfile!
+  dummy(where: DummyWhereUniqueInput!): Dummy!
+  dummyFirst(where: DummyWhereInput, orderBy: [DummyOrderByWithRelationAndSearchRelevanceInput!], cursor: DummyWhereUniqueInput, take: Int, skip: Int, distinct: [DummyScalarFieldEnum!]): Dummy!
+  dummys(where: DummyWhereInput, orderBy: [DummyOrderByWithRelationAndSearchRelevanceInput!], cursor: DummyWhereUniqueInput, take: Int, skip: Int, distinct: [DummyScalarFieldEnum!]): [Dummy!]!
+  dummyAggregate(where: DummyWhereInput, orderBy: [DummyOrderByWithRelationAndSearchRelevanceInput!], cursor: DummyWhereUniqueInput, take: Int, skip: Int, _count: DummyCountAggregateInput, _avg: DummyAvgAggregateInput, _sum: DummySumAggregateInput, _min: DummyMinAggregateInput, _max: DummyMaxAggregateInput): AggregateDummy!
 }
 
 input UserWhereUniqueInput {
@@ -605,6 +831,471 @@ input UserMaxAggregateInput {
   role: Boolean
 }
 
+input TagWhereUniqueInput {
+  id: String
+  name: String
+}
+
+input TagOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  name: SortOrder
+  articles: ArticleOrderByRelationAggregateInput
+  _relevance: TagOrderByRelevanceInput
+}
+
+input TagOrderByRelevanceInput {
+  fields: [TagOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum TagOrderByRelevanceFieldEnum {
+  id
+  name
+}
+
+enum TagScalarFieldEnum {
+  id
+  name
+}
+
+input TagCountAggregateInput {
+  id: Boolean
+  name: Boolean
+  _all: Boolean
+}
+
+input TagMinAggregateInput {
+  id: Boolean
+  name: Boolean
+}
+
+input TagMaxAggregateInput {
+  id: Boolean
+  name: Boolean
+}
+
+input ArticleWhereUniqueInput {
+  id: String
+  slug: String
+}
+
+input ArticleOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  slug: SortOrder
+  title: SortOrder
+  description: SortOrder
+  body: SortOrder
+  tags: TagOrderByRelationAggregateInput
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  favoritesCount: SortOrder
+  author: UserOrderByWithRelationAndSearchRelevanceInput
+  authorId: SortOrder
+  favoritedBy: UserOrderByRelationAggregateInput
+  comments: CommentOrderByRelationAggregateInput
+  active: SortOrder
+  _relevance: ArticleOrderByRelevanceInput
+}
+
+input TagOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ArticleOrderByRelevanceInput {
+  fields: [ArticleOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum ArticleOrderByRelevanceFieldEnum {
+  id
+  slug
+  title
+  description
+  body
+  authorId
+}
+
+enum ArticleScalarFieldEnum {
+  id
+  slug
+  title
+  description
+  body
+  createdAt
+  updatedAt
+  favoritesCount
+  authorId
+  active
+}
+
+input ArticleCountAggregateInput {
+  id: Boolean
+  slug: Boolean
+  title: Boolean
+  description: Boolean
+  body: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  favoritesCount: Boolean
+  authorId: Boolean
+  active: Boolean
+  _all: Boolean
+}
+
+input ArticleAvgAggregateInput {
+  favoritesCount: Boolean
+}
+
+input ArticleSumAggregateInput {
+  favoritesCount: Boolean
+}
+
+input ArticleMinAggregateInput {
+  id: Boolean
+  slug: Boolean
+  title: Boolean
+  description: Boolean
+  body: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  favoritesCount: Boolean
+  authorId: Boolean
+  active: Boolean
+}
+
+input ArticleMaxAggregateInput {
+  id: Boolean
+  slug: Boolean
+  title: Boolean
+  description: Boolean
+  body: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  favoritesCount: Boolean
+  authorId: Boolean
+  active: Boolean
+}
+
+input CommentWhereUniqueInput {
+  id: String
+}
+
+input CommentOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  body: SortOrder
+  author: UserOrderByWithRelationAndSearchRelevanceInput
+  authorId: SortOrder
+  article: ArticleOrderByWithRelationAndSearchRelevanceInput
+  articleId: SortOrder
+  _relevance: CommentOrderByRelevanceInput
+}
+
+input CommentOrderByRelevanceInput {
+  fields: [CommentOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum CommentOrderByRelevanceFieldEnum {
+  id
+  body
+  authorId
+  articleId
+}
+
+enum CommentScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  body
+  authorId
+  articleId
+}
+
+input CommentCountAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  body: Boolean
+  authorId: Boolean
+  articleId: Boolean
+  _all: Boolean
+}
+
+input CommentMinAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  body: Boolean
+  authorId: Boolean
+  articleId: Boolean
+}
+
+input CommentMaxAggregateInput {
+  id: Boolean
+  createdAt: Boolean
+  updatedAt: Boolean
+  body: Boolean
+  authorId: Boolean
+  articleId: Boolean
+}
+
+input ProfileWhereUniqueInput {
+  id: Int
+  userId: String
+}
+
+enum ProfileScalarFieldEnum {
+  id
+  userId
+  dummy
+}
+
+input ProfileCountAggregateInput {
+  id: Boolean
+  userId: Boolean
+  dummy: Boolean
+  _all: Boolean
+}
+
+input ProfileAvgAggregateInput {
+  id: Boolean
+}
+
+input ProfileSumAggregateInput {
+  id: Boolean
+}
+
+input ProfileMinAggregateInput {
+  id: Boolean
+  userId: Boolean
+  dummy: Boolean
+}
+
+input ProfileMaxAggregateInput {
+  id: Boolean
+  userId: Boolean
+  dummy: Boolean
+}
+
+input DummyWhereUniqueInput {
+  id: String
+}
+
+input DummyWhereInput {
+  AND: [DummyWhereInput!]
+  OR: [DummyWhereInput!]
+  NOT: [DummyWhereInput!]
+  id: StringFilter
+  created: DateTimeFilter
+  floaty: FloatFilter
+  int: IntNullableFilter
+  float: FloatNullableFilter
+  bytes: BytesNullableFilter
+  decimal: DecimalNullableFilter
+  bigInt: BigIntNullableFilter
+  json: JsonNullableFilter
+  friends: StringNullableListFilter
+}
+
+input FloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
+}
+
+input NestedFloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: NestedFloatFilter
+}
+
+input BytesNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  not: NestedBytesNullableFilter
+}
+
+input NestedBytesNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  not: NestedBytesNullableFilter
+}
+
+input DecimalNullableFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalNullableFilter
+}
+
+input NestedDecimalNullableFilter {
+  equals: Decimal
+  in: [Decimal!]
+  notIn: [Decimal!]
+  lt: Decimal
+  lte: Decimal
+  gt: Decimal
+  gte: Decimal
+  not: NestedDecimalNullableFilter
+}
+
+input BigIntNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedBigIntNullableFilter
+}
+
+input NestedBigIntNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedBigIntNullableFilter
+}
+
+input JsonNullableFilter {
+  equals: JSON
+  path: [String!]
+  string_contains: String
+  string_starts_with: String
+  string_ends_with: String
+  array_contains: JSON
+  array_starts_with: JSON
+  array_ends_with: JSON
+  lt: JSON
+  lte: JSON
+  gt: JSON
+  gte: JSON
+  not: JSON
+}
+
+input StringNullableListFilter {
+  equals: [String!]
+  has: String
+  hasEvery: [String!]
+  hasSome: [String!]
+  isEmpty: Boolean
+}
+
+input DummyOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  created: SortOrder
+  floaty: SortOrder
+  int: SortOrder
+  float: SortOrder
+  bytes: SortOrder
+  decimal: SortOrder
+  bigInt: SortOrder
+  json: SortOrder
+  friends: SortOrder
+  _relevance: DummyOrderByRelevanceInput
+}
+
+input DummyOrderByRelevanceInput {
+  fields: [DummyOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum DummyOrderByRelevanceFieldEnum {
+  id
+  friends
+}
+
+enum DummyScalarFieldEnum {
+  id
+  created
+  floaty
+  int
+  float
+  bytes
+  decimal
+  bigInt
+  json
+  friends
+}
+
+input DummyCountAggregateInput {
+  id: Boolean
+  created: Boolean
+  floaty: Boolean
+  int: Boolean
+  float: Boolean
+  bytes: Boolean
+  decimal: Boolean
+  bigInt: Boolean
+  json: Boolean
+  friends: Boolean
+  _all: Boolean
+}
+
+input DummyAvgAggregateInput {
+  floaty: Boolean
+  int: Boolean
+  float: Boolean
+  decimal: Boolean
+  bigInt: Boolean
+}
+
+input DummySumAggregateInput {
+  floaty: Boolean
+  int: Boolean
+  float: Boolean
+  decimal: Boolean
+  bigInt: Boolean
+}
+
+input DummyMinAggregateInput {
+  id: Boolean
+  created: Boolean
+  floaty: Boolean
+  int: Boolean
+  float: Boolean
+  bytes: Boolean
+  decimal: Boolean
+  bigInt: Boolean
+}
+
+input DummyMaxAggregateInput {
+  id: Boolean
+  created: Boolean
+  floaty: Boolean
+  int: Boolean
+  float: Boolean
+  bytes: Boolean
+  decimal: Boolean
+  bigInt: Boolean
+}
+
 type Mutation {
   createOneUser(data: UserCreateInput!): User
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
@@ -613,6 +1304,41 @@ type Mutation {
   createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRows
   deleteManyUsers(where: UserWhereInput): AffectedRows
+  createOneTag(data: TagCreateInput!): Tag
+  updateOneTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  upsertOneTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag
+  deleteOneTag(where: TagWhereUniqueInput!): Tag
+  createManyTags(data: [TagCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): AffectedRows
+  deleteManyTags(where: TagWhereInput): AffectedRows
+  createOneArticle(data: ArticleCreateInput!): Article
+  updateOneArticle(data: ArticleUpdateInput!, where: ArticleWhereUniqueInput!): Article
+  upsertOneArticle(where: ArticleWhereUniqueInput!, create: ArticleCreateInput!, update: ArticleUpdateInput!): Article
+  deleteOneArticle(where: ArticleWhereUniqueInput!): Article
+  createManyArticles(data: [ArticleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyArticles(data: ArticleUpdateManyMutationInput!, where: ArticleWhereInput): AffectedRows
+  deleteManyArticles(where: ArticleWhereInput): AffectedRows
+  createOneComment(data: CommentCreateInput!): Comment
+  updateOneComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  upsertOneComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment
+  deleteOneComment(where: CommentWhereUniqueInput!): Comment
+  createManyComments(data: [CommentCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): AffectedRows
+  deleteManyComments(where: CommentWhereInput): AffectedRows
+  createOneProfile(data: ProfileCreateInput!): Profile
+  updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
+  upsertOneProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile
+  deleteOneProfile(where: ProfileWhereUniqueInput!): Profile
+  createManyProfiles(data: [ProfileCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): AffectedRows
+  deleteManyProfiles(where: ProfileWhereInput): AffectedRows
+  createOneDummy(data: DummyCreateInput!): Dummy
+  updateOneDummy(data: DummyUpdateInput!, where: DummyWhereUniqueInput!): Dummy
+  upsertOneDummy(where: DummyWhereUniqueInput!, create: DummyCreateInput!, update: DummyUpdateInput!): Dummy
+  deleteOneDummy(where: DummyWhereUniqueInput!): Dummy
+  createManyDummys(data: [DummyCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyDummys(data: DummyUpdateManyMutationInput!, where: DummyWhereInput): AffectedRows
+  deleteManyDummys(where: DummyWhereInput): AffectedRows
 }
 
 input UserCreateInput {
@@ -690,11 +1416,6 @@ input TagCreateWithoutArticlesInput {
 input TagCreateOrConnectWithoutArticlesInput {
   where: TagWhereUniqueInput!
   create: TagCreateWithoutArticlesInput!
-}
-
-input TagWhereUniqueInput {
-  id: String
-  name: String
 }
 
 input UserCreateNestedOneWithoutArticlesInput {
@@ -827,18 +1548,9 @@ input ArticleCreateOrConnectWithoutCommentsInput {
   create: ArticleCreateWithoutCommentsInput!
 }
 
-input ArticleWhereUniqueInput {
-  id: String
-  slug: String
-}
-
 input CommentCreateOrConnectWithoutAuthorInput {
   where: CommentWhereUniqueInput!
   create: CommentCreateWithoutAuthorInput!
-}
-
-input CommentWhereUniqueInput {
-  id: String
 }
 
 input CommentCreateManyAuthorInputEnvelope {
@@ -867,11 +1579,6 @@ input ProfileCreateWithoutUserInput {
 input ProfileCreateOrConnectWithoutUserInput {
   where: ProfileWhereUniqueInput!
   create: ProfileCreateWithoutUserInput!
-}
-
-input ProfileWhereUniqueInput {
-  id: Int
-  userId: String
 }
 
 input UserCreateOrConnectWithoutFavoriteArticlesInput {
@@ -1583,4 +2290,326 @@ input UserCreateManyInput {
   countComments: Int
   rating: Float
   role: Role
+}
+
+input TagCreateInput {
+  id: String
+  name: String!
+  articles: ArticleCreateNestedManyWithoutTagsInput
+}
+
+input ArticleCreateNestedManyWithoutTagsInput {
+  create: [ArticleCreateWithoutTagsInput!]
+  connectOrCreate: [ArticleCreateOrConnectWithoutTagsInput!]
+  connect: [ArticleWhereUniqueInput!]
+}
+
+input ArticleCreateWithoutTagsInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  updatedAt: DateTime
+  favoritesCount: Int
+  author: UserCreateNestedOneWithoutArticlesInput!
+  favoritedBy: UserCreateNestedManyWithoutFavoriteArticlesInput
+  comments: CommentCreateNestedManyWithoutArticleInput
+  active: Boolean
+}
+
+input ArticleCreateOrConnectWithoutTagsInput {
+  where: ArticleWhereUniqueInput!
+  create: ArticleCreateWithoutTagsInput!
+}
+
+input TagUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  articles: ArticleUpdateManyWithoutTagsInput
+}
+
+input ArticleUpdateManyWithoutTagsInput {
+  create: [ArticleCreateWithoutTagsInput!]
+  connectOrCreate: [ArticleCreateOrConnectWithoutTagsInput!]
+  upsert: [ArticleUpsertWithWhereUniqueWithoutTagsInput!]
+  set: [ArticleWhereUniqueInput!]
+  disconnect: [ArticleWhereUniqueInput!]
+  delete: [ArticleWhereUniqueInput!]
+  connect: [ArticleWhereUniqueInput!]
+  update: [ArticleUpdateWithWhereUniqueWithoutTagsInput!]
+  updateMany: [ArticleUpdateManyWithWhereWithoutTagsInput!]
+  deleteMany: [ArticleScalarWhereInput!]
+}
+
+input ArticleUpsertWithWhereUniqueWithoutTagsInput {
+  where: ArticleWhereUniqueInput!
+  update: ArticleUpdateWithoutTagsInput!
+  create: ArticleCreateWithoutTagsInput!
+}
+
+input ArticleUpdateWithoutTagsInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  author: UserUpdateOneRequiredWithoutArticlesInput
+  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
+  comments: CommentUpdateManyWithoutArticleInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input ArticleUpdateWithWhereUniqueWithoutTagsInput {
+  where: ArticleWhereUniqueInput!
+  data: ArticleUpdateWithoutTagsInput!
+}
+
+input ArticleUpdateManyWithWhereWithoutTagsInput {
+  where: ArticleScalarWhereInput!
+  data: ArticleUpdateManyMutationInput!
+}
+
+input TagCreateManyInput {
+  id: String
+  name: String!
+}
+
+input ArticleCreateInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tags: TagCreateNestedManyWithoutArticlesInput
+  updatedAt: DateTime
+  favoritesCount: Int
+  author: UserCreateNestedOneWithoutArticlesInput!
+  favoritedBy: UserCreateNestedManyWithoutFavoriteArticlesInput
+  comments: CommentCreateNestedManyWithoutArticleInput
+  active: Boolean
+}
+
+input ArticleUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  tags: TagUpdateManyWithoutArticlesInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  author: UserUpdateOneRequiredWithoutArticlesInput
+  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
+  comments: CommentUpdateManyWithoutArticleInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input ArticleCreateManyInput {
+  id: String
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  updatedAt: DateTime
+  favoritesCount: Int
+  authorId: String!
+  active: Boolean
+}
+
+input CommentCreateInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String!
+  author: UserCreateNestedOneWithoutCommentsInput!
+  article: ArticleCreateNestedOneWithoutCommentsInput
+}
+
+input CommentUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  article: ArticleUpdateOneWithoutCommentsInput
+}
+
+input CommentCreateManyInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  body: String!
+  authorId: String!
+  articleId: String
+}
+
+input ProfileCreateInput {
+  user: UserCreateNestedOneWithoutProfileInput!
+  dummy: String
+}
+
+input UserCreateNestedOneWithoutProfileInput {
+  create: UserCreateWithoutProfileInput
+  connectOrCreate: UserCreateOrConnectWithoutProfileInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutProfileInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: UserCreateNestedManyWithoutFollowersInput
+  followers: UserCreateNestedManyWithoutFollowingInput
+  favoriteArticles: ArticleCreateNestedManyWithoutFavoritedByInput
+  articles: ArticleCreateNestedManyWithoutAuthorInput
+  comments: CommentCreateNestedManyWithoutAuthorInput
+  countComments: Int
+  rating: Float
+  role: Role
+}
+
+input UserCreateOrConnectWithoutProfileInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutProfileInput!
+}
+
+input ProfileUpdateInput {
+  user: UserUpdateOneRequiredWithoutProfileInput
+  dummy: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpdateOneRequiredWithoutProfileInput {
+  create: UserCreateWithoutProfileInput
+  connectOrCreate: UserCreateOrConnectWithoutProfileInput
+  upsert: UserUpsertWithoutProfileInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutProfileInput
+}
+
+input UserUpsertWithoutProfileInput {
+  update: UserUpdateWithoutProfileInput!
+  create: UserCreateWithoutProfileInput!
+}
+
+input UserUpdateWithoutProfileInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
+  articles: ArticleUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
+  countComments: NullableIntFieldUpdateOperationsInput
+  rating: NullableFloatFieldUpdateOperationsInput
+  role: NullableEnumRoleFieldUpdateOperationsInput
+}
+
+input ProfileCreateManyInput {
+  id: Int
+  userId: String!
+  dummy: String
+}
+
+input ProfileUpdateManyMutationInput {
+  dummy: NullableStringFieldUpdateOperationsInput
+}
+
+input DummyCreateInput {
+  id: String!
+  created: DateTime
+  floaty: Float!
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+  json: JSON
+  friends: DummyCreatefriendsInput
+}
+
+input DummyCreatefriendsInput {
+  set: [String!]!
+}
+
+input DummyUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  created: DateTimeFieldUpdateOperationsInput
+  floaty: FloatFieldUpdateOperationsInput
+  int: NullableIntFieldUpdateOperationsInput
+  float: NullableFloatFieldUpdateOperationsInput
+  bytes: NullableBytesFieldUpdateOperationsInput
+  decimal: NullableDecimalFieldUpdateOperationsInput
+  bigInt: NullableBigIntFieldUpdateOperationsInput
+  json: JSON
+  friends: DummyUpdatefriendsInput
+}
+
+input FloatFieldUpdateOperationsInput {
+  set: Float
+  increment: Float
+  decrement: Float
+  multiply: Float
+  divide: Float
+}
+
+input NullableBytesFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableDecimalFieldUpdateOperationsInput {
+  set: Decimal
+  increment: Decimal
+  decrement: Decimal
+  multiply: Decimal
+  divide: Decimal
+}
+
+input NullableBigIntFieldUpdateOperationsInput {
+  set: String
+  increment: String
+  decrement: String
+  multiply: String
+  divide: String
+}
+
+input DummyUpdatefriendsInput {
+  set: [String!]
+  push: [String!]
+}
+
+input DummyCreateManyInput {
+  id: String!
+  created: DateTime
+  floaty: Float!
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+  json: JSON
+  friends: DummyCreatefriendsInput
+}
+
+input DummyUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  created: DateTimeFieldUpdateOperationsInput
+  floaty: FloatFieldUpdateOperationsInput
+  int: NullableIntFieldUpdateOperationsInput
+  float: NullableFloatFieldUpdateOperationsInput
+  bytes: NullableBytesFieldUpdateOperationsInput
+  decimal: NullableDecimalFieldUpdateOperationsInput
+  bigInt: NullableBigIntFieldUpdateOperationsInput
+  json: JSON
+  friends: DummyUpdatefriendsInput
 }
