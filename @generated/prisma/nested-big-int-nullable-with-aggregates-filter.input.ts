@@ -6,42 +6,43 @@ import { NestedBigIntNullableFilter } from './nested-big-int-nullable-filter.inp
 
 @InputType()
 export class NestedBigIntNullableWithAggregatesFilter {
-    @Field(() => String, { nullable: true })
+
+    @Field(() => String, {nullable:true})
     equals?: bigint | number;
 
-    @Field(() => [String], { nullable: true })
+    @Field(() => [String], {nullable:true})
     in?: Array<bigint> | Array<number>;
 
-    @Field(() => [String], { nullable: true })
+    @Field(() => [String], {nullable:true})
     notIn?: Array<bigint> | Array<number>;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     lt?: bigint | number;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     lte?: bigint | number;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     gt?: bigint | number;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     gte?: bigint | number;
 
-    @Field(() => NestedBigIntNullableWithAggregatesFilter, { nullable: true })
+    @Field(() => NestedBigIntNullableWithAggregatesFilter, {nullable:true})
     not?: NestedBigIntNullableWithAggregatesFilter;
 
-    @Field(() => NestedIntNullableFilter, { nullable: true })
+    @Field(() => NestedIntNullableFilter, {nullable:true})
     _count?: NestedIntNullableFilter;
 
-    @Field(() => NestedFloatNullableFilter, { nullable: true })
+    @Field(() => NestedFloatNullableFilter, {nullable:true})
     _avg?: NestedFloatNullableFilter;
 
-    @Field(() => NestedBigIntNullableFilter, { nullable: true })
+    @Field(() => NestedBigIntNullableFilter, {nullable:true})
     _sum?: NestedBigIntNullableFilter;
 
-    @Field(() => NestedBigIntNullableFilter, { nullable: true })
+    @Field(() => NestedBigIntNullableFilter, {nullable:true})
     _min?: NestedBigIntNullableFilter;
 
-    @Field(() => NestedBigIntNullableFilter, { nullable: true })
+    @Field(() => NestedBigIntNullableFilter, {nullable:true})
     _max?: NestedBigIntNullableFilter;
 }

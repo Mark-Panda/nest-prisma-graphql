@@ -4,6 +4,7 @@ import { ProfileCreateInput } from './profile-create.input';
 
 @ArgsType()
 export class CreateOneProfileArgs {
-    @Field(() => ProfileCreateInput, { nullable: false })
+
+    @Field(() => ProfileCreateInput, {nullable:false})
     data!: ProfileCreateInput;
 }

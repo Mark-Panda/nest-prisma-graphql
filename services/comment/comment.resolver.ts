@@ -1,24 +1,25 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+// import prisma from 'src/common/db/prisma';
+import { prisma } from '@app/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Comment } from '@generated/comment/comment.model';
-import { AggregateComment } from '@generated/comment/aggregate-comment.output';
-import { CommentAggregateArgs } from '@generated/comment/comment-aggregate.args';
-import { CreateOneCommentArgs } from '@generated/comment/create-one-comment.args';
-import { CreateManyCommentArgs } from '@generated/comment/create-many-comment.args';
-import { FindFirstCommentArgs } from '@generated/comment/find-first-comment.args';
-import { FindUniqueCommentArgs } from '@generated/comment/find-unique-comment.args';
-import { FindManyCommentArgs } from '@generated/comment/find-many-comment.args';
-import { UpdateOneCommentArgs } from '@generated/comment/update-one-comment.args';
-import { UpsertOneCommentArgs } from '@generated/comment/upsert-one-comment.args';
-import { DeleteOneCommentArgs } from '@generated/comment/delete-one-comment.args';
-// import { CommentGroupByArgs } from '@generated/comment/comment-group-by.args';
-// import { CommentGroupBy } from '@generated/comment/comment-group-by.output';
-import { UpdateManyCommentArgs } from '@generated/comment/update-many-comment.args';
-import { DeleteManyCommentArgs } from '@generated/comment/delete-many-comment.args';
-import { AffectedRows } from '@generated/prisma/affected-rows.output';
+import { Comment } from '../../@generated/comment/comment.model';
+import { AggregateComment } from '../../@generated/comment/aggregate-comment.output';
+import { CommentAggregateArgs } from '../../@generated/comment/comment-aggregate.args';
+import { CreateOneCommentArgs } from '../../@generated/comment/create-one-comment.args';
+import { CreateManyCommentArgs } from '../../@generated/comment/create-many-comment.args';
+import { FindFirstCommentArgs } from '../../@generated/comment/find-first-comment.args';
+import { FindUniqueCommentArgs } from '../../@generated/comment/find-unique-comment.args';
+import { FindManyCommentArgs } from '../../@generated/comment/find-many-comment.args';
+import { UpdateOneCommentArgs } from '../../@generated/comment/update-one-comment.args';
+import { UpsertOneCommentArgs } from '../../@generated/comment/upsert-one-comment.args';
+import { DeleteOneCommentArgs } from '../../@generated/comment/delete-one-comment.args';
+// import { CommentGroupByArgs } from '../../@generated/comment/comment-group-by.args';
+// import { CommentGroupBy } from '../../@generated/comment/comment-group-by.output';
+import { UpdateManyCommentArgs } from '../../@generated/comment/update-many-comment.args';
+import { DeleteManyCommentArgs } from '../../@generated/comment/delete-many-comment.args';
+import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 
 /**
  * Resolves Comment object type.
@@ -98,16 +99,16 @@ export class CommentResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Comment, { nullable: true })
-    async updateOneComment(
-        @Args() args: UpdateOneCommentArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.comment.update(args);
-    }
+    // @Mutation(() => Comment, { nullable: true })
+    // async updateOneComment(
+    //     @Args() args: UpdateOneCommentArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.comment.update(args);
+    // }
 
     /**
      * 修改或新增Comment信息
@@ -115,16 +116,16 @@ export class CommentResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Comment, { nullable: true })
-    async upsertOneComment(
-        @Args() args: UpsertOneCommentArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.comment.upsert(args);
-    }
+    // @Mutation(() => Comment, { nullable: true })
+    // async upsertOneComment(
+    //     @Args() args: UpsertOneCommentArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.comment.upsert(args);
+    // }
 
     /**
      * 删除Comment信息

@@ -4,9 +4,10 @@ import { CommentCreateManyArticleInput } from './comment-create-many-article.inp
 
 @InputType()
 export class CommentCreateManyArticleInputEnvelope {
-    @Field(() => [CommentCreateManyArticleInput], { nullable: false })
+
+    @Field(() => [CommentCreateManyArticleInput], {nullable:false})
     data!: Array<CommentCreateManyArticleInput>;
 
-    @Field(() => Boolean, { nullable: true })
+    @Field(() => Boolean, {nullable:true})
     skipDuplicates?: boolean;
 }

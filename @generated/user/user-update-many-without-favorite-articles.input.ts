@@ -10,41 +10,34 @@ import { UserScalarWhereInput } from './user-scalar-where.input';
 
 @InputType()
 export class UserUpdateManyWithoutFavoriteArticlesInput {
-    @Field(() => [UserCreateWithoutFavoriteArticlesInput], { nullable: true })
+
+    @Field(() => [UserCreateWithoutFavoriteArticlesInput], {nullable:true})
     create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], {
-        nullable: true,
-    })
+    @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], {nullable:true})
     connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {
-        nullable: true,
-    })
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {nullable:true})
     upsert?: Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     set?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     disconnect?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     delete?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     connect?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput], {
-        nullable: true,
-    })
+    @Field(() => [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput], {nullable:true})
     update?: Array<UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserUpdateManyWithWhereWithoutFavoriteArticlesInput], {
-        nullable: true,
-    })
+    @Field(() => [UserUpdateManyWithWhereWithoutFavoriteArticlesInput], {nullable:true})
     updateMany?: Array<UserUpdateManyWithWhereWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserScalarWhereInput], { nullable: true })
+    @Field(() => [UserScalarWhereInput], {nullable:true})
     deleteMany?: Array<UserScalarWhereInput>;
 }

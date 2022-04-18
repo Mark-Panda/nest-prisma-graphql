@@ -7,43 +7,40 @@ import { UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput } from '../us
 
 @InputType()
 export class ArticleUncheckedCreateWithoutCommentsInput {
-    @Field(() => String, { nullable: true })
+
+    @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     slug!: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     title!: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     description!: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     body!: string;
 
-    @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, {nullable:true})
     tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
 
     @HideField()
     createdAt?: Date | string;
 
-    @Field(() => Date, { nullable: true })
+    @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => Int, { nullable: true })
+    @Field(() => Int, {nullable:true})
     favoritesCount?: number;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     authorId!: string;
 
-    @Field(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput, {nullable:true})
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput;
 
-    @Field(() => Boolean, { nullable: true })
+    @Field(() => Boolean, {nullable:true})
     active?: boolean;
 }

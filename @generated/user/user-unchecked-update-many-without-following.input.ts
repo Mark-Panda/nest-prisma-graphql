@@ -10,39 +10,34 @@ import { UserScalarWhereInput } from './user-scalar-where.input';
 
 @InputType()
 export class UserUncheckedUpdateManyWithoutFollowingInput {
-    @Field(() => [UserCreateWithoutFollowingInput], { nullable: true })
+
+    @Field(() => [UserCreateWithoutFollowingInput], {nullable:true})
     create?: Array<UserCreateWithoutFollowingInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutFollowingInput], { nullable: true })
+    @Field(() => [UserCreateOrConnectWithoutFollowingInput], {nullable:true})
     connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
 
-    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {
-        nullable: true,
-    })
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {nullable:true})
     upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     set?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     disconnect?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     delete?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
     connect?: Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {
-        nullable: true,
-    })
+    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {nullable:true})
     update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {
-        nullable: true,
-    })
+    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {nullable:true})
     updateMany?: Array<UserUpdateManyWithWhereWithoutFollowingInput>;
 
-    @Field(() => [UserScalarWhereInput], { nullable: true })
+    @Field(() => [UserScalarWhereInput], {nullable:true})
     deleteMany?: Array<UserScalarWhereInput>;
 }

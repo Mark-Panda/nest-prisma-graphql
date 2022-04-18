@@ -72,7 +72,7 @@ type UserCount {
   comments: Int!
 }
 
-"""User really"""
+"""用户信息"""
 type User {
   id: ID!
   email: String!
@@ -1298,43 +1298,31 @@ input DummyMaxAggregateInput {
 
 type Mutation {
   createOneUser(data: UserCreateInput!): User
-  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
   deleteOneUser(where: UserWhereUniqueInput!): User
   createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRows
   deleteManyUsers(where: UserWhereInput): AffectedRows
   createOneTag(data: TagCreateInput!): Tag
-  updateOneTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
-  upsertOneTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag
   deleteOneTag(where: TagWhereUniqueInput!): Tag
   createManyTags(data: [TagCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): AffectedRows
   deleteManyTags(where: TagWhereInput): AffectedRows
   createOneArticle(data: ArticleCreateInput!): Article
-  updateOneArticle(data: ArticleUpdateInput!, where: ArticleWhereUniqueInput!): Article
-  upsertOneArticle(where: ArticleWhereUniqueInput!, create: ArticleCreateInput!, update: ArticleUpdateInput!): Article
   deleteOneArticle(where: ArticleWhereUniqueInput!): Article
   createManyArticles(data: [ArticleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyArticles(data: ArticleUpdateManyMutationInput!, where: ArticleWhereInput): AffectedRows
   deleteManyArticles(where: ArticleWhereInput): AffectedRows
   createOneComment(data: CommentCreateInput!): Comment
-  updateOneComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
-  upsertOneComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
   createManyComments(data: [CommentCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): AffectedRows
   deleteManyComments(where: CommentWhereInput): AffectedRows
   createOneProfile(data: ProfileCreateInput!): Profile
-  updateOneProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
-  upsertOneProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile
   deleteOneProfile(where: ProfileWhereUniqueInput!): Profile
   createManyProfiles(data: [ProfileCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): AffectedRows
   deleteManyProfiles(where: ProfileWhereInput): AffectedRows
   createOneDummy(data: DummyCreateInput!): Dummy
-  updateOneDummy(data: DummyUpdateInput!, where: DummyWhereUniqueInput!): Dummy
-  upsertOneDummy(where: DummyWhereUniqueInput!, create: DummyCreateInput!, update: DummyUpdateInput!): Dummy
   deleteOneDummy(where: DummyWhereUniqueInput!): Dummy
   createManyDummys(data: [DummyCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManyDummys(data: DummyUpdateManyMutationInput!, where: DummyWhereInput): AffectedRows
@@ -1688,22 +1676,28 @@ input UserCreateOrConnectWithoutFollowersInput {
   create: UserCreateWithoutFollowersInput!
 }
 
-input UserUpdateInput {
+input UserCreateManyInput {
+  id: String
+  email: EmailAddress!
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  countComments: Int
+  rating: Float
+  role: Role
+}
+
+input UserUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   bio: NullableStringFieldUpdateOperationsInput
   image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  followers: UserUpdateManyWithoutFollowingInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
   countComments: NullableIntFieldUpdateOperationsInput
   rating: NullableFloatFieldUpdateOperationsInput
   role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
 }
 
 input StringFieldUpdateOperationsInput {
@@ -1712,361 +1706,6 @@ input StringFieldUpdateOperationsInput {
 
 input NullableStringFieldUpdateOperationsInput {
   set: String
-}
-
-input UserUpdateManyWithoutFollowersInput {
-  create: [UserCreateWithoutFollowersInput!]
-  connectOrCreate: [UserCreateOrConnectWithoutFollowersInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutFollowersInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  delete: [UserWhereUniqueInput!]
-  connect: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutFollowersInput!]
-  updateMany: [UserUpdateManyWithWhereWithoutFollowersInput!]
-  deleteMany: [UserScalarWhereInput!]
-}
-
-input UserUpsertWithWhereUniqueWithoutFollowersInput {
-  where: UserWhereUniqueInput!
-  update: UserUpdateWithoutFollowersInput!
-  create: UserCreateWithoutFollowersInput!
-}
-
-input UserUpdateWithoutFollowersInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
-}
-
-input ArticleUpdateManyWithoutFavoritedByInput {
-  create: [ArticleCreateWithoutFavoritedByInput!]
-  connectOrCreate: [ArticleCreateOrConnectWithoutFavoritedByInput!]
-  upsert: [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput!]
-  set: [ArticleWhereUniqueInput!]
-  disconnect: [ArticleWhereUniqueInput!]
-  delete: [ArticleWhereUniqueInput!]
-  connect: [ArticleWhereUniqueInput!]
-  update: [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput!]
-  updateMany: [ArticleUpdateManyWithWhereWithoutFavoritedByInput!]
-  deleteMany: [ArticleScalarWhereInput!]
-}
-
-input ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
-  where: ArticleWhereUniqueInput!
-  update: ArticleUpdateWithoutFavoritedByInput!
-  create: ArticleCreateWithoutFavoritedByInput!
-}
-
-input ArticleUpdateWithoutFavoritedByInput {
-  id: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  tags: TagUpdateManyWithoutArticlesInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  favoritesCount: IntFieldUpdateOperationsInput
-  author: UserUpdateOneRequiredWithoutArticlesInput
-  comments: CommentUpdateManyWithoutArticleInput
-  active: NullableBoolFieldUpdateOperationsInput
-}
-
-input TagUpdateManyWithoutArticlesInput {
-  create: [TagCreateWithoutArticlesInput!]
-  connectOrCreate: [TagCreateOrConnectWithoutArticlesInput!]
-  upsert: [TagUpsertWithWhereUniqueWithoutArticlesInput!]
-  set: [TagWhereUniqueInput!]
-  disconnect: [TagWhereUniqueInput!]
-  delete: [TagWhereUniqueInput!]
-  connect: [TagWhereUniqueInput!]
-  update: [TagUpdateWithWhereUniqueWithoutArticlesInput!]
-  updateMany: [TagUpdateManyWithWhereWithoutArticlesInput!]
-  deleteMany: [TagScalarWhereInput!]
-}
-
-input TagUpsertWithWhereUniqueWithoutArticlesInput {
-  where: TagWhereUniqueInput!
-  update: TagUpdateWithoutArticlesInput!
-  create: TagCreateWithoutArticlesInput!
-}
-
-input TagUpdateWithoutArticlesInput {
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-}
-
-input TagUpdateWithWhereUniqueWithoutArticlesInput {
-  where: TagWhereUniqueInput!
-  data: TagUpdateWithoutArticlesInput!
-}
-
-input TagUpdateManyWithWhereWithoutArticlesInput {
-  where: TagScalarWhereInput!
-  data: TagUpdateManyMutationInput!
-}
-
-input TagScalarWhereInput {
-  AND: [TagScalarWhereInput!]
-  OR: [TagScalarWhereInput!]
-  NOT: [TagScalarWhereInput!]
-  id: StringFilter
-  name: StringFilter
-}
-
-input TagUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-}
-
-input DateTimeFieldUpdateOperationsInput {
-  set: DateTime
-}
-
-input IntFieldUpdateOperationsInput {
-  set: Int
-  increment: Int
-  decrement: Int
-  multiply: Int
-  divide: Int
-}
-
-input UserUpdateOneRequiredWithoutArticlesInput {
-  create: UserCreateWithoutArticlesInput
-  connectOrCreate: UserCreateOrConnectWithoutArticlesInput
-  upsert: UserUpsertWithoutArticlesInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateWithoutArticlesInput
-}
-
-input UserUpsertWithoutArticlesInput {
-  update: UserUpdateWithoutArticlesInput!
-  create: UserCreateWithoutArticlesInput!
-}
-
-input UserUpdateWithoutArticlesInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  followers: UserUpdateManyWithoutFollowingInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  comments: CommentUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
-}
-
-input UserUpdateManyWithoutFollowingInput {
-  create: [UserCreateWithoutFollowingInput!]
-  connectOrCreate: [UserCreateOrConnectWithoutFollowingInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutFollowingInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  delete: [UserWhereUniqueInput!]
-  connect: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutFollowingInput!]
-  updateMany: [UserUpdateManyWithWhereWithoutFollowingInput!]
-  deleteMany: [UserScalarWhereInput!]
-}
-
-input UserUpsertWithWhereUniqueWithoutFollowingInput {
-  where: UserWhereUniqueInput!
-  update: UserUpdateWithoutFollowingInput!
-  create: UserCreateWithoutFollowingInput!
-}
-
-input UserUpdateWithoutFollowingInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  followers: UserUpdateManyWithoutFollowingInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
-}
-
-input ArticleUpdateManyWithoutAuthorInput {
-  create: [ArticleCreateWithoutAuthorInput!]
-  connectOrCreate: [ArticleCreateOrConnectWithoutAuthorInput!]
-  upsert: [ArticleUpsertWithWhereUniqueWithoutAuthorInput!]
-  createMany: ArticleCreateManyAuthorInputEnvelope
-  set: [ArticleWhereUniqueInput!]
-  disconnect: [ArticleWhereUniqueInput!]
-  delete: [ArticleWhereUniqueInput!]
-  connect: [ArticleWhereUniqueInput!]
-  update: [ArticleUpdateWithWhereUniqueWithoutAuthorInput!]
-  updateMany: [ArticleUpdateManyWithWhereWithoutAuthorInput!]
-  deleteMany: [ArticleScalarWhereInput!]
-}
-
-input ArticleUpsertWithWhereUniqueWithoutAuthorInput {
-  where: ArticleWhereUniqueInput!
-  update: ArticleUpdateWithoutAuthorInput!
-  create: ArticleCreateWithoutAuthorInput!
-}
-
-input ArticleUpdateWithoutAuthorInput {
-  id: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  tags: TagUpdateManyWithoutArticlesInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  favoritesCount: IntFieldUpdateOperationsInput
-  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
-  comments: CommentUpdateManyWithoutArticleInput
-  active: NullableBoolFieldUpdateOperationsInput
-}
-
-input UserUpdateManyWithoutFavoriteArticlesInput {
-  create: [UserCreateWithoutFavoriteArticlesInput!]
-  connectOrCreate: [UserCreateOrConnectWithoutFavoriteArticlesInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  delete: [UserWhereUniqueInput!]
-  connect: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput!]
-  updateMany: [UserUpdateManyWithWhereWithoutFavoriteArticlesInput!]
-  deleteMany: [UserScalarWhereInput!]
-}
-
-input UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {
-  where: UserWhereUniqueInput!
-  update: UserUpdateWithoutFavoriteArticlesInput!
-  create: UserCreateWithoutFavoriteArticlesInput!
-}
-
-input UserUpdateWithoutFavoriteArticlesInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  followers: UserUpdateManyWithoutFollowingInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
-}
-
-input CommentUpdateManyWithoutAuthorInput {
-  create: [CommentCreateWithoutAuthorInput!]
-  connectOrCreate: [CommentCreateOrConnectWithoutAuthorInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutAuthorInput!]
-  createMany: CommentCreateManyAuthorInputEnvelope
-  set: [CommentWhereUniqueInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  delete: [CommentWhereUniqueInput!]
-  connect: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutAuthorInput!]
-  updateMany: [CommentUpdateManyWithWhereWithoutAuthorInput!]
-  deleteMany: [CommentScalarWhereInput!]
-}
-
-input CommentUpsertWithWhereUniqueWithoutAuthorInput {
-  where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutAuthorInput!
-  create: CommentCreateWithoutAuthorInput!
-}
-
-input CommentUpdateWithoutAuthorInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  article: ArticleUpdateOneWithoutCommentsInput
-}
-
-input ArticleUpdateOneWithoutCommentsInput {
-  create: ArticleCreateWithoutCommentsInput
-  connectOrCreate: ArticleCreateOrConnectWithoutCommentsInput
-  upsert: ArticleUpsertWithoutCommentsInput
-  disconnect: Boolean
-  delete: Boolean
-  connect: ArticleWhereUniqueInput
-  update: ArticleUpdateWithoutCommentsInput
-}
-
-input ArticleUpsertWithoutCommentsInput {
-  update: ArticleUpdateWithoutCommentsInput!
-  create: ArticleCreateWithoutCommentsInput!
-}
-
-input ArticleUpdateWithoutCommentsInput {
-  id: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  tags: TagUpdateManyWithoutArticlesInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  favoritesCount: IntFieldUpdateOperationsInput
-  author: UserUpdateOneRequiredWithoutArticlesInput
-  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
-  active: NullableBoolFieldUpdateOperationsInput
-}
-
-input NullableBoolFieldUpdateOperationsInput {
-  set: Boolean
-}
-
-input CommentUpdateWithWhereUniqueWithoutAuthorInput {
-  where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutAuthorInput!
-}
-
-input CommentUpdateManyWithWhereWithoutAuthorInput {
-  where: CommentScalarWhereInput!
-  data: CommentUpdateManyMutationInput!
-}
-
-input CommentScalarWhereInput {
-  AND: [CommentScalarWhereInput!]
-  OR: [CommentScalarWhereInput!]
-  NOT: [CommentScalarWhereInput!]
-  id: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  body: StringFilter
-  authorId: StringFilter
-  articleId: StringNullableFilter
-}
-
-input CommentUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
 }
 
 input NullableIntFieldUpdateOperationsInput {
@@ -2087,209 +1726,6 @@ input NullableFloatFieldUpdateOperationsInput {
 
 input NullableEnumRoleFieldUpdateOperationsInput {
   set: Role
-}
-
-input ProfileUpdateOneWithoutUserInput {
-  create: ProfileCreateWithoutUserInput
-  connectOrCreate: ProfileCreateOrConnectWithoutUserInput
-  upsert: ProfileUpsertWithoutUserInput
-  disconnect: Boolean
-  delete: Boolean
-  connect: ProfileWhereUniqueInput
-  update: ProfileUpdateWithoutUserInput
-}
-
-input ProfileUpsertWithoutUserInput {
-  update: ProfileUpdateWithoutUserInput!
-  create: ProfileCreateWithoutUserInput!
-}
-
-input ProfileUpdateWithoutUserInput {
-  dummy: NullableStringFieldUpdateOperationsInput
-}
-
-input UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateWithoutFavoriteArticlesInput!
-}
-
-input UserUpdateManyWithWhereWithoutFavoriteArticlesInput {
-  where: UserScalarWhereInput!
-  data: UserUpdateManyMutationInput!
-}
-
-input UserScalarWhereInput {
-  AND: [UserScalarWhereInput!]
-  OR: [UserScalarWhereInput!]
-  NOT: [UserScalarWhereInput!]
-  id: StringFilter
-  email: StringFilter
-  name: StringFilter
-  password: StringFilter
-  bio: StringNullableFilter
-  image: StringNullableFilter
-  countComments: IntNullableFilter
-  rating: FloatNullableFilter
-  role: EnumRoleNullableFilter
-}
-
-input UserUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-}
-
-input CommentUpdateManyWithoutArticleInput {
-  create: [CommentCreateWithoutArticleInput!]
-  connectOrCreate: [CommentCreateOrConnectWithoutArticleInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutArticleInput!]
-  createMany: CommentCreateManyArticleInputEnvelope
-  set: [CommentWhereUniqueInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  delete: [CommentWhereUniqueInput!]
-  connect: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutArticleInput!]
-  updateMany: [CommentUpdateManyWithWhereWithoutArticleInput!]
-  deleteMany: [CommentScalarWhereInput!]
-}
-
-input CommentUpsertWithWhereUniqueWithoutArticleInput {
-  where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutArticleInput!
-  create: CommentCreateWithoutArticleInput!
-}
-
-input CommentUpdateWithoutArticleInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  author: UserUpdateOneRequiredWithoutCommentsInput
-}
-
-input UserUpdateOneRequiredWithoutCommentsInput {
-  create: UserCreateWithoutCommentsInput
-  connectOrCreate: UserCreateOrConnectWithoutCommentsInput
-  upsert: UserUpsertWithoutCommentsInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateWithoutCommentsInput
-}
-
-input UserUpsertWithoutCommentsInput {
-  update: UserUpdateWithoutCommentsInput!
-  create: UserCreateWithoutCommentsInput!
-}
-
-input UserUpdateWithoutCommentsInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  followers: UserUpdateManyWithoutFollowingInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-  profile: ProfileUpdateOneWithoutUserInput
-}
-
-input CommentUpdateWithWhereUniqueWithoutArticleInput {
-  where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutArticleInput!
-}
-
-input CommentUpdateManyWithWhereWithoutArticleInput {
-  where: CommentScalarWhereInput!
-  data: CommentUpdateManyMutationInput!
-}
-
-input ArticleUpdateWithWhereUniqueWithoutAuthorInput {
-  where: ArticleWhereUniqueInput!
-  data: ArticleUpdateWithoutAuthorInput!
-}
-
-input ArticleUpdateManyWithWhereWithoutAuthorInput {
-  where: ArticleScalarWhereInput!
-  data: ArticleUpdateManyMutationInput!
-}
-
-input ArticleScalarWhereInput {
-  AND: [ArticleScalarWhereInput!]
-  OR: [ArticleScalarWhereInput!]
-  NOT: [ArticleScalarWhereInput!]
-  id: StringFilter
-  slug: StringFilter
-  title: StringFilter
-  description: StringFilter
-  body: StringFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  favoritesCount: IntFilter
-  authorId: StringFilter
-  active: BoolNullableFilter
-}
-
-input ArticleUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  favoritesCount: IntFieldUpdateOperationsInput
-  active: NullableBoolFieldUpdateOperationsInput
-}
-
-input UserUpdateWithWhereUniqueWithoutFollowingInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateWithoutFollowingInput!
-}
-
-input UserUpdateManyWithWhereWithoutFollowingInput {
-  where: UserScalarWhereInput!
-  data: UserUpdateManyMutationInput!
-}
-
-input ArticleUpdateWithWhereUniqueWithoutFavoritedByInput {
-  where: ArticleWhereUniqueInput!
-  data: ArticleUpdateWithoutFavoritedByInput!
-}
-
-input ArticleUpdateManyWithWhereWithoutFavoritedByInput {
-  where: ArticleScalarWhereInput!
-  data: ArticleUpdateManyMutationInput!
-}
-
-input UserUpdateWithWhereUniqueWithoutFollowersInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateWithoutFollowersInput!
-}
-
-input UserUpdateManyWithWhereWithoutFollowersInput {
-  where: UserScalarWhereInput!
-  data: UserUpdateManyMutationInput!
-}
-
-input UserCreateManyInput {
-  id: String
-  email: EmailAddress!
-  name: String!
-  password: String!
-  bio: String
-  image: String
-  countComments: Int
-  rating: Float
-  role: Role
 }
 
 input TagCreateInput {
@@ -2323,59 +1759,14 @@ input ArticleCreateOrConnectWithoutTagsInput {
   create: ArticleCreateWithoutTagsInput!
 }
 
-input TagUpdateInput {
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  articles: ArticleUpdateManyWithoutTagsInput
-}
-
-input ArticleUpdateManyWithoutTagsInput {
-  create: [ArticleCreateWithoutTagsInput!]
-  connectOrCreate: [ArticleCreateOrConnectWithoutTagsInput!]
-  upsert: [ArticleUpsertWithWhereUniqueWithoutTagsInput!]
-  set: [ArticleWhereUniqueInput!]
-  disconnect: [ArticleWhereUniqueInput!]
-  delete: [ArticleWhereUniqueInput!]
-  connect: [ArticleWhereUniqueInput!]
-  update: [ArticleUpdateWithWhereUniqueWithoutTagsInput!]
-  updateMany: [ArticleUpdateManyWithWhereWithoutTagsInput!]
-  deleteMany: [ArticleScalarWhereInput!]
-}
-
-input ArticleUpsertWithWhereUniqueWithoutTagsInput {
-  where: ArticleWhereUniqueInput!
-  update: ArticleUpdateWithoutTagsInput!
-  create: ArticleCreateWithoutTagsInput!
-}
-
-input ArticleUpdateWithoutTagsInput {
-  id: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  favoritesCount: IntFieldUpdateOperationsInput
-  author: UserUpdateOneRequiredWithoutArticlesInput
-  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
-  comments: CommentUpdateManyWithoutArticleInput
-  active: NullableBoolFieldUpdateOperationsInput
-}
-
-input ArticleUpdateWithWhereUniqueWithoutTagsInput {
-  where: ArticleWhereUniqueInput!
-  data: ArticleUpdateWithoutTagsInput!
-}
-
-input ArticleUpdateManyWithWhereWithoutTagsInput {
-  where: ArticleScalarWhereInput!
-  data: ArticleUpdateManyMutationInput!
-}
-
 input TagCreateManyInput {
   id: String
   name: String!
+}
+
+input TagUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
 }
 
 input ArticleCreateInput {
@@ -2393,22 +1784,6 @@ input ArticleCreateInput {
   active: Boolean
 }
 
-input ArticleUpdateInput {
-  id: StringFieldUpdateOperationsInput
-  slug: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  tags: TagUpdateManyWithoutArticlesInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  favoritesCount: IntFieldUpdateOperationsInput
-  author: UserUpdateOneRequiredWithoutArticlesInput
-  favoritedBy: UserUpdateManyWithoutFavoriteArticlesInput
-  comments: CommentUpdateManyWithoutArticleInput
-  active: NullableBoolFieldUpdateOperationsInput
-}
-
 input ArticleCreateManyInput {
   id: String
   slug: String!
@@ -2421,6 +1796,34 @@ input ArticleCreateManyInput {
   active: Boolean
 }
 
+input ArticleUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  slug: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  description: StringFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  favoritesCount: IntFieldUpdateOperationsInput
+  active: NullableBoolFieldUpdateOperationsInput
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
+  increment: Int
+  decrement: Int
+  multiply: Int
+  divide: Int
+}
+
+input NullableBoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
 input CommentCreateInput {
   id: String
   createdAt: DateTime
@@ -2430,14 +1833,6 @@ input CommentCreateInput {
   article: ArticleCreateNestedOneWithoutCommentsInput
 }
 
-input CommentUpdateInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  body: StringFieldUpdateOperationsInput
-  author: UserUpdateOneRequiredWithoutCommentsInput
-  article: ArticleUpdateOneWithoutCommentsInput
-}
-
 input CommentCreateManyInput {
   id: String
   createdAt: DateTime
@@ -2445,6 +1840,12 @@ input CommentCreateManyInput {
   body: String!
   authorId: String!
   articleId: String
+}
+
+input CommentUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  body: StringFieldUpdateOperationsInput
 }
 
 input ProfileCreateInput {
@@ -2480,41 +1881,6 @@ input UserCreateOrConnectWithoutProfileInput {
   create: UserCreateWithoutProfileInput!
 }
 
-input ProfileUpdateInput {
-  user: UserUpdateOneRequiredWithoutProfileInput
-  dummy: NullableStringFieldUpdateOperationsInput
-}
-
-input UserUpdateOneRequiredWithoutProfileInput {
-  create: UserCreateWithoutProfileInput
-  connectOrCreate: UserCreateOrConnectWithoutProfileInput
-  upsert: UserUpsertWithoutProfileInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateWithoutProfileInput
-}
-
-input UserUpsertWithoutProfileInput {
-  update: UserUpdateWithoutProfileInput!
-  create: UserCreateWithoutProfileInput!
-}
-
-input UserUpdateWithoutProfileInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  bio: NullableStringFieldUpdateOperationsInput
-  image: NullableStringFieldUpdateOperationsInput
-  following: UserUpdateManyWithoutFollowersInput
-  followers: UserUpdateManyWithoutFollowingInput
-  favoriteArticles: ArticleUpdateManyWithoutFavoritedByInput
-  articles: ArticleUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
-  countComments: NullableIntFieldUpdateOperationsInput
-  rating: NullableFloatFieldUpdateOperationsInput
-  role: NullableEnumRoleFieldUpdateOperationsInput
-}
-
 input ProfileCreateManyInput {
   id: Int
   userId: String!
@@ -2542,7 +1908,20 @@ input DummyCreatefriendsInput {
   set: [String!]!
 }
 
-input DummyUpdateInput {
+input DummyCreateManyInput {
+  id: String!
+  created: DateTime
+  floaty: Float!
+  int: Int
+  float: Float
+  bytes: String
+  decimal: Decimal
+  bigInt: String
+  json: JSON
+  friends: DummyCreatefriendsInput
+}
+
+input DummyUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   created: DateTimeFieldUpdateOperationsInput
   floaty: FloatFieldUpdateOperationsInput
@@ -2586,30 +1965,4 @@ input NullableBigIntFieldUpdateOperationsInput {
 input DummyUpdatefriendsInput {
   set: [String!]
   push: [String!]
-}
-
-input DummyCreateManyInput {
-  id: String!
-  created: DateTime
-  floaty: Float!
-  int: Int
-  float: Float
-  bytes: String
-  decimal: Decimal
-  bigInt: String
-  json: JSON
-  friends: DummyCreatefriendsInput
-}
-
-input DummyUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  created: DateTimeFieldUpdateOperationsInput
-  floaty: FloatFieldUpdateOperationsInput
-  int: NullableIntFieldUpdateOperationsInput
-  float: NullableFloatFieldUpdateOperationsInput
-  bytes: NullableBytesFieldUpdateOperationsInput
-  decimal: NullableDecimalFieldUpdateOperationsInput
-  bigInt: NullableBigIntFieldUpdateOperationsInput
-  json: JSON
-  friends: DummyUpdatefriendsInput
 }

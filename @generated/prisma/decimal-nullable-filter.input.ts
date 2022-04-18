@@ -5,27 +5,28 @@ import { NestedDecimalNullableFilter } from './nested-decimal-nullable-filter.in
 
 @InputType()
 export class DecimalNullableFilter {
-    @Field(() => GraphQLDecimal, { nullable: true })
+
+    @Field(() => GraphQLDecimal, {nullable:true})
     equals?: any;
 
-    @Field(() => [GraphQLDecimal], { nullable: true })
+    @Field(() => [GraphQLDecimal], {nullable:true})
     in?: Array<any>;
 
-    @Field(() => [GraphQLDecimal], { nullable: true })
+    @Field(() => [GraphQLDecimal], {nullable:true})
     notIn?: Array<any>;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
+    @Field(() => GraphQLDecimal, {nullable:true})
     lt?: any;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
+    @Field(() => GraphQLDecimal, {nullable:true})
     lte?: any;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
+    @Field(() => GraphQLDecimal, {nullable:true})
     gt?: any;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
+    @Field(() => GraphQLDecimal, {nullable:true})
     gte?: any;
 
-    @Field(() => NestedDecimalNullableFilter, { nullable: true })
+    @Field(() => NestedDecimalNullableFilter, {nullable:true})
     not?: NestedDecimalNullableFilter;
 }

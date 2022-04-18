@@ -5,9 +5,10 @@ import { ArticleCreateWithoutCommentsInput } from './article-create-without-comm
 
 @InputType()
 export class ArticleCreateOrConnectWithoutCommentsInput {
-    @Field(() => ArticleWhereUniqueInput, { nullable: false })
+
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
     where!: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleCreateWithoutCommentsInput, { nullable: false })
+    @Field(() => ArticleCreateWithoutCommentsInput, {nullable:false})
     create!: ArticleCreateWithoutCommentsInput;
 }

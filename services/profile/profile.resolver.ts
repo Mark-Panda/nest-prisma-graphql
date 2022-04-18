@@ -1,24 +1,25 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+// import prisma from 'src/common/db/prisma';
+import { prisma } from '@app/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Profile } from '@generated/profile/profile.model';
-import { AggregateProfile } from '@generated/profile/aggregate-profile.output';
-import { ProfileAggregateArgs } from '@generated/profile/profile-aggregate.args';
-import { CreateOneProfileArgs } from '@generated/profile/create-one-profile.args';
-import { CreateManyProfileArgs } from '@generated/profile/create-many-profile.args';
-import { FindFirstProfileArgs } from '@generated/profile/find-first-profile.args';
-import { FindUniqueProfileArgs } from '@generated/profile/find-unique-profile.args';
-import { FindManyProfileArgs } from '@generated/profile/find-many-profile.args';
-import { UpdateOneProfileArgs } from '@generated/profile/update-one-profile.args';
-import { UpsertOneProfileArgs } from '@generated/profile/upsert-one-profile.args';
-import { DeleteOneProfileArgs } from '@generated/profile/delete-one-profile.args';
-// import { ProfileGroupByArgs } from '@generated/profile/profile-group-by.args';
-// import { ProfileGroupBy } from '@generated/profile/profile-group-by.output';
-import { UpdateManyProfileArgs } from '@generated/profile/update-many-profile.args';
-import { DeleteManyProfileArgs } from '@generated/profile/delete-many-profile.args';
-import { AffectedRows } from '@generated/prisma/affected-rows.output';
+import { Profile } from '../../@generated/profile/profile.model';
+import { AggregateProfile } from '../../@generated/profile/aggregate-profile.output';
+import { ProfileAggregateArgs } from '../../@generated/profile/profile-aggregate.args';
+import { CreateOneProfileArgs } from '../../@generated/profile/create-one-profile.args';
+import { CreateManyProfileArgs } from '../../@generated/profile/create-many-profile.args';
+import { FindFirstProfileArgs } from '../../@generated/profile/find-first-profile.args';
+import { FindUniqueProfileArgs } from '../../@generated/profile/find-unique-profile.args';
+import { FindManyProfileArgs } from '../../@generated/profile/find-many-profile.args';
+import { UpdateOneProfileArgs } from '../../@generated/profile/update-one-profile.args';
+import { UpsertOneProfileArgs } from '../../@generated/profile/upsert-one-profile.args';
+import { DeleteOneProfileArgs } from '../../@generated/profile/delete-one-profile.args';
+// import { ProfileGroupByArgs } from '../../@generated/profile/profile-group-by.args';
+// import { ProfileGroupBy } from '../../@generated/profile/profile-group-by.output';
+import { UpdateManyProfileArgs } from '../../@generated/profile/update-many-profile.args';
+import { DeleteManyProfileArgs } from '../../@generated/profile/delete-many-profile.args';
+import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 
 /**
  * Resolves Profile object type.
@@ -98,16 +99,16 @@ export class ProfileResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Profile, { nullable: true })
-    async updateOneProfile(
-        @Args() args: UpdateOneProfileArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.profile.update(args);
-    }
+    // @Mutation(() => Profile, { nullable: true })
+    // async updateOneProfile(
+    //     @Args() args: UpdateOneProfileArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.profile.update(args);
+    // }
 
     /**
      * 修改或新增Profile信息
@@ -115,16 +116,16 @@ export class ProfileResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Profile, { nullable: true })
-    async upsertOneProfile(
-        @Args() args: UpsertOneProfileArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.profile.upsert(args);
-    }
+    // @Mutation(() => Profile, { nullable: true })
+    // async upsertOneProfile(
+    //     @Args() args: UpsertOneProfileArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.profile.upsert(args);
+    // }
 
     /**
      * 删除Profile信息

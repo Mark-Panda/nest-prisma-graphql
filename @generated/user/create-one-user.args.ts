@@ -6,7 +6,8 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneUserArgs {
-    @Field(() => UserCreateInput, { nullable: false })
+
+    @Field(() => UserCreateInput, {nullable:false})
     @ValidateNested()
     @Type(() => UserCreateInput)
     data!: UserCreateInput;

@@ -8,33 +8,34 @@ import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
 export class Dummy {
-    @Field(() => ID, { nullable: false })
+
+    @Field(() => ID, {nullable:false})
     id!: string;
 
-    @Field(() => Date, { nullable: false })
+    @Field(() => Date, {nullable:false})
     created!: Date;
 
-    @Field(() => Float, { nullable: false })
+    @Field(() => Float, {nullable:false})
     floaty!: number;
 
-    @Field(() => Int, { nullable: true })
+    @Field(() => Int, {nullable:true})
     int!: number | null;
 
-    @Field(() => Float, { nullable: true })
+    @Field(() => Float, {nullable:true})
     float!: number | null;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     bytes!: Buffer | null;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
+    @Field(() => GraphQLDecimal, {nullable:true})
     decimal!: any | null;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     bigInt!: bigint | null;
 
-    @Field(() => GraphQLJSON, { nullable: true })
+    @Field(() => GraphQLJSON, {nullable:true})
     json!: any | null;
 
-    @Field(() => [String], { nullable: true })
+    @Field(() => [String], {nullable:true})
     friends!: Array<string>;
 }

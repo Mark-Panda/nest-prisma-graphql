@@ -1,6 +1,9 @@
-http:
-  host: 'localhost'
-  port: 8080
+# 服务配置（每个单独的服务都需要配置对应的端口）
+
+serve:
+  port: 3100
+  prefix: # 路径前缀
+
 
 db:
   postgres:
@@ -11,6 +14,21 @@ db:
   sqlite:
     database: 'sqlite.db'
     
-  redis:
+# 缓存配置
+
+cache:
+  redis: # 有值时，使用 redis 做缓存服务器
     host: 'localhost'
-    port: 5432
+    port:
+
+
+# Swagger 配置
+
+swagger:
+  title: 接口文档
+  description: code:状态码，message:提示信息，data:返回值
+  path: swagger
+
+# 日志存放目录
+
+logsPath: apps

@@ -4,6 +4,7 @@ import { CommentCreateInput } from './comment-create.input';
 
 @ArgsType()
 export class CreateOneCommentArgs {
-    @Field(() => CommentCreateInput, { nullable: false })
+
+    @Field(() => CommentCreateInput, {nullable:false})
     data!: CommentCreateInput;
 }

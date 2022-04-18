@@ -7,30 +7,31 @@ import { CommentMinOrderByAggregateInput } from './comment-min-order-by-aggregat
 
 @InputType()
 export class CommentOrderByWithAggregationInput {
-    @Field(() => SortOrder, { nullable: true })
+
+    @Field(() => SortOrder, {nullable:true})
     id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
+    @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
+    @Field(() => SortOrder, {nullable:true})
     body?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
+    @Field(() => SortOrder, {nullable:true})
     authorId?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
+    @Field(() => SortOrder, {nullable:true})
     articleId?: keyof typeof SortOrder;
 
-    @Field(() => CommentCountOrderByAggregateInput, { nullable: true })
+    @Field(() => CommentCountOrderByAggregateInput, {nullable:true})
     _count?: CommentCountOrderByAggregateInput;
 
-    @Field(() => CommentMaxOrderByAggregateInput, { nullable: true })
+    @Field(() => CommentMaxOrderByAggregateInput, {nullable:true})
     _max?: CommentMaxOrderByAggregateInput;
 
-    @Field(() => CommentMinOrderByAggregateInput, { nullable: true })
+    @Field(() => CommentMinOrderByAggregateInput, {nullable:true})
     _min?: CommentMinOrderByAggregateInput;
 }

@@ -1,24 +1,25 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+// import prisma from 'src/common/db/prisma';
+import { prisma } from '@app/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Tag } from '@generated/tag/tag.model';
-import { AggregateTag } from '@generated/tag/aggregate-tag.output';
-import { TagAggregateArgs } from '@generated/tag/tag-aggregate.args';
-import { CreateOneTagArgs } from '@generated/tag/create-one-tag.args';
-import { CreateManyTagArgs } from '@generated/tag/create-many-tag.args';
-import { FindFirstTagArgs } from '@generated/tag/find-first-tag.args';
-import { FindUniqueTagArgs } from '@generated/tag/find-unique-tag.args';
-import { FindManyTagArgs } from '@generated/tag/find-many-tag.args';
-import { UpdateOneTagArgs } from '@generated/tag/update-one-tag.args';
-import { UpsertOneTagArgs } from '@generated/tag/upsert-one-tag.args';
-import { DeleteOneTagArgs } from '@generated/tag/delete-one-tag.args';
-// import { TagGroupByArgs } from '@generated/tag/tag-group-by.args';
-// import { TagGroupBy } from '@generated/tag/tag-group-by.output';
-import { UpdateManyTagArgs } from '@generated/tag/update-many-tag.args';
-import { DeleteManyTagArgs } from '@generated/tag/delete-many-tag.args';
-import { AffectedRows } from '@generated/prisma/affected-rows.output';
+import { Tag } from '../../@generated/tag/tag.model';
+import { AggregateTag } from '../../@generated/tag/aggregate-tag.output';
+import { TagAggregateArgs } from '../../@generated/tag/tag-aggregate.args';
+import { CreateOneTagArgs } from '../../@generated/tag/create-one-tag.args';
+import { CreateManyTagArgs } from '../../@generated/tag/create-many-tag.args';
+import { FindFirstTagArgs } from '../../@generated/tag/find-first-tag.args';
+import { FindUniqueTagArgs } from '../../@generated/tag/find-unique-tag.args';
+import { FindManyTagArgs } from '../../@generated/tag/find-many-tag.args';
+import { UpdateOneTagArgs } from '../../@generated/tag/update-one-tag.args';
+import { UpsertOneTagArgs } from '../../@generated/tag/upsert-one-tag.args';
+import { DeleteOneTagArgs } from '../../@generated/tag/delete-one-tag.args';
+// import { TagGroupByArgs } from '../../@generated/tag/tag-group-by.args';
+// import { TagGroupBy } from '../../@generated/tag/tag-group-by.output';
+import { UpdateManyTagArgs } from '../../@generated/tag/update-many-tag.args';
+import { DeleteManyTagArgs } from '../../@generated/tag/delete-many-tag.args';
+import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 
 /**
  * Resolves Tag object type.
@@ -98,16 +99,16 @@ export class TagResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Tag, { nullable: true })
-    async updateOneTag(
-        @Args() args: UpdateOneTagArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.tag.update(args);
-    }
+    // @Mutation(() => Tag, { nullable: true })
+    // async updateOneTag(
+    //     @Args() args: UpdateOneTagArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.tag.update(args);
+    // }
 
     /**
      * 修改或新增Tag信息
@@ -115,16 +116,16 @@ export class TagResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Tag, { nullable: true })
-    async upsertOneTag(
-        @Args() args: UpsertOneTagArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.tag.upsert(args);
-    }
+    // @Mutation(() => Tag, { nullable: true })
+    // async upsertOneTag(
+    //     @Args() args: UpsertOneTagArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.tag.upsert(args);
+    // }
 
     /**
      * 删除Tag信息

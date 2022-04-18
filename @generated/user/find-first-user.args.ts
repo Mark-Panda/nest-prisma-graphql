@@ -8,23 +8,22 @@ import { UserScalarFieldEnum } from './user-scalar-field.enum';
 
 @ArgsType()
 export class FindFirstUserArgs {
-    @Field(() => UserWhereInput, { nullable: true })
+
+    @Field(() => UserWhereInput, {nullable:true})
     where?: UserWhereInput;
 
-    @Field(() => [UserOrderByWithRelationAndSearchRelevanceInput], {
-        nullable: true,
-    })
+    @Field(() => [UserOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
     orderBy?: Array<UserOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => UserWhereUniqueInput, { nullable: true })
+    @Field(() => UserWhereUniqueInput, {nullable:true})
     cursor?: UserWhereUniqueInput;
 
-    @Field(() => Int, { nullable: true })
+    @Field(() => Int, {nullable:true})
     take?: number;
 
-    @Field(() => Int, { nullable: true })
+    @Field(() => Int, {nullable:true})
     skip?: number;
 
-    @Field(() => [UserScalarFieldEnum], { nullable: true })
+    @Field(() => [UserScalarFieldEnum], {nullable:true})
     distinct?: Array<keyof typeof UserScalarFieldEnum>;
 }

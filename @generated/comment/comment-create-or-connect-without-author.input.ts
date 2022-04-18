@@ -5,9 +5,10 @@ import { CommentCreateWithoutAuthorInput } from './comment-create-without-author
 
 @InputType()
 export class CommentCreateOrConnectWithoutAuthorInput {
-    @Field(() => CommentWhereUniqueInput, { nullable: false })
+
+    @Field(() => CommentWhereUniqueInput, {nullable:false})
     where!: CommentWhereUniqueInput;
 
-    @Field(() => CommentCreateWithoutAuthorInput, { nullable: false })
+    @Field(() => CommentCreateWithoutAuthorInput, {nullable:false})
     create!: CommentCreateWithoutAuthorInput;
 }

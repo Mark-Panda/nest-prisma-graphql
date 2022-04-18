@@ -4,6 +4,7 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @ArgsType()
 export class DeleteOneCommentArgs {
-    @Field(() => CommentWhereUniqueInput, { nullable: false })
+
+    @Field(() => CommentWhereUniqueInput, {nullable:false})
     where!: CommentWhereUniqueInput;
 }

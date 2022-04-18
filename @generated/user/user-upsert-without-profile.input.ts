@@ -5,9 +5,10 @@ import { UserCreateWithoutProfileInput } from './user-create-without-profile.inp
 
 @InputType()
 export class UserUpsertWithoutProfileInput {
-    @Field(() => UserUpdateWithoutProfileInput, { nullable: false })
+
+    @Field(() => UserUpdateWithoutProfileInput, {nullable:false})
     update!: UserUpdateWithoutProfileInput;
 
-    @Field(() => UserCreateWithoutProfileInput, { nullable: false })
+    @Field(() => UserCreateWithoutProfileInput, {nullable:false})
     create!: UserCreateWithoutProfileInput;
 }

@@ -5,9 +5,10 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 
 @InputType()
 export class ProfileUncheckedUpdateWithoutUserInput {
-    @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     dummy?: NullableStringFieldUpdateOperationsInput;
 }

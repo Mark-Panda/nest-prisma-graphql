@@ -1,24 +1,25 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+// import prisma from 'src/common/db/prisma';
+import { prisma } from '@app/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { User } from '@generated/user/user.model';
-import { AggregateUser } from '@generated/user/aggregate-user.output';
-import { UserAggregateArgs } from '@generated/user/user-aggregate.args';
-import { CreateOneUserArgs } from '@generated/user/create-one-user.args';
-import { CreateManyUserArgs } from '@generated/user/create-many-user.args';
-import { FindFirstUserArgs } from '@generated/user/find-first-user.args';
-import { FindUniqueUserArgs } from '@generated/user/find-unique-user.args';
-import { FindManyUserArgs } from '@generated/user/find-many-user.args';
-import { UpdateOneUserArgs } from '@generated/user/update-one-user.args';
-import { UpsertOneUserArgs } from '@generated/user/upsert-one-user.args';
-import { DeleteOneUserArgs } from '@generated/user/delete-one-user.args';
-// import { UserGroupByArgs } from '@generated/user/user-group-by.args';
-// import { UserGroupBy } from '@generated/user/user-group-by.output';
-import { UpdateManyUserArgs } from '@generated/user/update-many-user.args';
-import { DeleteManyUserArgs } from '@generated/user/delete-many-user.args';
-import { AffectedRows } from '@generated/prisma/affected-rows.output';
+import { User } from '../../@generated/user/user.model';
+import { AggregateUser } from '../../@generated/user/aggregate-user.output';
+import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
+import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args';
+import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args';
+import { FindFirstUserArgs } from '../../@generated/user/find-first-user.args';
+import { FindUniqueUserArgs } from '../../@generated/user/find-unique-user.args';
+import { FindManyUserArgs } from '../../@generated/user/find-many-user.args';
+import { UpdateOneUserArgs } from '../../@generated/user/update-one-user.args';
+import { UpsertOneUserArgs } from '../../@generated/user/upsert-one-user.args';
+import { DeleteOneUserArgs } from '../../@generated/user/delete-one-user.args';
+// import { UserGroupByArgs } from '../../@generated/user/user-group-by.args';
+// import { UserGroupBy } from '../../@generated/user/user-group-by.output';
+import { UpdateManyUserArgs } from '../../@generated/user/update-many-user.args';
+import { DeleteManyUserArgs } from '../../@generated/user/delete-many-user.args';
+import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 
 /**
  * Resolves User object type.
@@ -98,16 +99,16 @@ export class UserResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => User, { nullable: true })
-    async updateOneUser(
-        @Args() args: UpdateOneUserArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.user.update(args);
-    }
+    // @Mutation(() => User, { nullable: true })
+    // async updateOneUser(
+    //     @Args() args: UpdateOneUserArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.user.update(args);
+    // }
 
     /**
      * 修改或新增User信息
@@ -115,16 +116,16 @@ export class UserResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => User, { nullable: true })
-    async upsertOneUser(
-        @Args() args: UpsertOneUserArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.user.upsert(args);
-    }
+    // @Mutation(() => User, { nullable: true })
+    // async upsertOneUser(
+    //     @Args() args: UpsertOneUserArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.user.upsert(args);
+    // }
 
     /**
      * 删除User信息

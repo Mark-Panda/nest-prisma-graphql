@@ -7,16 +7,17 @@ import { TagCount } from './tag-count.output';
 
 @ObjectType()
 export class Tag {
-    @Field(() => ID, { nullable: false })
+
+    @Field(() => ID, {nullable:false})
     id!: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     @Directive('@lower')
     name!: string;
 
-    @Field(() => [Article], { nullable: true })
+    @Field(() => [Article], {nullable:true})
     articles?: Array<Article>;
 
-    @Field(() => TagCount, { nullable: false })
+    @Field(() => TagCount, {nullable:false})
     _count?: TagCount;
 }

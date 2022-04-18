@@ -1,24 +1,25 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+// import prisma from 'src/common/db/prisma';
+import { prisma } from '@app/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Article } from '@generated/article/article.model';
-import { AggregateArticle } from '@generated/article/aggregate-article.output';
-import { ArticleAggregateArgs } from '@generated/article/article-aggregate.args';
-import { CreateOneArticleArgs } from '@generated/article/create-one-article.args';
-import { CreateManyArticleArgs } from '@generated/article/create-many-article.args';
-import { FindFirstArticleArgs } from '@generated/article/find-first-article.args';
-import { FindUniqueArticleArgs } from '@generated/article/find-unique-article.args';
-import { FindManyArticleArgs } from '@generated/article/find-many-article.args';
-import { UpdateOneArticleArgs } from '@generated/article/update-one-article.args';
-import { UpsertOneArticleArgs } from '@generated/article/upsert-one-article.args';
-import { DeleteOneArticleArgs } from '@generated/article/delete-one-article.args';
-// import { ArticleGroupByArgs } from '@generated/article/article-group-by.args';
-// import { ArticleGroupBy } from '@generated/article/article-group-by.output';
-import { UpdateManyArticleArgs } from '@generated/article/update-many-article.args';
-import { DeleteManyArticleArgs } from '@generated/article/delete-many-article.args';
-import { AffectedRows } from '@generated/prisma/affected-rows.output';
+import { Article } from '../../@generated/article/article.model';
+import { AggregateArticle } from '../../@generated/article/aggregate-article.output';
+import { ArticleAggregateArgs } from '../../@generated/article/article-aggregate.args';
+import { CreateOneArticleArgs } from '../../@generated/article/create-one-article.args';
+import { CreateManyArticleArgs } from '../../@generated/article/create-many-article.args';
+import { FindFirstArticleArgs } from '../../@generated/article/find-first-article.args';
+import { FindUniqueArticleArgs } from '../../@generated/article/find-unique-article.args';
+import { FindManyArticleArgs } from '../../@generated/article/find-many-article.args';
+import { UpdateOneArticleArgs } from '../../@generated/article/update-one-article.args';
+import { UpsertOneArticleArgs } from '../../@generated/article/upsert-one-article.args';
+import { DeleteOneArticleArgs } from '../../@generated/article/delete-one-article.args';
+// import { ArticleGroupByArgs } from '../../@generated/article/article-group-by.args';
+// import { ArticleGroupBy } from '../../@generated/article/article-group-by.output';
+import { UpdateManyArticleArgs } from '../../@generated/article/update-many-article.args';
+import { DeleteManyArticleArgs } from '../../@generated/article/delete-many-article.args';
+import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 
 /**
  * Resolves Article object type.
@@ -98,16 +99,16 @@ export class ArticleResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Article, { nullable: true })
-    async updateOneArticle(
-        @Args() args: UpdateOneArticleArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.article.update(args);
-    }
+    // @Mutation(() => Article, { nullable: true })
+    // async updateOneArticle(
+    //     @Args() args: UpdateOneArticleArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.article.update(args);
+    // }
 
     /**
      * 修改或新增Article信息
@@ -115,16 +116,16 @@ export class ArticleResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Article, { nullable: true })
-    async upsertOneArticle(
-        @Args() args: UpsertOneArticleArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.article.upsert(args);
-    }
+    // @Mutation(() => Article, { nullable: true })
+    // async upsertOneArticle(
+    //     @Args() args: UpsertOneArticleArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.article.upsert(args);
+    // }
 
     /**
      * 删除Article信息

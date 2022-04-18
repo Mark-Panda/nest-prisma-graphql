@@ -4,6 +4,7 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @ArgsType()
 export class DeleteOneUserArgs {
-    @Field(() => UserWhereUniqueInput, { nullable: false })
+
+    @Field(() => UserWhereUniqueInput, {nullable:false})
     where!: UserWhereUniqueInput;
 }

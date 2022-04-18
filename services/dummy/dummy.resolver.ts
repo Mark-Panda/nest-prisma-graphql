@@ -1,24 +1,25 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+// import prisma from 'src/common/db/prisma';
+import { prisma } from '@app/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { Dummy } from '@generated/dummy/dummy.model';
-import { AggregateDummy } from '@generated/dummy/aggregate-dummy.output';
-import { DummyAggregateArgs } from '@generated/dummy/dummy-aggregate.args';
-import { CreateOneDummyArgs } from '@generated/dummy/create-one-dummy.args';
-import { CreateManyDummyArgs } from '@generated/dummy/create-many-dummy.args';
-import { FindFirstDummyArgs } from '@generated/dummy/find-first-dummy.args';
-import { FindUniqueDummyArgs } from '@generated/dummy/find-unique-dummy.args';
-import { FindManyDummyArgs } from '@generated/dummy/find-many-dummy.args';
-import { UpdateOneDummyArgs } from '@generated/dummy/update-one-dummy.args';
-import { UpsertOneDummyArgs } from '@generated/dummy/upsert-one-dummy.args';
-import { DeleteOneDummyArgs } from '@generated/dummy/delete-one-dummy.args';
-// import { DummyGroupByArgs } from '@generated/dummy/dummy-group-by.args';
-// import { DummyGroupBy } from '@generated/dummy/dummy-group-by.output';
-import { UpdateManyDummyArgs } from '@generated/dummy/update-many-dummy.args';
-import { DeleteManyDummyArgs } from '@generated/dummy/delete-many-dummy.args';
-import { AffectedRows } from '@generated/prisma/affected-rows.output';
+import { Dummy } from '../../@generated/dummy/dummy.model';
+import { AggregateDummy } from '../../@generated/dummy/aggregate-dummy.output';
+import { DummyAggregateArgs } from '../../@generated/dummy/dummy-aggregate.args';
+import { CreateOneDummyArgs } from '../../@generated/dummy/create-one-dummy.args';
+import { CreateManyDummyArgs } from '../../@generated/dummy/create-many-dummy.args';
+import { FindFirstDummyArgs } from '../../@generated/dummy/find-first-dummy.args';
+import { FindUniqueDummyArgs } from '../../@generated/dummy/find-unique-dummy.args';
+import { FindManyDummyArgs } from '../../@generated/dummy/find-many-dummy.args';
+import { UpdateOneDummyArgs } from '../../@generated/dummy/update-one-dummy.args';
+import { UpsertOneDummyArgs } from '../../@generated/dummy/upsert-one-dummy.args';
+import { DeleteOneDummyArgs } from '../../@generated/dummy/delete-one-dummy.args';
+// import { DummyGroupByArgs } from '../../@generated/dummy/dummy-group-by.args';
+// import { DummyGroupBy } from '../../@generated/dummy/dummy-group-by.output';
+import { UpdateManyDummyArgs } from '../../@generated/dummy/update-many-dummy.args';
+import { DeleteManyDummyArgs } from '../../@generated/dummy/delete-many-dummy.args';
+import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 
 /**
  * Resolves Dummy object type.
@@ -98,16 +99,16 @@ export class DummyResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Dummy, { nullable: true })
-    async updateOneDummy(
-        @Args() args: UpdateOneDummyArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.dummy.update(args);
-    }
+    // @Mutation(() => Dummy, { nullable: true })
+    // async updateOneDummy(
+    //     @Args() args: UpdateOneDummyArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.dummy.update(args);
+    // }
 
     /**
      * 修改或新增Dummy信息
@@ -115,16 +116,16 @@ export class DummyResolver {
      * @param info 返回字段
      * @returns 返回
      */
-    @Mutation(() => Dummy, { nullable: true })
-    async upsertOneDummy(
-        @Args() args: UpsertOneDummyArgs,
-        @Info() info: GraphQLResolveInfo,
-    ): Promise<any> {
-        const select = new PrismaSelect(info).value;
-        console.log('select', select);
-        args = Object.assign(args, select);
-        return await prisma.dummy.upsert(args);
-    }
+    // @Mutation(() => Dummy, { nullable: true })
+    // async upsertOneDummy(
+    //     @Args() args: UpsertOneDummyArgs,
+    //     @Info() info: GraphQLResolveInfo,
+    // ): Promise<any> {
+    //     const select = new PrismaSelect(info).value;
+    //     console.log('select', select);
+    //     args = Object.assign(args, select);
+    //     return await prisma.dummy.upsert(args);
+    // }
 
     /**
      * 删除Dummy信息

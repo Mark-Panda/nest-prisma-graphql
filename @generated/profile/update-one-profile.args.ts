@@ -5,9 +5,10 @@ import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 
 @ArgsType()
 export class UpdateOneProfileArgs {
-    @Field(() => ProfileUpdateInput, { nullable: false })
+
+    @Field(() => ProfileUpdateInput, {nullable:false})
     data!: ProfileUpdateInput;
 
-    @Field(() => ProfileWhereUniqueInput, { nullable: false })
+    @Field(() => ProfileWhereUniqueInput, {nullable:false})
     where!: ProfileWhereUniqueInput;
 }

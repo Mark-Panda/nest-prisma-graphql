@@ -5,9 +5,10 @@ import { DummyWhereInput } from './dummy-where.input';
 
 @ArgsType()
 export class UpdateManyDummyArgs {
-    @Field(() => DummyUpdateManyMutationInput, { nullable: false })
+
+    @Field(() => DummyUpdateManyMutationInput, {nullable:false})
     data!: DummyUpdateManyMutationInput;
 
-    @Field(() => DummyWhereInput, { nullable: true })
+    @Field(() => DummyWhereInput, {nullable:true})
     where?: DummyWhereInput;
 }
