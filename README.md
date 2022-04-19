@@ -10,7 +10,7 @@
 2. 通过 `prisma` 文件生成代码优先的TS文件命令 `npm run prisma:g`
 3. 代码格式化生成的TS文件命令 `npm run format:g`
 4. 根据 `schema.prisma` 文件自动生成增删改查业务文件的脚本命令 `npm run batch`
-5. 服务启动命令 `npm run start:dev`
+5. 服务启动命令 `npm run start:dev account`
 
 ## 待办事项
 
