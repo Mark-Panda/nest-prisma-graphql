@@ -1,8 +1,10 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
+import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
 // import prisma from 'src/common/db/prisma';
 import { prisma } from '@app/public-tool';
-import { GraphQLResolveInfo } from 'graphql';
+import { LoggerService } from '@app/public-module';
 
 import { User } from '../../@generated/user/user.model';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output';
@@ -24,8 +26,10 @@ import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 /**
  * Resolves User object type.
  */
+@Injectable()
 @Resolver(() => User)
 export class UserResolver {
+    private readonly logger = new LoggerService();
     /**
      * 查询User信息
      * @param args 请求参数
@@ -38,7 +42,7 @@ export class UserResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.findUnique(args);
     }
@@ -55,7 +59,7 @@ export class UserResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.findFirst(args);
     }
@@ -72,7 +76,7 @@ export class UserResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.findMany(args);
     }
@@ -89,6 +93,7 @@ export class UserResolver {
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.create(args);
     }
@@ -105,7 +110,7 @@ export class UserResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.user.update(args);
     // }
@@ -122,7 +127,7 @@ export class UserResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.user.upsert(args);
     // }
@@ -139,7 +144,7 @@ export class UserResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.delete(args);
     }
@@ -156,7 +161,7 @@ export class UserResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return prisma.user.aggregate(args);
     }
@@ -173,7 +178,7 @@ export class UserResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ) {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.user.groupBy(args);
     // }
@@ -185,8 +190,8 @@ export class UserResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async createManyUsers(@Args() args: CreateManyUserArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         const result = await prisma.user.createMany(args);
-        console.log('result', result);
         return result;
     }
 
@@ -197,6 +202,7 @@ export class UserResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async updateManyUsers(@Args() args: UpdateManyUserArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.user.updateMany(args);
     }
 
@@ -207,6 +213,7 @@ export class UserResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async deleteManyUsers(@Args() args: DeleteManyUserArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.user.deleteMany(args);
     }
 }

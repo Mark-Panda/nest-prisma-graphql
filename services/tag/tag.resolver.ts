@@ -1,8 +1,10 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
+import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
 // import prisma from 'src/common/db/prisma';
 import { prisma } from '@app/public-tool';
-import { GraphQLResolveInfo } from 'graphql';
+import { LoggerService } from '@app/public-module';
 
 import { Tag } from '../../@generated/tag/tag.model';
 import { AggregateTag } from '../../@generated/tag/aggregate-tag.output';
@@ -24,8 +26,10 @@ import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 /**
  * Resolves Tag object type.
  */
+@Injectable()
 @Resolver(() => Tag)
 export class TagResolver {
+    private readonly logger = new LoggerService();
     /**
      * 查询Tag信息
      * @param args 请求参数
@@ -38,7 +42,7 @@ export class TagResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.tag.findUnique(args);
     }
@@ -55,7 +59,7 @@ export class TagResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.tag.findFirst(args);
     }
@@ -72,7 +76,7 @@ export class TagResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.tag.findMany(args);
     }
@@ -89,6 +93,7 @@ export class TagResolver {
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.tag.create(args);
     }
@@ -105,7 +110,7 @@ export class TagResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.tag.update(args);
     // }
@@ -122,7 +127,7 @@ export class TagResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.tag.upsert(args);
     // }
@@ -139,7 +144,7 @@ export class TagResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.tag.delete(args);
     }
@@ -156,7 +161,7 @@ export class TagResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return prisma.tag.aggregate(args);
     }
@@ -173,7 +178,7 @@ export class TagResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ) {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.tag.groupBy(args);
     // }
@@ -185,8 +190,8 @@ export class TagResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async createManyTags(@Args() args: CreateManyTagArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         const result = await prisma.tag.createMany(args);
-        console.log('result', result);
         return result;
     }
 
@@ -197,6 +202,7 @@ export class TagResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async updateManyTags(@Args() args: UpdateManyTagArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.tag.updateMany(args);
     }
 
@@ -207,6 +213,7 @@ export class TagResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async deleteManyTags(@Args() args: DeleteManyTagArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.tag.deleteMany(args);
     }
 }

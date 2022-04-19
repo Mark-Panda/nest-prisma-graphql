@@ -1,8 +1,10 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
+import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
 // import prisma from 'src/common/db/prisma';
 import { prisma } from '@app/public-tool';
-import { GraphQLResolveInfo } from 'graphql';
+import { LoggerService } from '@app/public-module';
 
 import { Dummy } from '../../@generated/dummy/dummy.model';
 import { AggregateDummy } from '../../@generated/dummy/aggregate-dummy.output';
@@ -24,8 +26,10 @@ import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 /**
  * Resolves Dummy object type.
  */
+@Injectable()
 @Resolver(() => Dummy)
 export class DummyResolver {
+    private readonly logger = new LoggerService();
     /**
      * 查询Dummy信息
      * @param args 请求参数
@@ -38,7 +42,7 @@ export class DummyResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.dummy.findUnique(args);
     }
@@ -55,7 +59,7 @@ export class DummyResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.dummy.findFirst(args);
     }
@@ -72,7 +76,7 @@ export class DummyResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.dummy.findMany(args);
     }
@@ -89,6 +93,7 @@ export class DummyResolver {
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.dummy.create(args);
     }
@@ -105,7 +110,7 @@ export class DummyResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.dummy.update(args);
     // }
@@ -122,7 +127,7 @@ export class DummyResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.dummy.upsert(args);
     // }
@@ -139,7 +144,7 @@ export class DummyResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.dummy.delete(args);
     }
@@ -156,7 +161,7 @@ export class DummyResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return prisma.dummy.aggregate(args);
     }
@@ -173,7 +178,7 @@ export class DummyResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ) {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.dummy.groupBy(args);
     // }
@@ -185,8 +190,8 @@ export class DummyResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async createManyDummys(@Args() args: CreateManyDummyArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         const result = await prisma.dummy.createMany(args);
-        console.log('result', result);
         return result;
     }
 
@@ -197,6 +202,7 @@ export class DummyResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async updateManyDummys(@Args() args: UpdateManyDummyArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.dummy.updateMany(args);
     }
 
@@ -207,6 +213,7 @@ export class DummyResolver {
      */
     @Mutation(() => AffectedRows, { nullable: true })
     async deleteManyDummys(@Args() args: DeleteManyDummyArgs): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.dummy.deleteMany(args);
     }
 }

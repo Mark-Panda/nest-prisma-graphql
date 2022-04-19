@@ -1,8 +1,10 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
+import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
 // import prisma from 'src/common/db/prisma';
 import { prisma } from '@app/public-tool';
-import { GraphQLResolveInfo } from 'graphql';
+import { LoggerService } from '@app/public-module';
 
 import { Profile } from '../../@generated/profile/profile.model';
 import { AggregateProfile } from '../../@generated/profile/aggregate-profile.output';
@@ -24,8 +26,10 @@ import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 /**
  * Resolves Profile object type.
  */
+@Injectable()
 @Resolver(() => Profile)
 export class ProfileResolver {
+    private readonly logger = new LoggerService();
     /**
      * 查询Profile信息
      * @param args 请求参数
@@ -38,7 +42,7 @@ export class ProfileResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.profile.findUnique(args);
     }
@@ -55,7 +59,7 @@ export class ProfileResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.profile.findFirst(args);
     }
@@ -72,7 +76,7 @@ export class ProfileResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.profile.findMany(args);
     }
@@ -89,6 +93,7 @@ export class ProfileResolver {
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.profile.create(args);
     }
@@ -105,7 +110,7 @@ export class ProfileResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.profile.update(args);
     // }
@@ -122,7 +127,7 @@ export class ProfileResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.profile.upsert(args);
     // }
@@ -139,7 +144,7 @@ export class ProfileResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.profile.delete(args);
     }
@@ -156,7 +161,7 @@ export class ProfileResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return prisma.profile.aggregate(args);
     }
@@ -173,7 +178,7 @@ export class ProfileResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ) {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.profile.groupBy(args);
     // }
@@ -187,8 +192,8 @@ export class ProfileResolver {
     async createManyProfiles(
         @Args() args: CreateManyProfileArgs,
     ): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         const result = await prisma.profile.createMany(args);
-        console.log('result', result);
         return result;
     }
 
@@ -201,6 +206,7 @@ export class ProfileResolver {
     async updateManyProfiles(
         @Args() args: UpdateManyProfileArgs,
     ): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.profile.updateMany(args);
     }
 
@@ -213,6 +219,7 @@ export class ProfileResolver {
     async deleteManyProfiles(
         @Args() args: DeleteManyProfileArgs,
     ): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.profile.deleteMany(args);
     }
 }

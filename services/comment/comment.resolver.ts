@@ -1,8 +1,10 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Injectable } from '@nestjs/common';
+import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
 // import prisma from 'src/common/db/prisma';
 import { prisma } from '@app/public-tool';
-import { GraphQLResolveInfo } from 'graphql';
+import { LoggerService } from '@app/public-module';
 
 import { Comment } from '../../@generated/comment/comment.model';
 import { AggregateComment } from '../../@generated/comment/aggregate-comment.output';
@@ -24,8 +26,10 @@ import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 /**
  * Resolves Comment object type.
  */
+@Injectable()
 @Resolver(() => Comment)
 export class CommentResolver {
+    private readonly logger = new LoggerService();
     /**
      * 查询Comment信息
      * @param args 请求参数
@@ -38,7 +42,7 @@ export class CommentResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.comment.findUnique(args);
     }
@@ -55,7 +59,7 @@ export class CommentResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.comment.findFirst(args);
     }
@@ -72,7 +76,7 @@ export class CommentResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.comment.findMany(args);
     }
@@ -89,6 +93,7 @@ export class CommentResolver {
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.comment.create(args);
     }
@@ -105,7 +110,7 @@ export class CommentResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.comment.update(args);
     // }
@@ -122,7 +127,7 @@ export class CommentResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ): Promise<any> {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.comment.upsert(args);
     // }
@@ -139,7 +144,7 @@ export class CommentResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.comment.delete(args);
     }
@@ -156,7 +161,7 @@ export class CommentResolver {
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'GraphQL请求参数');
         args = Object.assign(args, select);
         return prisma.comment.aggregate(args);
     }
@@ -173,7 +178,7 @@ export class CommentResolver {
     //     @Info() info: GraphQLResolveInfo,
     // ) {
     //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
+    //     this.logger.log(select, 'GraphQL请求参数');
     //     args = Object.assign(args, select);
     //     return await prisma.comment.groupBy(args);
     // }
@@ -187,8 +192,8 @@ export class CommentResolver {
     async createManyComments(
         @Args() args: CreateManyCommentArgs,
     ): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         const result = await prisma.comment.createMany(args);
-        console.log('result', result);
         return result;
     }
 
@@ -201,6 +206,7 @@ export class CommentResolver {
     async updateManyComments(
         @Args() args: UpdateManyCommentArgs,
     ): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.comment.updateMany(args);
     }
 
@@ -213,6 +219,7 @@ export class CommentResolver {
     async deleteManyComments(
         @Args() args: DeleteManyCommentArgs,
     ): Promise<any> {
+        this.logger.log(args, 'GraphQL请求参数');
         return await prisma.comment.deleteMany(args);
     }
 }
