@@ -29,7 +29,7 @@ import { AffectedRows } from '../../@generated/prisma/affected-rows.output';
 @Injectable()
 @Resolver(() => Article)
 export class ArticleResolver {
-    private readonly logger = new LoggerService();
+    constructor(private readonly logger: LoggerService) {}
     /**
      * 查询Article信息
      * @param args 请求参数

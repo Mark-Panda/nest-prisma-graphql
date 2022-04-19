@@ -6,13 +6,16 @@ import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { mergeDirectiveTransformer } from './graphqlDirective/index.directive';
 import { AllResolverModules } from './resolver/index';
+import { CustomGraphqlModules } from './graphqlResolver/index';
 @Module({
     imports: [
         GlobalModule.forRoot({
             yamlFilePath: ['apps/account.yaml'],
+            cache: true,
         }),
         AllModules,
         AllResolverModules,
+        CustomGraphqlModules,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             // 多个指令如何实现

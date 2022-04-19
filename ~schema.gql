@@ -381,6 +381,15 @@ type AggregateDummy {
   _max: DummyMaxAggregate
 }
 
+"""Simple 描述"""
+type Simple {
+  """Simple的邮件地址"""
+  email: String!
+
+  """simple 的名字"""
+  name: String!
+}
+
 type Query {
   user(where: UserWhereUniqueInput!): User!
   userFirst(where: UserWhereInput, orderBy: [UserOrderByWithRelationAndSearchRelevanceInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User!
@@ -406,6 +415,7 @@ type Query {
   dummyFirst(where: DummyWhereInput, orderBy: [DummyOrderByWithRelationAndSearchRelevanceInput!], cursor: DummyWhereUniqueInput, take: Int, skip: Int, distinct: [DummyScalarFieldEnum!]): Dummy!
   dummys(where: DummyWhereInput, orderBy: [DummyOrderByWithRelationAndSearchRelevanceInput!], cursor: DummyWhereUniqueInput, take: Int, skip: Int, distinct: [DummyScalarFieldEnum!]): [Dummy!]!
   dummyAggregate(where: DummyWhereInput, orderBy: [DummyOrderByWithRelationAndSearchRelevanceInput!], cursor: DummyWhereUniqueInput, take: Int, skip: Int, _count: DummyCountAggregateInput, _avg: DummyAvgAggregateInput, _sum: DummySumAggregateInput, _min: DummyMinAggregateInput, _max: DummyMaxAggregateInput): AggregateDummy!
+  simple(data: String!): Simple!
 }
 
 input UserWhereUniqueInput {

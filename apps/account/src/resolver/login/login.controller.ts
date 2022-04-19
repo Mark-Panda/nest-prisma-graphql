@@ -6,7 +6,7 @@ export class LoginController {
     constructor(private readonly loginService: LoginService) {}
 
     @Get()
-    getHello(): string {
+    async getHello(): Promise<string> {
         return this.loginService.getHello();
     }
 }
