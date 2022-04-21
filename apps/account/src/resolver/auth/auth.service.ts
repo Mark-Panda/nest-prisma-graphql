@@ -34,6 +34,7 @@ export class AuthService {
         const { user } = req;
         // 获取鉴权 token
         const access_token = this.getToken(user);
+        // 写入Redis中
         // 保存登录信息
         await prisma.user.update({ where: { id: user.id }, data: user });
         return { ...user, access_token };
@@ -81,5 +82,41 @@ export class AuthService {
             return result;
         }
         return null;
+    }
+
+    /**
+     * 注册用户
+     * @param req 请求信息
+     * @returns 返回
+     */
+    async register(req: any): Promise<object> {
+        try {
+            const { username, password, email, phone } = req.body;
+            const salt = await bcrypt.genSalt(
+                this.configService.get<number>('encryption.saltOrRounds'),
+            );
+            this.logger.log(salt, 'bcrypt盐');
+            this.logger.log(password, '密码');
+            const bcryptPwd = await bcrypt.hash(password, salt);
+            this.logger.log(bcryptPwd, 'bcrypt加密密码');
+            await prisma.user.create({
+                data: {
+                    username,
+                    password: bcryptPwd,
+                    email,
+                    phone,
+                    role: 'USER',
+                },
+            });
+            const user = await prisma.user.findUnique({
+                where: { email_username: { email, username } },
+            });
+            // 获取鉴权 token
+            const access_token = this.getToken(user);
+            return { ...user, access_token };
+        } catch (error) {
+            this.logger.log(error, 'error');
+            return { error: error };
+        }
     }
 }

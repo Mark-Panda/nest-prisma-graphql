@@ -29,4 +29,12 @@ export class AuthController {
     getInfo(@Req() req) {
         return this.authService.getInfo(req.user.id);
     }
+
+    @Post('register')
+    // @ApiResponse({ status: 200, type: AdminLoginInfoDto })
+    // @ApiBody({ type: AccountLoginDto })
+    @ApiOperation('注册')
+    async register(@Req() req): Promise<object> {
+        return this.authService.register(req);
+    }
 }
