@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 
 // ---------------------- URL 相关数据转化 ---------------------- //
 

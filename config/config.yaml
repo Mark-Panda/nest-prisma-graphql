@@ -21,6 +21,9 @@ cache:
     host: 'localhost'
     port:
 
+# 加密
+encryption:
+  saltOrRounds: 10
 
 # Swagger 配置
 

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Req } from '@nestjs/common';
 // import { ApiTags, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiOperation } from '@app/public-decorator';
 import { LoginService } from './login.service';
@@ -7,11 +7,11 @@ import { LoginService } from './login.service';
 export class LoginController {
     constructor(private readonly loginService: LoginService) {}
 
-    @Get()
+    @Post('register')
     // @ApiResponse({ status: 200, type: AdminLoginInfoDto })
     // @ApiBody({ type: AccountLoginDto })
-    @ApiOperation('Hello')
-    async getHello(): Promise<string> {
-        return this.loginService.getHello();
+    @ApiOperation('注册')
+    async register(@Req() req): Promise<string> {
+        return this.loginService.register(req.body);
     }
 }

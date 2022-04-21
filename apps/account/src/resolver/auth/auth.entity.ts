@@ -27,12 +27,18 @@ export class AdminLoginInfoDto {
     access_token: string;
 }
 
-export class AdminInfoDto {
+export class RegisternInfoDto {
     @ApiProperty('用户名')
     username!: string;
 
     @ApiProperty('用户名')
     password!: string;
+
+    @ApiProperty('邮箱')
+    email!: string;
+
+    @ApiProperty('手机号')
+    phone: string;
 }
 
 export class AccountAdmin {

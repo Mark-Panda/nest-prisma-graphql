@@ -1,9 +1,10 @@
 import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { format } from '@app/public-tool';
+import { LoggerService } from '@app/public-module';
 import { AccountAdmin } from './auth.entity';
 import { prisma } from '@app/public-tool';
+import * as bcrypt from 'bcrypt';
 import { User } from '@generated/user/user.model';
 
 @Injectable()
@@ -11,6 +12,7 @@ export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
+        private readonly logger: LoggerService,
         @Inject(CACHE_MANAGER) private readonly cacheManager,
     ) {}
 
@@ -29,44 +31,26 @@ export class AuthService {
      * 登录
      */
     async login(req: any) {
-        console.log('req', req);
         const { user } = req;
         // 获取鉴权 token
         const access_token = this.getToken(user);
-        console.log('access_token', access_token);
-
         // 保存登录信息
         await prisma.user.update({ where: { id: user.id }, data: user });
-
-        // 查询角色信息
-        // const role = await this.getRole(user);
-
         return { ...user, access_token };
-        // return { ...user, role, access_token };
     }
 
     /**
      * 获取账号信息
      */
     async getInfo(id: string) {
-        console.log('getInfo', id);
-        // 查询角色信息
         const user = await prisma.user.findUnique({ where: { id: id } });
         return user;
-
-        // // 查询角色信息
-        // const role = await this.getRole(user);
-
-        // return { ...user, role };
     }
 
     /**
      * 写入缓存
      */
     async getRole(user: User) {
-        // const role = await lastValueFrom(
-        //     this.client.send('AdminRole.get.one', user.roleId),
-        // );
         const userInfo = await prisma.user.findUnique({
             where: { id: user.id },
         });
@@ -89,7 +73,9 @@ export class AuthService {
         const user = await prisma.user.findUnique({
             where: { username: username },
         });
-        if (user && user.password === pass) {
+        this.logger.log(user, '用户信息');
+        const isMatch = await bcrypt.compare(pass, user.password);
+        if (user && isMatch) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { password, ...result } = user;
             return result;

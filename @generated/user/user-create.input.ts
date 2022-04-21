@@ -10,11 +10,11 @@ export class UserCreateInput {
     @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => Date, {nullable:false})
-    create_date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    create_date?: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    update_date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    update_date?: Date | string;
 
     @Field(() => Scalars.GraphQLEmailAddress, {nullable:false})
     email!: string;

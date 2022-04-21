@@ -18,7 +18,6 @@ export class AuthController {
     @ApiResponse({ status: 201, type: AdminLoginInfoDto })
     @ApiOperation('登录')
     async login(@Req() req) {
-        console.log('11111');
         return this.authService.login(req);
     }
 
