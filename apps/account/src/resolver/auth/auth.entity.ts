@@ -1,43 +1,47 @@
-import { Field } from '@nestjs/graphql';
-import { ID } from '@nestjs/graphql';
-import { ObjectType } from '@nestjs/graphql';
-import { HideField } from '@nestjs/graphql';
+import { ApiProperty, ApiPropertyEnum } from '@app/public-decorator';
 
-@ObjectType({ description: '登录信息' })
+/**
+ * 状态
+ */
+export const ACCOUNT_ROLE = ['USER', 'ADMIN', 'SYSTEM'];
+
 export class AccountLoginDto {
-    @Field(() => String, { nullable: false, description: "User's name" })
+    @ApiProperty('用户名')
     username!: string;
 
-    @HideField()
+    @ApiProperty('密码')
     password!: string;
 }
 
-@ObjectType({ description: '管理员登录信息' })
 export class AdminLoginInfoDto {
-    @Field(() => String, { nullable: false, description: "User's name" })
+    @ApiProperty('用户名')
     username!: string;
 
-    @HideField()
-    password!: string;
+    @ApiProperty('邮箱')
+    email!: string;
+
+    @ApiPropertyEnum('角色', ACCOUNT_ROLE)
+    role: string;
+
+    @ApiProperty('token')
+    access_token: string;
 }
 
-@ObjectType({ description: '管理员登录信息' })
 export class AdminInfoDto {
-    @Field(() => String, { nullable: false, description: "User's name" })
+    @ApiProperty('用户名')
     username!: string;
 
-    @HideField()
+    @ApiProperty('用户名')
     password!: string;
 }
 
-@ObjectType({ description: '管理员登录信息' })
 export class AccountAdmin {
-    @Field(() => ID, { nullable: false })
+    @ApiProperty('用户名')
     id!: string;
 
-    @Field(() => String, { nullable: false, description: "User's name" })
+    @ApiProperty('用户名')
     username!: string;
 
-    @HideField()
+    @ApiProperty('用户名')
     password!: string;
 }

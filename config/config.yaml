@@ -25,9 +25,9 @@ cache:
 # Swagger 配置
 
 swagger:
-  title: 接口文档
-  description: code:状态码，message:提示信息，data:返回值
-  path: swagger
+  title: 项目接口文档
+  description: '[Base URL: localhost:3001]'
+  path: v1/swagger
 
 # 日志存放目录
 
