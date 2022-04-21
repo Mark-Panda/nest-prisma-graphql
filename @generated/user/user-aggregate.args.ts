@@ -5,8 +5,6 @@ import { UserOrderByWithRelationAndSearchRelevanceInput } from './user-order-by-
 import { UserWhereUniqueInput } from './user-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { UserCountAggregateInput } from './user-count-aggregate.input';
-import { UserAvgAggregateInput } from './user-avg-aggregate.input';
-import { UserSumAggregateInput } from './user-sum-aggregate.input';
 import { UserMinAggregateInput } from './user-min-aggregate.input';
 import { UserMaxAggregateInput } from './user-max-aggregate.input';
 
@@ -30,12 +28,6 @@ export class UserAggregateArgs {
 
     @Field(() => UserCountAggregateInput, {nullable:true})
     _count?: UserCountAggregateInput;
-
-    @Field(() => UserAvgAggregateInput, {nullable:true})
-    _avg?: UserAvgAggregateInput;
-
-    @Field(() => UserSumAggregateInput, {nullable:true})
-    _sum?: UserSumAggregateInput;
 
     @Field(() => UserMinAggregateInput, {nullable:true})
     _min?: UserMinAggregateInput;

@@ -10,25 +10,37 @@ export class UserCountAggregate {
     id!: number;
 
     @Field(() => Int, {nullable:false})
+    create_date!: number;
+
+    @Field(() => Int, {nullable:false})
+    update_date!: number;
+
+    @Field(() => Int, {nullable:false})
     email!: number;
 
     @Field(() => Int, {nullable:false})
-    name!: number;
+    username!: number;
 
     @HideField()
     password!: number;
 
     @Field(() => Int, {nullable:false})
-    bio!: number;
+    reg_ip!: number;
 
     @Field(() => Int, {nullable:false})
-    image!: number;
+    login_ip!: number;
 
     @Field(() => Int, {nullable:false})
-    countComments!: number;
+    login_date!: number;
 
     @Field(() => Int, {nullable:false})
-    rating!: number;
+    phone!: number;
+
+    @Field(() => Int, {nullable:false})
+    nickname!: number;
+
+    @Field(() => Int, {nullable:false})
+    avatar!: number;
 
     @Field(() => Int, {nullable:false})
     role!: number;
