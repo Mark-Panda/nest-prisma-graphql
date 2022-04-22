@@ -6,17 +6,18 @@ import { UserEmailUsernameCompoundUniqueInput } from './user-email-username-comp
 
 @InputType()
 export class UserWhereUniqueInput {
-    @Field(() => String, { nullable: true })
+
+    @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => Scalars.GraphQLEmailAddress, { nullable: true })
+    @Field(() => Scalars.GraphQLEmailAddress, {nullable:true})
     email?: string;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     @Validator.MinLength(3)
     @Validator.MaxLength(50)
     username?: string;
 
-    @Field(() => UserEmailUsernameCompoundUniqueInput, { nullable: true })
+    @Field(() => UserEmailUsernameCompoundUniqueInput, {nullable:true})
     email_username?: UserEmailUsernameCompoundUniqueInput;
 }

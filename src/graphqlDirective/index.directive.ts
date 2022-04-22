@@ -17,11 +17,9 @@ export function mergeDirectiveTransformer(schema: GraphQLSchema) {
                 'lower',
             )?.[0];
             if (lowerDirective) {
-                console.log('lowerDirective');
                 return lowerDirectiveTransformer(fieldConfig);
             }
             if (upperDirective) {
-                console.log('upperDirective');
                 return upperDirectiveTransformer(fieldConfig);
             }
         },

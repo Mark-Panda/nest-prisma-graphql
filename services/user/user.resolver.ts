@@ -1,6 +1,6 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import prisma from 'src/common/db/prisma';
+import { prisma } from 'commons/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { User } from '@generated/user/user.model';

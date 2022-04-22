@@ -6,44 +6,45 @@ import { Role } from '../prisma/role.enum';
 
 @InputType()
 export class UserCreateInput {
-    @Field(() => String, { nullable: true })
+
+    @Field(() => String, {nullable:true})
     id?: string;
 
-    @Field(() => Date, { nullable: true })
+    @Field(() => Date, {nullable:true})
     create_date?: Date | string;
 
-    @Field(() => Date, { nullable: true })
+    @Field(() => Date, {nullable:true})
     update_date?: Date | string;
 
-    @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
+    @Field(() => Scalars.GraphQLEmailAddress, {nullable:false})
     email!: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     @Validator.MinLength(3)
     @Validator.MaxLength(50)
     username!: string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     password!: string;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     reg_ip?: string;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     login_ip?: string;
 
-    @Field(() => Date, { nullable: true })
+    @Field(() => Date, {nullable:true})
     login_date?: Date | string;
 
-    @Field(() => String, { nullable: false })
+    @Field(() => String, {nullable:false})
     phone!: string;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     nickname?: string;
 
-    @Field(() => String, { nullable: true })
+    @Field(() => String, {nullable:true})
     avatar?: string;
 
-    @Field(() => Role, { nullable: true })
+    @Field(() => Role, {nullable:true})
     role?: keyof typeof Role;
 }
