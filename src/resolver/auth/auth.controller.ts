@@ -4,8 +4,7 @@ import { AccountLoginDto } from './auth.entity';
 import { ApiOperation } from 'commons/public-decorator';
 import { AuthService } from './auth.service';
 import { AdminLoginInfoDto } from './auth.entity';
-import { JwtAuthGuard } from '../../jwtAuth/jwt-auth.guard';
-import { LocalAuthGuard } from '../../jwtAuth/local-auth.guard';
+import { JwtAuthGuard, LocalAuthGuard } from 'commons/public-module';
 
 @ApiTags('鉴权')
 @Controller('auth')

@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { LoggerService } from 'commons/public-module';
+import {
+    LoggerService,
+    LocalStrategy,
+    JwtStrategy,
+} from 'commons/public-module';
 import { ConfigService } from '@nestjs/config';
-import { LocalStrategy } from '../../jwtAuth/local.strategy';
-import { JwtStrategy } from '../../jwtAuth/jwt.strategy';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 

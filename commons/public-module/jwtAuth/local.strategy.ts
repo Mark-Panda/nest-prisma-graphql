@@ -1,29 +1,19 @@
-import { Inject } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { lastValueFrom } from 'rxjs';
+import { PassportStrategy } from '@nestjs/passport';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { AuthService } from 'src/resolver/auth/auth.service';
 
-export interface LocalStrategyOptions {
-    token: string; // 鉴权的服务 key
-    pattern: string; // 鉴权的微服务接口
-}
-
-/**
- * 登录校验
- */
-export function LocalStrategy({ token, pattern }: LocalStrategyOptions) {
-    class LocalStrategy extends PassportStrategy(Strategy) {
-        constructor(@Inject(token) readonly client: ClientProxy) {
-            super();
-        }
-
-        validate(username: string, password: string) {
-            return lastValueFrom(
-                this.client.send(pattern, { username, password }),
-            );
-        }
+@Injectable()
+export class LocalStrategy extends PassportStrategy(Strategy) {
+    constructor(private authService: AuthService) {
+        super();
     }
 
-    return class extends LocalStrategy {};
+    async validate(username: string, password: string): Promise<any> {
+        const user = await this.authService.validateUser(username, password);
+        if (!user) {
+            throw new UnauthorizedException();
+        }
+        return user;
+    }
 }
