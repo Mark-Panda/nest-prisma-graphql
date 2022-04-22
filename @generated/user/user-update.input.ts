@@ -1,61 +1,49 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { UserUpdateManyWithoutFollowersInput } from './user-update-many-without-followers.input';
-import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-following.input';
-import { ArticleUpdateManyWithoutFavoritedByInput } from '../article/article-update-many-without-favorited-by.input';
-import { ArticleUpdateManyWithoutAuthorInput } from '../article/article-update-many-without-author.input';
-import { CommentUpdateManyWithoutAuthorInput } from '../comment/comment-update-many-without-author.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
+import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
-import { ProfileUpdateOneWithoutUserInput } from '../profile/profile-update-one-without-user.input';
 
 @InputType()
 export class UserUpdateInput {
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+    create_date?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+    update_date?: DateTimeFieldUpdateOperationsInput;
+
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     email?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    name?: StringFieldUpdateOperationsInput;
+    username?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     password?: StringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    bio?: NullableStringFieldUpdateOperationsInput;
+    reg_ip?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    image?: NullableStringFieldUpdateOperationsInput;
+    login_ip?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateManyWithoutFollowersInput, { nullable: true })
-    following?: UserUpdateManyWithoutFollowersInput;
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+    login_date?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateManyWithoutFollowingInput, { nullable: true })
-    followers?: UserUpdateManyWithoutFollowingInput;
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+    phone?: StringFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUpdateManyWithoutFavoritedByInput, { nullable: true })
-    favoriteArticles?: ArticleUpdateManyWithoutFavoritedByInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+    nickname?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUpdateManyWithoutAuthorInput, { nullable: true })
-    articles?: ArticleUpdateManyWithoutAuthorInput;
-
-    @Field(() => CommentUpdateManyWithoutAuthorInput, { nullable: true })
-    comments?: CommentUpdateManyWithoutAuthorInput;
-
-    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-    countComments?: NullableIntFieldUpdateOperationsInput;
-
-    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-    rating?: NullableFloatFieldUpdateOperationsInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+    avatar?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
     role?: NullableEnumRoleFieldUpdateOperationsInput;
-
-    @Field(() => ProfileUpdateOneWithoutUserInput, { nullable: true })
-    profile?: ProfileUpdateOneWithoutUserInput;
 }

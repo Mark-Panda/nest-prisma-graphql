@@ -1,14 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
+import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { UserListRelationFilter } from './user-list-relation-filter.input';
-import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
-import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
+import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input';
-import { ProfileWhereInput } from '../profile/profile-where.input';
 
 @InputType()
 export class UserWhereInput {
@@ -24,45 +20,39 @@ export class UserWhereInput {
     @Field(() => StringFilter, { nullable: true })
     id?: StringFilter;
 
+    @Field(() => DateTimeFilter, { nullable: true })
+    create_date?: DateTimeFilter;
+
+    @Field(() => DateTimeFilter, { nullable: true })
+    update_date?: DateTimeFilter;
+
     @Field(() => StringFilter, { nullable: true })
     email?: StringFilter;
 
     @Field(() => StringFilter, { nullable: true })
-    name?: StringFilter;
+    username?: StringFilter;
 
     @Field(() => StringFilter, { nullable: true })
     password?: StringFilter;
 
     @Field(() => StringNullableFilter, { nullable: true })
-    bio?: StringNullableFilter;
+    reg_ip?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, { nullable: true })
-    image?: StringNullableFilter;
+    login_ip?: StringNullableFilter;
 
-    @Field(() => UserListRelationFilter, { nullable: true })
-    following?: UserListRelationFilter;
+    @Field(() => DateTimeNullableFilter, { nullable: true })
+    login_date?: DateTimeNullableFilter;
 
-    @Field(() => UserListRelationFilter, { nullable: true })
-    followers?: UserListRelationFilter;
+    @Field(() => StringFilter, { nullable: true })
+    phone?: StringFilter;
 
-    @Field(() => ArticleListRelationFilter, { nullable: true })
-    favoriteArticles?: ArticleListRelationFilter;
+    @Field(() => StringNullableFilter, { nullable: true })
+    nickname?: StringNullableFilter;
 
-    @Field(() => ArticleListRelationFilter, { nullable: true })
-    articles?: ArticleListRelationFilter;
-
-    @Field(() => CommentListRelationFilter, { nullable: true })
-    comments?: CommentListRelationFilter;
-
-    @Field(() => IntNullableFilter, { nullable: true })
-    countComments?: IntNullableFilter;
-
-    @Field(() => FloatNullableFilter, { nullable: true })
-    rating?: FloatNullableFilter;
+    @Field(() => StringNullableFilter, { nullable: true })
+    avatar?: StringNullableFilter;
 
     @Field(() => EnumRoleNullableFilter, { nullable: true })
     role?: EnumRoleNullableFilter;
-
-    @Field(() => ProfileWhereInput, { nullable: true })
-    profile?: ProfileWhereInput;
 }

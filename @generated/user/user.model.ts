@@ -3,19 +3,19 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Directive } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
-import { Article } from '../article/article.model';
-import { Comment } from '../comment/comment.model';
-import { Int } from '@nestjs/graphql';
-import { Float } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
-import { Profile } from '../profile/profile.model';
-import { UserCount } from './user-count.output';
 
-/** User really */
-@ObjectType({ description: 'User really' })
+/** 用户信息 */
+@ObjectType({ description: '用户信息' })
 export class User {
     @Field(() => ID, { nullable: false })
     id!: string;
+
+    @Field(() => Date, { nullable: false })
+    create_date!: Date;
+
+    @Field(() => Date, { nullable: false })
+    update_date!: Date;
 
     @Field(() => String, { nullable: false })
     email!: string;
@@ -23,44 +23,29 @@ export class User {
     /** User's name */
     @Field(() => String, { nullable: false, description: "User's name" })
     @Directive('@upper')
-    name!: string;
+    username!: string;
 
     @HideField()
     password!: string;
 
     @Field(() => String, { nullable: true })
-    bio!: string | null;
+    reg_ip!: string | null;
 
     @Field(() => String, { nullable: true })
-    image!: string | null;
+    login_ip!: string | null;
 
-    @Field(() => [User], { nullable: true })
-    following?: Array<User>;
+    @Field(() => Date, { nullable: true })
+    login_date!: Date | null;
 
-    @Field(() => [User], { nullable: true })
-    followers?: Array<User>;
+    @Field(() => String, { nullable: false })
+    phone!: string;
 
-    @Field(() => [Article], { nullable: true })
-    favoriteArticles?: Array<Article>;
+    @Field(() => String, { nullable: true })
+    nickname!: string | null;
 
-    @Field(() => [Article], { nullable: true })
-    articles?: Array<Article>;
-
-    @Field(() => [Comment], { nullable: true })
-    comments?: Array<Comment>;
-
-    @Field(() => Int, { nullable: true })
-    countComments!: number | null;
-
-    @Field(() => Float, { nullable: true })
-    rating!: number | null;
+    @Field(() => String, { nullable: true })
+    avatar!: string | null;
 
     @Field(() => Role, { nullable: true })
     role!: keyof typeof Role | null;
-
-    @Field(() => Profile, { nullable: true })
-    profile?: Profile | null;
-
-    @Field(() => UserCount, { nullable: false })
-    _count?: UserCount;
 }

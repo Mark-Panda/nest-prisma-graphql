@@ -7,25 +7,37 @@ export class UserMaxAggregateInput {
     id?: true;
 
     @Field(() => Boolean, { nullable: true })
+    create_date?: true;
+
+    @Field(() => Boolean, { nullable: true })
+    update_date?: true;
+
+    @Field(() => Boolean, { nullable: true })
     email?: true;
 
     @Field(() => Boolean, { nullable: true })
-    name?: true;
+    username?: true;
 
     @Field(() => Boolean, { nullable: true })
     password?: true;
 
     @Field(() => Boolean, { nullable: true })
-    bio?: true;
+    reg_ip?: true;
 
     @Field(() => Boolean, { nullable: true })
-    image?: true;
+    login_ip?: true;
 
     @Field(() => Boolean, { nullable: true })
-    countComments?: true;
+    login_date?: true;
 
     @Field(() => Boolean, { nullable: true })
-    rating?: true;
+    phone?: true;
+
+    @Field(() => Boolean, { nullable: true })
+    nickname?: true;
+
+    @Field(() => Boolean, { nullable: true })
+    avatar?: true;
 
     @Field(() => Boolean, { nullable: true })
     role?: true;

@@ -6,8 +6,6 @@ import { UserScalarFieldEnum } from './user-scalar-field.enum';
 import { UserScalarWhereWithAggregatesInput } from './user-scalar-where-with-aggregates.input';
 import { Int } from '@nestjs/graphql';
 import { UserCountAggregateInput } from './user-count-aggregate.input';
-import { UserAvgAggregateInput } from './user-avg-aggregate.input';
-import { UserSumAggregateInput } from './user-sum-aggregate.input';
 import { UserMinAggregateInput } from './user-min-aggregate.input';
 import { UserMaxAggregateInput } from './user-max-aggregate.input';
 
@@ -33,12 +31,6 @@ export class UserGroupByArgs {
 
     @Field(() => UserCountAggregateInput, { nullable: true })
     _count?: UserCountAggregateInput;
-
-    @Field(() => UserAvgAggregateInput, { nullable: true })
-    _avg?: UserAvgAggregateInput;
-
-    @Field(() => UserSumAggregateInput, { nullable: true })
-    _sum?: UserSumAggregateInput;
 
     @Field(() => UserMinAggregateInput, { nullable: true })
     _min?: UserMinAggregateInput;

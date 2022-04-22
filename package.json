@@ -22,7 +22,7 @@
         "prisma:p": "node node_modules/prisma/build/index.js db push",
         "format:g": "npx prettier ./@generated --write",
         "format:s": "npx prettier ./services --write",
-        "regen": "rm -rf @generated && npm run prisma:g && npm run format",
+        "regen": "rm -rf @generated && npm run prisma:g && npm run format:g",
         "dev": "ts-node-dev src/main.ts",
         "batch": "ts-node-dev tools/index.ts"
     },
