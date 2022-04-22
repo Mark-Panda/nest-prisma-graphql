@@ -14,8 +14,8 @@ import { FindManyUserArgs } from '@generated/user/find-many-user.args';
 import { UpdateOneUserArgs } from '@generated/user/update-one-user.args';
 import { UpsertOneUserArgs } from '@generated/user/upsert-one-user.args';
 import { DeleteOneUserArgs } from '@generated/user/delete-one-user.args';
-// import { UserGroupByArgs } from '@generated/user/user-group-by.args';
-// import { UserGroupBy } from '@generated/user/user-group-by.output';
+import { UserGroupByArgs } from '@generated/user/user-group-by.args';
+import { UserGroupBy } from '@generated/user/user-group-by.output';
 import { UpdateManyUserArgs } from '@generated/user/update-many-user.args';
 import { DeleteManyUserArgs } from '@generated/user/delete-many-user.args';
 import { AffectedRows } from '@generated/prisma/affected-rows.output';
@@ -160,22 +160,24 @@ export class UserResolver {
         return prisma.user.aggregate(args);
     }
 
-    // /**
-    //  * User分组
-    //  * @param args 请求参数
-    //  * @param info 返回字段
-    //  * @returns 返回
-    //  */
-    // @Query(() => [UserGroupBy])
-    // async userGroupBy(
-    //     @Args() args: UserGroupByArgs,
-    //     @Info() info: GraphQLResolveInfo,
-    // ) {
-    //     const select = new PrismaSelect(info).value;
-    //     console.log('select', select);
-    //     args = Object.assign(args, select);
-    //     return await prisma.user.groupBy(args);
-    // }
+    /**
+     * User分组
+     * @param args 请求参数
+     * @param info 返回字段
+     * @returns 返回
+     */
+    @Query(() => [UserGroupBy])
+    async userGroupBy(
+        @Args() args: UserGroupByArgs,
+        @Info() info: GraphQLResolveInfo,
+    ) {
+        const select = new PrismaSelect(info).value;
+        console.log('select', select);
+        args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        return await prisma.user.groupBy(args);
+    }
 
     /**
      * 创建多个User
