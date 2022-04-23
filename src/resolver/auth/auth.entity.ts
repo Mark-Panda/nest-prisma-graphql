@@ -48,6 +48,6 @@ export class AccountAdmin {
     @ApiProperty('用户名')
     username!: string;
 
-    @ApiProperty('用户名')
-    password!: string;
+    // @ApiProperty('用户名')
+    // password!: string;
 }

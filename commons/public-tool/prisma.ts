@@ -10,9 +10,12 @@ const prisma = new PrismaClient({
     ],
 });
 
-prisma.$on('query', (event) => {
-    console.log('查询日志', event);
-});
+const { NODE_ENV } = process.env;
+if (NODE_ENV === 'production') {
+    prisma.$on('query', (event) => {
+        console.log('查询日志', event);
+    });
+}
 
 /**
  * prisma中间件

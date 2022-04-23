@@ -17,9 +17,29 @@ export class AuthService {
     ) {}
 
     /**
-     * 生成加密串
+     * 生成 token
      */
-    getToken(accountAdmin: AccountAdmin) {
+    genToken(accountAdmin: AccountAdmin): Record<string, unknown> {
+        const { id, username } = accountAdmin;
+        // const accessToken = `Bearer ${this.jwtService.sign(payload)}`;
+        const accessToken = this.jwtService.sign({
+            [`secret-${this.configService.get('jwt.secret')}`]: id,
+            username,
+        });
+        const refreshToken = this.jwtService.sign(
+            {
+                [`secret-${this.configService.get('jwt.secret')}`]: id,
+                username,
+            },
+            {
+                expiresIn: this.configService.get('jwt.refreshExpiresIn'),
+            },
+        );
+        return { accessToken, refreshToken };
+    }
+
+    // 刷新 token
+    refreshToken(accountAdmin: AccountAdmin): string {
         const { id, username } = accountAdmin;
         return this.jwtService.sign({
             [`secret-${this.configService.get('jwt.secret')}`]: id,
@@ -28,16 +48,39 @@ export class AuthService {
     }
 
     /**
+     * 校验 token
+     */
+    verifyToken(token: string): any {
+        try {
+            if (!token) return 0;
+            const tokenInfo = this.jwtService.verify(
+                token.replace('Bearer ', ''),
+            );
+            return tokenInfo;
+        } catch (error) {
+            return 0;
+        }
+    }
+
+    /**
+     * 根据JWT解析的ID校验用户
+     */
+    async validateUserByJwt(id: string) {
+        const user = await prisma.user.findUnique({ where: { id: id } });
+        return user;
+    }
+
+    /**
      * 登录
      */
     async login(req: any) {
         const { user } = req;
         // 获取鉴权 token
-        const access_token = this.getToken(user);
+        const access_token = this.genToken(user);
         // 写入Redis中
         // 保存登录信息
         await prisma.user.update({ where: { id: user.id }, data: user });
-        return { ...user, access_token };
+        return { ...user, ...access_token };
     }
 
     /**
@@ -74,7 +117,6 @@ export class AuthService {
         const user = await prisma.user.findUnique({
             where: { username: username },
         });
-        this.logger.log(user, '用户信息');
         const isMatch = await bcrypt.compare(pass, user.password);
         if (user && isMatch) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -95,10 +137,7 @@ export class AuthService {
             const salt = await bcrypt.genSalt(
                 this.configService.get<number>('encryption.saltOrRounds'),
             );
-            this.logger.log(salt, 'bcrypt盐');
-            this.logger.log(password, '密码');
             const bcryptPwd = await bcrypt.hash(password, salt);
-            this.logger.log(bcryptPwd, 'bcrypt加密密码');
             await prisma.user.create({
                 data: {
                     username,
@@ -112,10 +151,10 @@ export class AuthService {
                 where: { email_username: { email, username } },
             });
             // 获取鉴权 token
-            const access_token = this.getToken(user);
-            return { ...user, access_token };
+            const access_token = this.genToken(user);
+            return { ...user, ...access_token };
         } catch (error) {
-            this.logger.log(error, 'error');
+            this.logger.log(error, '注册异常信息');
             return { error: error };
         }
     }

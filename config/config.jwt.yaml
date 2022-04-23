@@ -3,6 +3,7 @@
 jwt:
   secret: nestservedyb881 # 加密串，生产环境必须更改
   expiresIn: 600s # 过期时间
+  refreshExpiresIn: 1200s #
 
 # 权限配置
 

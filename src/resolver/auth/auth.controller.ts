@@ -1,5 +1,11 @@
 import { Controller, UseGuards, Post, Get, Req } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+    ApiTags,
+    ApiBody,
+    ApiBearerAuth,
+    ApiResponse,
+    ApiHeaders,
+} from '@nestjs/swagger';
 import { AccountLoginDto } from './auth.entity';
 import { ApiOperation } from 'commons/public-decorator';
 import { AuthService } from './auth.service';
@@ -22,6 +28,12 @@ export class AuthController {
 
     @Get('profile')
     @ApiBearerAuth('access-token')
+    @ApiHeaders([
+        {
+            name: 'RefreshToken',
+            description: 'Custom header',
+        },
+    ])
     @UseGuards(JwtAuthGuard)
     @ApiResponse({ status: 201, type: AdminLoginInfoDto })
     @ApiOperation('获取帐号信息')
