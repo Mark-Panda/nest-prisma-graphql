@@ -29,7 +29,7 @@ encryption:
 
 swagger:
   title: 项目接口文档
-  description: '[Base URL: localhost:3001]'
+  description: '[Base URL: localhost:3100]'
   path: v1/swagger
 
 # 日志存放目录

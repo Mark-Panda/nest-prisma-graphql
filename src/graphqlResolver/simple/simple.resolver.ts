@@ -1,8 +1,8 @@
 import { Args, Info, Query, Resolver } from '@nestjs/graphql';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { LoggerService } from 'commons/public-module';
+import { LoggerService, GqlAuthGuard } from 'commons/public-module';
 import { Simple } from './simple.model';
 
 /**
@@ -19,6 +19,7 @@ export class SimpleResolver {
      * @returns 返回
      */
     @Query(() => Simple)
+    @UseGuards(GqlAuthGuard)
     async simple(@Args('data') args: string, @Info() info: GraphQLResolveInfo) {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'GraphQL请求参数');

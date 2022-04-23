@@ -1,7 +1,9 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { prisma } from 'commons/public-tool';
 import { GraphQLResolveInfo } from 'graphql';
+import { UseGuards } from '@nestjs/common';
+import { LoggerService, GqlAuthGuard } from 'commons/public-module';
+import { prisma } from 'commons/public-tool';
 
 import { User } from '@generated/user/user.model';
 import { AggregateUser } from '@generated/user/aggregate-user.output';
@@ -25,6 +27,7 @@ import { AffectedRows } from '@generated/prisma/affected-rows.output';
  */
 @Resolver(() => User)
 export class UserResolver {
+    constructor(private readonly logger: LoggerService) {}
     /**
      * 查询User信息
      * @param args 请求参数
@@ -32,12 +35,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => User)
+    @UseGuards(GqlAuthGuard)
     async user(
         @Args() args: FindUniqueUserArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型单个查询GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.findUnique(args);
     }
@@ -49,12 +53,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => User)
+    @UseGuards(GqlAuthGuard)
     async userFirst(
         @Args() args: FindFirstUserArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型首个查询GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.findFirst(args);
     }
@@ -66,12 +71,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => [User])
+    @UseGuards(GqlAuthGuard)
     async users(
         @Args() args: FindManyUserArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型多个查询GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.findMany(args);
     }
@@ -83,11 +89,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async createOneUser(
         @Args() args: CreateOneUserArgs,
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
+        this.logger.log(select, 'User模型单体创建GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.create(args);
     }
@@ -99,12 +107,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async updateOneUser(
         @Args() args: UpdateOneUserArgs,
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型单体更新GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.update(args);
     }
@@ -116,12 +125,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async upsertOneUser(
         @Args() args: UpsertOneUserArgs,
         @Info() info: GraphQLResolveInfo,
     ): Promise<any> {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型单体增补GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.upsert(args);
     }
@@ -133,12 +143,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async deleteOneUser(
         @Args() args: DeleteOneUserArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型单体删除GraphQL请求参数');
         args = Object.assign(args, select);
         return await prisma.user.delete(args);
     }
@@ -150,12 +161,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => AggregateUser)
+    @UseGuards(GqlAuthGuard)
     userAggregate(
         @Args() args: UserAggregateArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型统计GraphQL请求参数');
         args = Object.assign(args, select);
         return prisma.user.aggregate(args);
     }
@@ -167,12 +179,13 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => [UserGroupBy])
+    @UseGuards(GqlAuthGuard)
     async userGroupBy(
         @Args() args: UserGroupByArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
         const select = new PrismaSelect(info).value;
-        console.log('select', select);
+        this.logger.log(select, 'User模型分组GraphQL请求参数');
         args = Object.assign(args, select);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
@@ -185,9 +198,10 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => AffectedRows, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async createManyUsers(@Args() args: CreateManyUserArgs): Promise<any> {
+        this.logger.log(args, 'User模型多个创建GraphQL请求参数');
         const result = await prisma.user.createMany(args);
-        console.log('result', result);
         return result;
     }
 
@@ -197,7 +211,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => AffectedRows, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async updateManyUsers(@Args() args: UpdateManyUserArgs): Promise<any> {
+        this.logger.log(args, 'User模型多个更新GraphQL请求参数');
         return await prisma.user.updateMany(args);
     }
 
@@ -207,7 +223,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => AffectedRows, { nullable: true })
+    @UseGuards(GqlAuthGuard)
     async deleteManyUsers(@Args() args: DeleteManyUserArgs): Promise<any> {
+        this.logger.log(args, 'User模型多个删除GraphQL请求参数');
         return await prisma.user.deleteMany(args);
     }
 }
