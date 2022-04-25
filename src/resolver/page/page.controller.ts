@@ -14,14 +14,13 @@ export class PageController {
 
     @Get('dev')
     async devHtml(@Res() res) {
-        
         return res.render('dev');
     }
 
     @Get('playground')
     async playgroundHtml(@Res() res) {
         if (process.env.NODE_ENV === 'production') {
-            return res.json({ message: '生产环境不允许使用playground!'})
+            return res.json({ message: '生产环境不允许使用playground!' });
         }
         return res.render('playground');
     }

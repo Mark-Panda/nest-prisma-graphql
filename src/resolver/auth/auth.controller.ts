@@ -27,7 +27,7 @@ export class AuthController {
     }
 
     @Get('profile')
-    @ApiBearerAuth('access-token')
+    @ApiBearerAuth('Authorization')
     @ApiHeaders([
         {
             name: 'RefreshToken',

@@ -53,7 +53,7 @@ export async function bootstrap(
         .setDescription(swagger.description)
         .addBearerAuth(
             { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-            'access-token',
+            'Authorization',
         )
         .addServer(serve.prefix)
         .build();

@@ -3,12 +3,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GlobalModule } from 'commons/public-module';
-import { getIPAdress } from 'commons/public-tool';
 import { AllModules } from 'services/index';
 import { mergeDirectiveTransformer } from './graphqlDirective/index.directive';
 import { AllResolverModules } from './resolver/index';
 import { CustomGraphqlModules } from './graphqlResolver/index';
-console.log('getIPAdress', getIPAdress())
 @Module({
     imports: [
         GlobalModule.forRoot({
@@ -23,7 +21,7 @@ console.log('getIPAdress', getIPAdress())
             // 多个指令如何实现
             transformSchema: (schema) => mergeDirectiveTransformer(schema),
             installSubscriptionHandlers: true,
-            playground: false,  // playground的使用由playground路由控制 src/resolver/page/page.controller.ts详情查看
+            playground: false, // playground的使用由playground路由控制 src/resolver/page/page.controller.ts详情查看
             autoSchemaFile: '~schema.gql',
             buildSchemaOptions: {
                 directives: [
@@ -41,4 +39,3 @@ console.log('getIPAdress', getIPAdress())
     ],
 })
 export class AppModule {}
-
