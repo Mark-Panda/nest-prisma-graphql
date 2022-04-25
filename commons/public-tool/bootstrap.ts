@@ -69,7 +69,7 @@ export async function bootstrap(
         loggerService.error(err, '进程异常');
     });
     loggerService.log(
-        `http://localhost:${serve.port}/${swagger.path}`,
+        `\nhttp://localhost:${serve.port}/dev\nhttp://localhost:${serve.port}/${swagger.path}`,
         swagger.title,
     );
 }
