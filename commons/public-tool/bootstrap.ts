@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { NestApplicationOptions, INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
+import { join } from 'path';
 import { LoggerService } from '../public-module';
 import { mw } from 'request-ip';
+import * as express from 'express';
 
 type BootstrapOptions = NestApplicationOptions & {
     // 在服务启动之前执行
@@ -18,10 +21,17 @@ export async function bootstrap(
     bootstrapOptions?: BootstrapOptions,
 ) {
     const { before, ...options } = bootstrapOptions || {};
-    const app = await NestFactory.create(module, options);
+    const app = await NestFactory.create<NestExpressApplication>(
+        module,
+        options,
+    );
 
     before?.(app);
 
+    //静态资源目录
+    app.use(express.static(join(process.cwd(), './public')));
+    app.set('views', join(process.cwd(), './views'));
+    app.set('view engine', 'ejs');
     // 获取客户端真实IP
     app.use(mw());
 

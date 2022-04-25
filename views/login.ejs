@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        登录
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/content/bootstrap.min.css">
+</head>
+
+
+<body>
+
+    <div class="container center-block">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <a href="#">
+                    <!--#aboutPage-->
+                    <div id="loninText" class="text-center">
+                        <h1>
+                            登录
+                        </h1>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <p class="pager portrait"></p>
+        <form class="form-horizontal" action="?#">
+            <div class="form-group ">
+                <label for="inputUserName" class="col-sm-2 col-md-3 col-md-offset-2 control-label">账户</label>
+                <div id="inputUserNameDiv" class="col-sm-10 col-md-3">
+                    <input type="text" class="form-control" id="inputUserName" placeholder="username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword" class="col-sm-2 col-md-3 col-md-offset-2 control-label">密码</label>
+                <div id='loginPasswordDiv' class="col-sm-10 col-md-3">
+                    <input type="password" class="form-control" id="loginPassword" placeholder="password">
+                </div>
+            </div>
+
+        </form>
+
+        <div class="form-group">
+            <div class="col-xs-12 col-md-3 col-md-offset-5 text-left">
+                <button type="submit" class="btn btn-block btn-success" id="login" onclick=" loginfun()">登　录</button>
+            </div>
+        </div>
+    </div>
+
+    <!--公用提示框-->
+    <div id="bs-message-modal-sm" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
+        <div class="modal-dialog">
+            <div id="bs-message-modal-alert" class="alert alert-danger text-center" role="alert">
+                <p id="bs-message-modal-text"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="/scripts/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/scripts/common_extend.js"></script>
+    <script type="text/javascript" src="/scripts/jsencrypt.min.js"></script>
+    <script type="application/javascript">
+        const encryptor = new JSEncrypt();
+
+        function loginfun() {
+
+            if (iCheck.empty('inputUserName') && iCheck.empty('loginPassword')) {
+                popMsg.loading('登录...');
+                var loginInfo = {
+                    username: $("#inputUserName").val(),
+                    password: $("#loginPassword").val(),
+                }
+                api.login(loginInfo, function(err, data) {
+                    console.log('---data', data, err);
+                    if (err || data.error) {
+                        popMsg.error(err || data.error);
+                        return;
+                    }
+                    localStorage.removeItem("accessToken")
+                    localStorage.removeItem("refreshToken")
+                    localStorage.accessToken = data.accessToken;
+                    localStorage.refreshToken = data.refreshToken;
+                    window.location = `/dev`;
+
+
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

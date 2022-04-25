@@ -80,6 +80,7 @@ export class AuthService {
         // 写入Redis中
         // 保存登录信息
         await prisma.user.update({ where: { id: user.id }, data: user });
+        req.user = user;
         return { ...user, ...access_token };
     }
 

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Nest
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel='stylesheet' href='/content/bootstrap.min.css' />
+</head>
+
+<body>
+    <div class="container center-block">
+        <h1>
+            Nest <small>(辅助开发)</small>
+        </h1>
+        <ul class="list-group">
+            令牌操作
+            <li id='loginP' class="list-group-item">
+                <a href="/login">用户登录
+                    <small>(获取令牌)</small>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="/api/logout">用户退出
+                    <small>(删除令牌)</small>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-group">
+            应用地址
+            <li class="list-group-item">
+                <a href="/playground" target="_blank">Graphql管理
+                    <small>(网站)</small>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="/v1/swagger" target="_blank">swagger接口
+                    <small>(网站)</small>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-group">
+            Graphql 数据服务
+            <li class="list-group-item">
+                基础数据:
+                <a href="/data/base" target="_blank">Schema
+                    <small>(graph)</small>
+                </a> |
+                <a href="/data/base/graphql" target="_blank">Test
+                    <small>(Playground)</small>
+                </a>|
+                <a href="/_book/api/base-api.html" target="_blank">API
+                    <small>(graphql)</small>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-group">
+            Graphql Playground 客户端连接服务设置
+            <li class="list-group-item">
+                <p>HTTP Headers</p>
+                <pre id="httpheader" style="overflow: hidden !important;"></pre>
+            </li>
+        </ul>
+    </div>
+    <script src="/scripts/jquery-3.5.1.min.js"></script>
+    <script src="/scripts/common_extend.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function() {
+            rData.query('auth/profile', function(err, data) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    if (data.data) {
+                        console.log('---IIII', data.data);
+                        //显示当前用户信息
+                        $("#loginP").append(JSON.stringify({
+                            name: data.data.name,
+                            email: data.data.email,
+                            role: data.data.role,
+                        }));
+
+
+                    }
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

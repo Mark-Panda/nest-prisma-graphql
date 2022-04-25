@@ -28,7 +28,8 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
         const req = ctx.getContext().req;
         const res = ctx.getContext().req.res;
         try {
-            const accessToken = req.get('Authorization');
+            const accessToken =
+                req.get('Authorization') || req.headers.Authorization;
             if (!accessToken) throw new UnauthorizedException('请先登录');
             const atUserId = this.authService.verifyToken(accessToken);
             if (atUserId) return ctx.getContext().req;

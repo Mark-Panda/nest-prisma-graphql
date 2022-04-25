@@ -17,7 +17,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const req = context.switchToHttp().getRequest();
         const res = context.switchToHttp().getResponse();
-        console.log('afaaa', res);
         try {
             const accessToken = req.get('Authorization');
             if (!accessToken) throw new UnauthorizedException('请先登录');
