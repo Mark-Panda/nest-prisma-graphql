@@ -23,7 +23,7 @@ console.log('getIPAdress', getIPAdress())
             // 多个指令如何实现
             transformSchema: (schema) => mergeDirectiveTransformer(schema),
             installSubscriptionHandlers: true,
-            playground: (process.env.NODE_ENV === 'production') ? false : true,
+            playground: false,  // playground的使用由playground路由控制 src/resolver/page/page.controller.ts详情查看
             autoSchemaFile: '~schema.gql',
             buildSchemaOptions: {
                 directives: [

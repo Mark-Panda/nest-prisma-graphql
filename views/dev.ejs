@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="/api/logout">用户退出
+                <a href="javascript:void(0)" onclick="logout()">用户退出
                     <small>(删除令牌)</small>
                 </a>
             </li>
@@ -41,21 +41,6 @@
             </li>
         </ul>
         <ul class="list-group">
-            Graphql 数据服务
-            <li class="list-group-item">
-                基础数据:
-                <a href="/data/base" target="_blank">Schema
-                    <small>(graph)</small>
-                </a> |
-                <a href="/data/base/graphql" target="_blank">Test
-                    <small>(Playground)</small>
-                </a>|
-                <a href="/_book/api/base-api.html" target="_blank">API
-                    <small>(graphql)</small>
-                </a>
-            </li>
-        </ul>
-        <ul class="list-group">
             Graphql Playground 客户端连接服务设置
             <li class="list-group-item">
                 <p>HTTP Headers</p>
@@ -67,24 +52,41 @@
     <script src="/scripts/common_extend.js"></script>
     <script type="application/javascript">
         $(document).ready(function() {
-            rData.query('auth/profile', function(err, data) {
+            const accessToken = localStorage.getItem('accessToken');
+            const refreshToken = localStorage.getItem('refreshToken');
+            if (!accessToken || !refreshToken) {
+                window.location = `/login`;
+            }
+            // TODO:判断是否登录
+            rData.request('auth/profile', {}, 'GET', {
+                'Authorization': 'Bearer ' + accessToken,
+                'RefreshToken': refreshToken
+            }, function(err, data) {
                 if (err) {
                     console.error(err);
+                    window.location = `/login`;
                 } else {
-                    if (data.data) {
-                        console.log('---IIII', data.data);
+                    if (data) {
                         //显示当前用户信息
                         $("#loginP").append(JSON.stringify({
-                            name: data.data.name,
-                            email: data.data.email,
-                            role: data.data.role,
+                            name: data.username,
+                            email: data.email,
+                            role: data.role,
                         }));
-
-
+                        const accessTokenHeader = `{<br>  "Authorization":"Bearer ${accessToken}"<br><br>  "RefreshToken":"${refreshToken}"<br>}`
+                            //graphql 头信息
+                        $("#httpheader").append(accessTokenHeader);
                     }
                 }
             })
         });
+
+        function logout() {
+            // TODO: 退出登录接口
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("refreshToken")
+            window.location = `/login`;
+        }
     </script>
 </body>
 

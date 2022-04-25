@@ -524,10 +524,32 @@
 
     <div id="playground-config" style="display: none;">{"version":"1.7.42","endpoint":"/data/graphql","tabs":[{"query":"","endpoint":"","headers":{"Authorization":"","RefreshToken":""}}],"settings":{"editor.theme": "light", "schema.polling.enable": false, "request.credentials": "include"},"canSaveConfig":false}</div>
     <div id="root" />
+    <script src="/scripts/jquery-3.5.1.min.js"></script>
+    <script src="/scripts/common_extend.js"></script>
     <script type="text/javascript">
+        const accessToken = localStorage.getItem('accessToken');
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!accessToken || !refreshToken) {
+            window.location = `/login`;
+        }
         window.addEventListener('load', function(event) {
-            const accessToken = localStorage.getItem('accessToken');
-            const refreshToken = localStorage.getItem('refreshToken');
+            $(document).ready(function() {
+                const accessToken = localStorage.getItem('accessToken');
+                const refreshToken = localStorage.getItem('refreshToken');
+                if (!accessToken || !refreshToken) {
+                    window.location = `/login`;
+                }
+                // TODO:判断是否登录
+                rData.request('auth/profile', {}, 'GET', {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'RefreshToken': refreshToken
+                }, function(err, data) {
+                    if (err) {
+                        console.error(err);
+                        window.location = `/login`;
+                    }
+                })
+            });
             const loadingWrapper = document.getElementById('loading-wrapper');
             if (loadingWrapper) {
                 loadingWrapper.classList.add('fadeOut');

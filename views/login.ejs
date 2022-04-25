@@ -63,12 +63,8 @@
     <script type="text/javascript" src="/scripts/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="/scripts/common_extend.js"></script>
-    <script type="text/javascript" src="/scripts/jsencrypt.min.js"></script>
     <script type="application/javascript">
-        const encryptor = new JSEncrypt();
-
         function loginfun() {
-
             if (iCheck.empty('inputUserName') && iCheck.empty('loginPassword')) {
                 popMsg.loading('登录...');
                 var loginInfo = {
@@ -76,7 +72,6 @@
                     password: $("#loginPassword").val(),
                 }
                 api.login(loginInfo, function(err, data) {
-                    console.log('---data', data, err);
                     if (err || data.error) {
                         popMsg.error(err || data.error);
                         return;
@@ -86,8 +81,6 @@
                     localStorage.accessToken = data.accessToken;
                     localStorage.refreshToken = data.refreshToken;
                     window.location = `/dev`;
-
-
                 });
             }
         }

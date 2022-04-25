@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerService } from 'commons/public-module';
-import { MasterController } from './master.controller';
+import { PageController } from './page.controller';
 
 @Module({
     imports: [ConfigModule],
-    controllers: [MasterController],
+    controllers: [PageController],
     providers: [LoggerService],
 })
-export class MasterModule {}
+export class PageModule {}

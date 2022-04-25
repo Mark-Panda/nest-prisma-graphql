@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
-import { MasterModule } from './master/master.module';
+import { PageModule } from './page/page.module';
 @Module({
-    imports: [AuthModule, MasterModule],
+    imports: [AuthModule, PageModule],
 })
 export class AllResolverModules {}
