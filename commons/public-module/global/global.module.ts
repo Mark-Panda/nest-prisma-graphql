@@ -91,7 +91,6 @@ export class GlobalModule {
                 ...CacheModule.registerAsync({
                     useFactory: (configService: ConfigService) => {
                         const { redis } = configService.get('cache');
-                        console.log('redis配置', redis);
                         // 使用 redis 做缓存服务
                         return {
                             store: redisStore,
