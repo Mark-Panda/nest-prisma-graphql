@@ -173,19 +173,19 @@ var popMsg = {
  * */
 var api = {
     verifyUser: function(callback) {
-        var url = 'auth/profile',
+        var url = 'profile',
             method = 'GET';
         rData.request(url, '', method, null, callback);
     },
     login: function(logIninfo, callback) {
-        var url = 'auth/login',
+        var url = 'login',
             data = logIninfo,
             method = 'POST',
             headers = { 'content-type': 'application/x-www-form-urlencoded' };
         rData.request(url, data, method, headers, callback);
     },
     logout: function(callback) {
-        var url = 'auth/logout',
+        var url = 'logout',
             method = 'GET';
         rData.request(url, null, method, null, callback);
     },

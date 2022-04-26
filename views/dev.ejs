@@ -40,12 +40,12 @@
                 </a>
             </li>
         </ul>
-        <ul class="list-group">
+        <ul class="list-group" id="headerAuth">
             Graphql Playground 客户端连接服务设置
-            <li class="list-group-item">
+            <!-- <li class="list-group-item" id="headerAuth">
                 <p>HTTP Headers</p>
                 <pre id="httpheader" style="overflow: hidden !important;"></pre>
-            </li>
+            </li> -->
         </ul>
     </div>
     <script src="/scripts/jquery-3.5.1.min.js"></script>
@@ -57,8 +57,7 @@
             if (!accessToken || !refreshToken) {
                 window.location = `/login`;
             }
-            // TODO:判断是否登录
-            rData.request('auth/profile', {}, 'GET', {
+            rData.request('profile', {}, 'GET', {
                 'Authorization': 'Bearer ' + accessToken,
                 'RefreshToken': refreshToken
             }, function(err, data) {
@@ -73,19 +72,42 @@
                             email: data.email,
                             role: data.role,
                         }));
-                        const accessTokenHeader = `{<br>  "Authorization":"Bearer ${accessToken}"<br><br>  "RefreshToken":"${refreshToken}"<br>}`
+                        // const accessTokenHeader = `{<br>  "Authorization":"Bearer ${accessToken}"<br><br>  "RefreshToken":"${refreshToken}"<br>}`
+                        const accessTokenHeaderInput = `<textarea class="form-control" rows="2" readonly>${accessToken}</textarea>`
+                        const refreshTokenHeaderInput = `<textarea class="form-control" rows="2" readonly>${refreshToken}</textarea>`
                             //graphql 头信息
-                        $("#httpheader").append(accessTokenHeader);
+                        $("#headerAuth").append(accessTokenHeaderInput);
+                        $("#headerAuth").append(refreshTokenHeaderInput);
+                        // $("#httpheader").append(accessTokenHeader);
                     }
                 }
             })
         });
 
         function logout() {
-            // TODO: 退出登录接口
-            localStorage.removeItem("accessToken")
-            localStorage.removeItem("refreshToken")
-            window.location = `/login`;
+            const accessToken = localStorage.getItem('accessToken');
+            const refreshToken = localStorage.getItem('refreshToken');
+            if (!accessToken || !refreshToken) {
+                window.location = `/login`;
+            }
+            rData.request('logout', {}, 'GET', {
+                'Authorization': 'Bearer ' + accessToken,
+                'RefreshToken': refreshToken
+            }, function(err, data) {
+                if (err) {
+                    console.error(err);
+                    window.location = `/login`;
+                } else {
+                    console.log('----退出登录', data);
+                    if (data.data) {
+                        // TODO: 退出登录接口
+                        localStorage.removeItem("accessToken")
+                        localStorage.removeItem("refreshToken")
+                        window.location = `/login`;
+                    }
+                }
+            })
+
         }
     </script>
 </body>

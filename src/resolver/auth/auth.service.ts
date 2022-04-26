@@ -21,11 +21,15 @@ export class AuthService {
      */
     genToken(accountAdmin: AccountAdmin): Record<string, unknown> {
         const { id, username } = accountAdmin;
-        // const accessToken = `Bearer ${this.jwtService.sign(payload)}`;
-        const accessToken = this.jwtService.sign({
-            [`secret-${this.configService.get('jwt.secret')}`]: id,
-            username,
-        });
+        const accessToken = this.jwtService.sign(
+            {
+                [`secret-${this.configService.get('jwt.secret')}`]: id,
+                username,
+            },
+            {
+                expiresIn: this.configService.get('jwt.expiresIn'),
+            },
+        );
         const refreshToken = this.jwtService.sign(
             {
                 [`secret-${this.configService.get('jwt.secret')}`]: id,
@@ -50,12 +54,20 @@ export class AuthService {
     /**
      * 校验 token
      */
-    verifyToken(token: string): any {
+    async verifyToken(token: string, type: string): Promise<any> {
         try {
             if (!token) return 0;
-            const tokenInfo = this.jwtService.verify(
+            const tokenInfo = await this.jwtService.verify(
                 token.replace('Bearer ', ''),
+                this.configService.get('jwt.secret'),
             );
+            const tokenKey = `secret-${this.configService.get('jwt.secret')}`;
+            const getToken = this.cacheManager.get(
+                `${type}-${tokenInfo[tokenKey]}`,
+            );
+            if (!getToken) {
+                return 0;
+            }
             return tokenInfo;
         } catch (error) {
             return 0;
@@ -78,10 +90,37 @@ export class AuthService {
         // 获取鉴权 token
         const access_token = this.genToken(user);
         // 写入Redis中
-        // 保存登录信息
-        await prisma.user.update({ where: { id: user.id }, data: user });
-        req.user = user;
+        await this.cacheManager.set(
+            `accessToken-${user.id}`,
+            access_token.accessToken,
+            {
+                ttl: parseInt(this.configService.get('jwt.expiresIn')),
+            },
+        );
+        await this.cacheManager.set(
+            `refreshToken-${user.id}`,
+            access_token.refreshToken,
+            {
+                ttl: parseInt(this.configService.get('jwt.refreshExpiresIn')),
+            },
+        );
         return { ...user, ...access_token };
+    }
+
+    /**
+     * 退出登录
+     */
+    async logout(req: any) {
+        const token = req.get('Authorization');
+        const tokenInfo = await this.jwtService.verify(
+            token.replace('Bearer ', ''),
+            this.configService.get('jwt.secret'),
+        );
+        const tokenKey = `secret-${this.configService.get('jwt.secret')}`;
+        await this.cacheManager.del(`accessToken-${tokenInfo[tokenKey]}`);
+        await this.cacheManager.del(`refreshToken-${tokenInfo[tokenKey]}`);
+        // 删除缓存的token
+        return { data: 'SUCCESS', message: '退出登录' };
     }
 
     /**
@@ -153,10 +192,27 @@ export class AuthService {
             });
             // 获取鉴权 token
             const access_token = this.genToken(user);
-            return { ...user, ...access_token };
+            // 写入Redis中
+            await this.cacheManager.set(
+                `accessToken-${user.id}`,
+                access_token.accessToken,
+                {
+                    ttl: parseInt(this.configService.get('jwt.expiresIn')),
+                },
+            );
+            await this.cacheManager.set(
+                `refreshToken-${user.id}`,
+                access_token.refreshToken,
+                {
+                    ttl: parseInt(
+                        this.configService.get('jwt.refreshExpiresIn'),
+                    ),
+                },
+            );
+            return { data: { ...user, ...access_token }, message: '注册成功' };
         } catch (error) {
             this.logger.log(error, '注册异常信息');
-            return { error: error };
+            return { error: '当前用户已被创建', message: error.message };
         }
     }
 }

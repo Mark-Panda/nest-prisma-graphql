@@ -539,16 +539,41 @@
                 if (!accessToken || !refreshToken) {
                     window.location = `/login`;
                 }
-                // TODO:判断是否登录
-                rData.request('auth/profile', {}, 'GET', {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'RefreshToken': refreshToken
-                }, function(err, data) {
-                    if (err) {
-                        console.error(err);
+                $.ajax({
+                    url: '/profile',
+                    data: {},
+                    cache: false,
+                    async: true,
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken,
+                        'RefreshToken': refreshToken
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(data, status, xhr) {
+                        var resData = xhr.getAllResponseHeaders();
+                        var arr = resData.trim().split(/[\r\n]+/);
+                        var headerMap = {};
+                        arr.forEach(function(line) {
+                            var parts = line.split(': ');
+                            var header = parts.shift();
+                            var value = parts.join(': ');
+                            headerMap[header] = value;
+                        });
+                        //Token续约
+                        if (headerMap.authorization && headerMap.refreshtoken) {
+                            localStorage.removeItem("accessToken")
+                            localStorage.removeItem("refreshToken")
+                            localStorage.accessToken = headerMap.authorization;
+                            localStorage.refreshToken = headerMap.refreshtoken;
+                        }
+                    },
+                    error: function(res, error, exception) {
                         window.location = `/login`;
-                    }
-                })
+                    },
+                });
             });
             const loadingWrapper = document.getElementById('loading-wrapper');
             if (loadingWrapper) {

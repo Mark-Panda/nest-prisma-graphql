@@ -2,6 +2,8 @@ import {
     ExecutionContext,
     Injectable,
     UnauthorizedException,
+    Inject,
+    CACHE_MANAGER,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
@@ -13,6 +15,7 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
     constructor(
         readonly authService: AuthService,
         readonly configService: ConfigService,
+        @Inject(CACHE_MANAGER) private readonly cacheManager,
     ) {
         super();
     }
@@ -23,10 +26,16 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
         try {
             const accessToken = req.get('Authorization');
             if (!accessToken) throw new UnauthorizedException('请先登录');
-            const atUserId = this.authService.verifyToken(accessToken);
+            const atUserId = this.authService.verifyToken(
+                accessToken,
+                'accessToken',
+            );
             if (atUserId) return ctx.getContext().req;
             const refreshToken = req.get('RefreshToken');
-            const tokenInfo = this.authService.verifyToken(refreshToken);
+            const tokenInfo = this.authService.verifyToken(
+                refreshToken,
+                'refreshToken',
+            );
             if (!tokenInfo) {
                 throw new UnauthorizedException('当前登录已过期，请重新登录');
             }
@@ -38,6 +47,23 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
                     id: userInfo.id,
                     username: userInfo.username,
                 });
+                // 写入Redis中
+                await this.cacheManager.set(
+                    `accessToken-${userInfo.id}`,
+                    tokens.accessToken,
+                    {
+                        ttl: parseInt(this.configService.get('jwt.expiresIn')),
+                    },
+                );
+                await this.cacheManager.set(
+                    `refreshToken-${userInfo.id}`,
+                    tokens.refreshToken,
+                    {
+                        ttl: parseInt(
+                            this.configService.get('jwt.refreshExpiresIn'),
+                        ),
+                    },
+                );
                 // request headers 对象 prop 属性全自动转成小写，
                 // 所以 获取 request.headers['authorization'] 或 request.get('Authorization')
                 // 重置属性 request.headers[authorization] = value

@@ -5,7 +5,7 @@ import { ApiProperty, ApiPropertyEnum } from 'commons/public-decorator';
  */
 export const ACCOUNT_ROLE = ['USER', 'ADMIN', 'SYSTEM'];
 
-export class AccountLoginDto {
+export class LoginDto {
     @ApiProperty('用户名')
     username!: string;
 
@@ -13,18 +13,29 @@ export class AccountLoginDto {
     password!: string;
 }
 
-export class AdminLoginInfoDto {
+export class UserInfoResponse {
+    @ApiProperty('用户ID')
+    id!: string;
+
     @ApiProperty('用户名')
     username!: string;
 
     @ApiProperty('邮箱')
     email!: string;
 
+    @ApiProperty('手机号')
+    phone!: string;
+
     @ApiPropertyEnum('角色', ACCOUNT_ROLE)
     role: string;
+}
 
+export class LoginInfoResponse extends UserInfoResponse {
     @ApiProperty('token')
-    access_token: string;
+    accessToken: string;
+
+    @ApiProperty('续租token')
+    refreshToken: string;
 }
 
 export class RegisternInfoDto {
@@ -42,7 +53,7 @@ export class RegisternInfoDto {
 }
 
 export class AccountAdmin {
-    @ApiProperty('用户名')
+    @ApiProperty('用户ID')
     id!: string;
 
     @ApiProperty('用户名')
@@ -50,4 +61,12 @@ export class AccountAdmin {
 
     // @ApiProperty('用户名')
     // password!: string;
+}
+
+export class CommonResponse {
+    @ApiProperty('成功数据信息')
+    data!: object | string;
+
+    @ApiProperty('信息内容')
+    message!: string;
 }
