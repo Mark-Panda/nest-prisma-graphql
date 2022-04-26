@@ -8,52 +8,51 @@ import { UserMaxAggregate } from './user-max-aggregate.output';
 
 @ObjectType()
 export class UserGroupBy {
-
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     id!: string;
 
-    @Field(() => Date, {nullable:false})
+    @Field(() => Date, { nullable: false })
     create_date!: Date | string;
 
-    @Field(() => Date, {nullable:false})
+    @Field(() => Date, { nullable: false })
     update_date!: Date | string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     email!: string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     username!: string;
 
     @HideField()
     password!: string;
 
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     reg_ip?: string;
 
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     login_ip?: string;
 
-    @Field(() => Date, {nullable:true})
+    @Field(() => Date, { nullable: true })
     login_date?: Date | string;
 
-    @Field(() => String, {nullable:false})
+    @Field(() => String, { nullable: false })
     phone!: string;
 
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     nickname?: string;
 
-    @Field(() => String, {nullable:true})
+    @Field(() => String, { nullable: true })
     avatar?: string;
 
-    @Field(() => Role, {nullable:true})
+    @Field(() => Role, { nullable: true })
     role?: keyof typeof Role;
 
-    @Field(() => UserCountAggregate, {nullable:true})
+    @Field(() => UserCountAggregate, { nullable: true })
     _count?: UserCountAggregate;
 
-    @Field(() => UserMinAggregate, {nullable:true})
+    @Field(() => UserMinAggregate, { nullable: true })
     _min?: UserMinAggregate;
 
-    @Field(() => UserMaxAggregate, {nullable:true})
+    @Field(() => UserMaxAggregate, { nullable: true })
     _max?: UserMaxAggregate;
 }

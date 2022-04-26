@@ -5,15 +5,16 @@ import {
     ValidationPipe,
     CacheModule,
 } from '@nestjs/common';
+import type { ClientOpts } from 'redis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
-
+import * as redisStore from 'cache-manager-redis-store';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { rootPath } from '../../public-tool';
-import redisStore from 'cache-manager-redis-store';
 import { load } from 'js-yaml';
 import { merge, cloneDeepWith } from 'lodash';
+import { rootPath } from '../../public-tool';
+
 export interface GlobalModuleOptions {
     yamlFilePath?: string[]; // 配置文件路径
     microservice?: string[]; // 开启微服务模块
@@ -88,7 +89,7 @@ export class GlobalModule {
         // 开启缓存模块
         if (cache) {
             imports.push({
-                ...CacheModule.registerAsync({
+                ...CacheModule.registerAsync<ClientOpts>({
                     useFactory: (configService: ConfigService) => {
                         const { redis } = configService.get('cache');
                         // 使用 redis 做缓存服务

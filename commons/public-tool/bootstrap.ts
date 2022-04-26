@@ -68,8 +68,13 @@ export async function bootstrap(
     process.on('uncaughtException', function (err) {
         loggerService.error(err, '进程异常');
     });
+    loggerService.log(`http://localhost:${serve.port}/dev`, '服务地址');
     loggerService.log(
-        `\nhttp://localhost:${serve.port}/dev\nhttp://localhost:${serve.port}/playground\nhttp://localhost:${serve.port}/${swagger.path}`,
+        `http://localhost:${serve.port}/playground`,
+        'GraphQL调试地址',
+    );
+    loggerService.log(
+        `http://localhost:${serve.port}/${swagger.path}`,
         swagger.title,
     );
 }
