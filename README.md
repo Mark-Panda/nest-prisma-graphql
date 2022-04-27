@@ -7,12 +7,23 @@
 ## 服务操作步骤
 
 1. 映射 `prisma` 文件为数据库的命令 `npm run prisma:p`
-2. 通过 `prisma` 文件生成代码优先的TS文件命令 `npm run prisma:g`
-3. 代码格式化生成的TS文件命令 `npm run format:g`
-4. 根据 `schema.prisma` 文件自动生成增删改查业务文件的脚本命令 `npm run batch`
-5. 服务启动命令 `npm run start:dev`
+2. GraphQL类型自动生成脚本 `npm run regen`
+3. 根据 `schema.prisma` 文件自动生成增删改查业务文件的脚本命令 `npm run batch`
+4. 服务启动命令 `npm run start:dev`
+
+## 已有功能
+
+- 登录鉴权
+- Token续租
+- Restful和GraphQL接口支持
+- 日志切分
+- swagger接口文档
+- GraphQL的playground调试界面(开发环境下使用)
 
 ## 待办事项
 
 - [ ] 合并 `prisma` 文件及其脚本
-- [x] prisma客户端独立生成
+- [ ] 上传文件
+- [ ] 任务队列
+- [ ] 定时任务
+- [ ] 访问限流

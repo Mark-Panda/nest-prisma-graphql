@@ -7,6 +7,8 @@ import { AllModules } from 'services/index';
 import { mergeDirectiveTransformer } from './graphqlDirective/index.directive';
 import { AllResolverModules } from './resolver/index';
 import { CustomGraphqlModules } from './graphqlResolver/index';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksModule } from './tasks/tasks.module';
 @Module({
     imports: [
         GlobalModule.forRoot({
@@ -15,6 +17,8 @@ import { CustomGraphqlModules } from './graphqlResolver/index';
         AllModules,
         AllResolverModules,
         CustomGraphqlModules,
+        ScheduleModule.forRoot(),
+        TasksModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             path: '/data/graphql',
             driver: ApolloDriver,

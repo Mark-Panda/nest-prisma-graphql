@@ -1,5 +1,7 @@
 import { Controller, Get, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('静态页面')
 @Controller()
 export class PageController {
     @Get()

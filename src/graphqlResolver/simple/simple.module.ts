@@ -5,6 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from 'src/resolver/auth/auth.service';
+import { TasksService } from '../../tasks/tasks.service';
 @Module({
     imports: [
         PassportModule,
@@ -18,6 +19,6 @@ import { AuthService } from 'src/resolver/auth/auth.service';
             }),
         },
     ],
-    providers: [SimpleResolver, LoggerService, AuthService],
+    providers: [SimpleResolver, LoggerService, AuthService, TasksService],
 })
 export class SimpleModule {}

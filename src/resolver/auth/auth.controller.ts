@@ -18,7 +18,7 @@ import {
 } from './auth.entity';
 
 @ApiTags('登录鉴权')
-@Controller()
+@Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
