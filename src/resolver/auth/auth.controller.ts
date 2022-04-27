@@ -14,8 +14,8 @@ import {
     UserInfoResponse,
     LoginDto,
     RegisternInfoDto,
-    CommonResponse,
 } from './auth.entity';
+import { CommonResponse } from 'src/datos/common.dto';
 
 @ApiTags('登录鉴权')
 @Controller('auth')

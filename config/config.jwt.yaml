@@ -1,9 +1,9 @@
 # 鉴权配置
 
 jwt:
-  secret: nestservedyb881 # 加密串，生产环境必须更改
-  expiresIn: 60s # 过期时间
-  refreshExpiresIn: 1200s #
+  secret: simplePanda886 # 加密串，生产环境必须更改
+  expiresIn: 3600s # Token过期时间
+  refreshExpiresIn: 4200s # 续约token过期时间
 
 # 权限配置
 

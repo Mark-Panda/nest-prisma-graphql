@@ -62,11 +62,3 @@ export class AccountAdmin {
     // @ApiProperty('用户名')
     // password!: string;
 }
-
-export class CommonResponse {
-    @ApiProperty('成功数据信息')
-    data!: object | string;
-
-    @ApiProperty('信息内容')
-    message!: string;
-}

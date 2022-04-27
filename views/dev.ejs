@@ -57,7 +57,7 @@
             if (!accessToken || !refreshToken) {
                 window.location = `/login`;
             }
-            rData.request('profile', {}, 'GET', {
+            rData.request('auth/profile', {}, 'GET', {
                 'Authorization': 'Bearer ' + accessToken,
                 'RefreshToken': refreshToken
             }, function(err, data) {
@@ -72,13 +72,11 @@
                             email: data.email,
                             role: data.role,
                         }));
-                        // const accessTokenHeader = `{<br>  "Authorization":"Bearer ${accessToken}"<br><br>  "RefreshToken":"${refreshToken}"<br>}`
                         const accessTokenHeaderInput = `<textarea class="form-control" rows="2" readonly>${accessToken}</textarea>`
                         const refreshTokenHeaderInput = `<textarea class="form-control" rows="2" readonly>${refreshToken}</textarea>`
                             //graphql 头信息
                         $("#headerAuth").append(accessTokenHeaderInput);
                         $("#headerAuth").append(refreshTokenHeaderInput);
-                        // $("#httpheader").append(accessTokenHeader);
                     }
                 }
             })
@@ -90,7 +88,7 @@
             if (!accessToken || !refreshToken) {
                 window.location = `/login`;
             }
-            rData.request('logout', {}, 'GET', {
+            rData.request('auth/logout', {}, 'GET', {
                 'Authorization': 'Bearer ' + accessToken,
                 'RefreshToken': refreshToken
             }, function(err, data) {
