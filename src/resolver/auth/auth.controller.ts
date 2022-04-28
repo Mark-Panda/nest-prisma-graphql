@@ -47,9 +47,10 @@ export class AuthController {
     }
 
     @Get('logout')
-    @UseGuards(JwtAuthGuard)
     @ApiResponse({ status: 200, type: CommonResponse })
     @ApiOperation('退出登录')
+    @ApiBearerAuth('Authorization')
+    @UseGuards(JwtAuthGuard)
     async logout(@Req() req) {
         return this.authService.logout(req);
     }
