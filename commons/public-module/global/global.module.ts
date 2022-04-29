@@ -1,4 +1,4 @@
-import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_PIPE } from '@nestjs/core';
 import {
     Module,
     DynamicModule,
@@ -13,11 +13,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { load } from 'js-yaml';
 import { merge, cloneDeepWith } from 'lodash';
-import {
-    rootPath,
-    AllExceptionFilter,
-    TransformInterceptor,
-} from 'commons/public-tool';
+import { rootPath } from 'commons/public-tool';
 
 export interface GlobalModuleOptions {
     yamlFilePath?: string[]; // 配置文件路径
@@ -117,10 +113,6 @@ export class GlobalModule {
                     provide: APP_PIPE,
                     useValue: new ValidationPipe({ transform: true }),
                 },
-                // 异常过滤器
-                { provide: APP_FILTER, useClass: AllExceptionFilter },
-                // 响应参数转化拦截器
-                { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
             ],
         };
     }

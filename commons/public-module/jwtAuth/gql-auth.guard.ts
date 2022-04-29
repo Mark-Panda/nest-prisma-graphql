@@ -26,13 +26,13 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
         try {
             const accessToken = req.get('Authorization');
             if (!accessToken) throw new UnauthorizedException('请先登录');
-            const atUserId = this.authService.verifyToken(
+            const atUserId = await this.authService.verifyToken(
                 accessToken,
                 'accessToken',
             );
             if (atUserId) return ctx.getContext().req;
             const refreshToken = req.get('RefreshToken');
-            const tokenInfo = this.authService.verifyToken(
+            const tokenInfo = await this.authService.verifyToken(
                 refreshToken,
                 'refreshToken',
             );

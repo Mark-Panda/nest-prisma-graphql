@@ -56,6 +56,7 @@ export class AuthService {
      */
     async verifyToken(token: string, type: string): Promise<any> {
         try {
+            console.log('token', token);
             if (!token) return 0;
             const tokenInfo = await this.jwtService.verify(
                 token.replace('Bearer ', ''),

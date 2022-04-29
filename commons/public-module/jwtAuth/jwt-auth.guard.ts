@@ -22,23 +22,18 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         const res = context.switchToHttp().getResponse();
         try {
             const accessToken = req.get('Authorization');
-            console.log('1111', accessToken);
             if (!accessToken) throw new UnauthorizedException('请先登录');
-            console.log('2222');
             const atUserInfo = await this.authService.verifyToken(
                 accessToken,
                 'accessToken',
             );
             if (atUserInfo) return this.activate(context);
             const refreshToken = req.get('refreshToken');
-            console.log('3333', refreshToken);
             const tokenInfo = await this.authService.verifyToken(
                 refreshToken,
                 'refreshToken',
             );
-            console.log('777', tokenInfo);
             if (!tokenInfo) {
-                console.log('4444');
                 throw new UnauthorizedException('当前登录已过期，请重新登录');
             }
             const userInfo = await this.authService.getInfo(

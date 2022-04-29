@@ -5,6 +5,7 @@ import {
     Get,
     Req,
     UseInterceptors,
+    UseFilters,
 } from '@nestjs/common';
 import {
     ApiTags,
@@ -23,9 +24,12 @@ import {
     RegisternInfoDto,
 } from './auth.entity';
 import { CommonResponse } from 'src/datos/common.dto';
+import { AllExceptionFilter, TransformInterceptor } from 'commons/public-tool';
 
 @ApiTags('登录鉴权')
 @Controller('auth')
+@UseInterceptors(TransformInterceptor)
+@UseFilters(AllExceptionFilter)
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
