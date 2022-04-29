@@ -76,10 +76,11 @@
                         popMsg.error(err || data.error);
                         return;
                     }
+                    console.log('data', data)
                     localStorage.removeItem("accessToken")
                     localStorage.removeItem("refreshToken")
-                    localStorage.accessToken = data.accessToken;
-                    localStorage.refreshToken = data.refreshToken;
+                    localStorage.accessToken = data.data.accessToken;
+                    localStorage.refreshToken = data.data.refreshToken;
                     window.location = `/dev`;
                 });
             }

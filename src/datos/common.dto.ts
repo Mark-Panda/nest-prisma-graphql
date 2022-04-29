@@ -1,9 +1,9 @@
 import { ApiProperty } from 'commons/public-decorator';
 
 export class CommonResponse {
-    @ApiProperty('成功数据信息')
-    data!: object | string;
+    @ApiProperty('状态编码')
+    code!: number;
 
-    @ApiProperty('信息内容')
-    message!: string;
+    @ApiProperty('返回信息')
+    data!: object | string;
 }

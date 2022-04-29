@@ -11,6 +11,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'commons/public-module/roles/role.guard';
+
 @Module({
     imports: [
         GlobalModule.forRoot({
@@ -22,6 +23,7 @@ import { RolesGuard } from 'commons/public-module/roles/role.guard';
         ScheduleModule.forRoot(),
         TasksModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
+            cors: true,
             path: '/data/graphql',
             driver: ApolloDriver,
             // 多个指令如何实现

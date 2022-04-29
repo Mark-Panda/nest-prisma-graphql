@@ -27,14 +27,12 @@ export async function bootstrap(
     );
 
     before?.(app);
-
     //静态资源目录
     app.use(express.static(join(process.cwd(), './public')));
     app.set('views', join(process.cwd(), './views'));
     app.set('view engine', 'ejs');
     // 获取客户端真实IP
     app.use(mw());
-
     // 获取配置服务
     const configService = app.get<ConfigService>(ConfigService);
 
@@ -45,7 +43,6 @@ export async function bootstrap(
     app.useLogger(loggerService);
     // 接口请求前缀
     app.setGlobalPrefix(serve.prefix);
-
     // swagger 接口文档
     const swagger = configService.get('swagger');
     const documentBuilder = new DocumentBuilder()

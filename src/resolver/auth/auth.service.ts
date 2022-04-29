@@ -209,7 +209,7 @@ export class AuthService {
                     ),
                 },
             );
-            return { data: { ...user, ...access_token }, message: '注册成功' };
+            return { ...user, ...access_token };
         } catch (error) {
             this.logger.log(error, '注册异常信息');
             return { error: '当前用户已被创建', message: error.message };

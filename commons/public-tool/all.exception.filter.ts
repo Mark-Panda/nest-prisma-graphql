@@ -16,9 +16,8 @@ const line = '-'.repeat(50);
  */
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
-    constructor(private readonly loggerService: LoggerService) {}
-
     catch(exception: any, host: ArgumentsHost) {
+        const loggerService = new LoggerService();
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
 
@@ -49,7 +48,7 @@ export class AllExceptionFilter implements ExceptionFilter {
             error = err;
             msg = Array.isArray(message) ? message[0] : message;
         } else {
-            this.loggerService.error(errorLog, '服务运行错误');
+            loggerService.error(errorLog, '服务运行错误');
         }
 
         // 尽可能转为中文
@@ -59,8 +58,8 @@ export class AllExceptionFilter implements ExceptionFilter {
         const resJson = { code, error, message };
 
         // 错误日志
-        this.loggerService.error(resJson, '响应错误');
-        this.loggerService.log(line, '请求结束');
+        loggerService.error(resJson, '响应错误');
+        loggerService.log(line, '请求结束');
 
         if (response instanceof TcpContext) {
             return throwError(exception);

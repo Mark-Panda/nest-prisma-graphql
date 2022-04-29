@@ -13,7 +13,7 @@ export class LoginDto {
     password!: string;
 }
 
-export class UserInfoResponse {
+export class UserInfo {
     @ApiProperty('用户ID')
     id!: string;
 
@@ -30,12 +30,28 @@ export class UserInfoResponse {
     role: string;
 }
 
-export class LoginInfoResponse extends UserInfoResponse {
+export class LoginInfo extends UserInfo {
     @ApiProperty('token')
     accessToken: string;
 
     @ApiProperty('续租token')
     refreshToken: string;
+}
+
+export class UserInfoResponse {
+    @ApiProperty('状态编码')
+    code!: number;
+
+    @ApiProperty('返回信息')
+    data!: UserInfo;
+}
+
+export class LoginInfoResponse {
+    @ApiProperty('状态编码')
+    code!: number;
+
+    @ApiProperty('返回信息')
+    data!: LoginInfo;
 }
 
 export class RegisternInfoDto {

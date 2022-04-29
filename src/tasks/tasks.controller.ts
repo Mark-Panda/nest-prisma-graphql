@@ -20,9 +20,7 @@ export class TasksController {
     constructor(private readonly taskService: TasksService) {}
 
     @Get('getAllTask')
-    @Roles(Role.Admin)
     @ApiOperation('获取所有定时任务')
-    @ApiQuery({ name: 'roles', enum: Role })
     @ApiResponse({ status: 201, type: CommonResponse })
     @ApiBearerAuth('Authorization')
     @UseGuards(JwtAuthGuard)
@@ -53,8 +51,10 @@ export class TasksController {
     }
 
     @Post('stopCron')
+    @Roles(Role.Admin)
     @ApiOperation('暂停指定名称的定时任务')
     @ApiBody({ type: TasksBaseDto })
+    @ApiQuery({ name: 'roles', enum: Role })
     @ApiResponse({ status: 201, type: CommonResponse })
     @ApiBearerAuth('Authorization')
     @UseGuards(JwtAuthGuard)
