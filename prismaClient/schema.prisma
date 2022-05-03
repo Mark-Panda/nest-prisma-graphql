@@ -1,0 +1,70 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider        = "prisma-client-js"
+    output          = "../prismaClient"
+    previewFeatures = ["filterJson", "fullTextSearch"]
+}
+
+generator nestgraphql {
+    provider                              = "node node_modules/prisma-nestjs-graphql"
+    output                                = "../@generated"
+    noAtomicOperations                    = false
+    combineScalarFilters                  = false
+    reExport                              = None
+    emitSingle                            = false
+    emitCompiled                          = false
+    purgeOutput                           = false
+    requireSingleFieldsInWhereUniqueInput = false
+    fields_Validator_from                 = "class-validator"
+    fields_Validator_input                = true
+    fields_Scalars_from                   = "graphql-scalars"
+    fields_Scalars_input                  = true
+    useInputType_WhereInput_ALL           = "WhereInput"
+    decorate_1_type                       = "Create@(One|Many)UserArgs"
+    decorate_1_field                      = data
+    decorate_1_name                       = ValidateNested
+    decorate_1_from                       = "class-validator"
+    decorate_1_arguments                  = "[]"
+    decorate_2_type                       = "Create@(One|Many)UserArgs"
+    decorate_2_field                      = data
+    decorate_2_from                       = "class-transformer"
+    decorate_2_arguments                  = "['() => {propertyType.0}']"
+    decorate_2_name                       = Type
+    decorate_2_namedImport                = true
+}
+
+/// 用户信息
+model User {
+    id          String    @id @default(cuid())
+    create_date DateTime  @default(now())
+    update_date DateTime  @updatedAt
+    /// @FieldType('Scalars.GraphQLEmailAddress')
+    email       String    @unique
+    /// User's name
+    /// @Validator.MinLength(3)
+    /// @Validator.MaxLength(50)
+    /// @Directive({ arguments: ['@upper'] })
+    username    String    @unique
+    /// @HideField()
+    password    String
+    reg_ip      String?
+    login_ip    String?
+    login_date  DateTime? @default(now())
+    phone       String
+    nickname    String?
+    avatar      String?
+    role        Role?
+
+
+    @@unique([email, username])
+}
+
+enum Role {
+    USER
+    SYSTEM
+    ADMIN
+}

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  nest-api:
+    container_name: nest-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3100:3100
+    env_file:
+      - prisma/.env
+    volumes:
+      - ./logs:/app/logs
+      - ./uploadResource:/app/uploadResource
+    network_mode: host

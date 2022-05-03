@@ -5,7 +5,9 @@
         "assets": [
             { "include": "../config/*.yaml", "outDir": "./dist/config" },
             { "include": "../public/**/*", "outDir": "./dist/public" },
-            { "include": "../views/*", "outDir": "./dist/views" }
+            { "include": "../views/*", "outDir": "./dist/views" },
+            { "include": "../prismaClient/**/*", "outDir": "./dist/prismaClient" },
+            { "include": "../prisma/**/*", "outDir": "./dist/prisma" }
         ]
     }
 }

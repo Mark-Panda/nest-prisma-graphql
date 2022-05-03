@@ -6,12 +6,12 @@
         {
             "label": "dev-docker-up",
             "type": "shell",
-            "command": "docker-compose -f docker_prisma/docker-compose.yml up -d"
+            "command": "docker-compose -f ./docker-compose.yml up -d"
         },
         {
             "label": "dev-docker-down",
             "type": "shell",
-            "command": "docker-compose -f docker_prisma/docker-compose.yml down"
+            "command": "docker-compose -f ./docker-compose.yml down"
         }
     ],
   }
