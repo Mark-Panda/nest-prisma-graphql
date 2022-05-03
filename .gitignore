@@ -5,6 +5,7 @@
 /volumes
 /prisma
 /services
+/uploadResource
 # Logs
 logs
 *.log
