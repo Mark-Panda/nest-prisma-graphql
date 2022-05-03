@@ -91,11 +91,10 @@ export class GlobalModule {
             imports.push({
                 ...CacheModule.registerAsync<ClientOpts>({
                     useFactory: (configService: ConfigService) => {
-                        const cacheInfo = configService.get('cache');
-                        console.log('cacheInfo', cacheInfo);
+                        const { redis } = configService.get('cache');
                         // 使用 redis 做缓存服务
-                        return cacheInfo?.redis
-                            ? { store: redisStore, ...cacheInfo.redis }
+                        return redis?.host
+                            ? { store: redisStore, ...redis }
                             : {};
                     },
                     inject: [ConfigService],
