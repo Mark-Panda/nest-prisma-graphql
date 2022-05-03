@@ -19,6 +19,11 @@ export class PageController {
         return res.render('dev');
     }
 
+    @Get('upload')
+    async uploadHtml(@Res() res) {
+        return res.render('upload');
+    }
+
     @Get('playground')
     async playgroundHtml(@Res() res) {
         if (process.env.NODE_ENV === 'production') {

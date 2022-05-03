@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  postgres-db:
-    image: postgres:10.3
-    restart: always
-    ports:
-      - '127.0.0.1:5432:5432'
-    environment:
-      POSTGRES_USER: prisma
-      POSTGRES_PASSWORD: prisma
-    volumes:
-      - ../volumes/database_postgres-data:/var/lib/postgresql/data
   nestjs-api:
     image: nestjs-api-dev:1.0.0
     build:
@@ -26,4 +16,4 @@ networks:
   prisma:
     ipam:
       config:
-        - subnet: 192.100.0.0/16
+        - subnet: 192.200.0.0/16

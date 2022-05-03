@@ -11,6 +11,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'commons/public-module/roles/role.guard';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { RolesGuard } from 'commons/public-module/roles/role.guard';
         CustomGraphqlModules,
         ScheduleModule.forRoot(),
         TasksModule,
+        UploadModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             cors: true,
             path: '/data/graphql',

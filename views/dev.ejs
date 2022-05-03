@@ -39,13 +39,14 @@
                     <small>(网站)</small>
                 </a>
             </li>
+            <li class="list-group-item">
+                <a href="/upload" target="_blank">文件上传
+                    <small>(网站)</small>
+                </a>
+            </li>
         </ul>
         <ul class="list-group" id="headerAuth">
             Graphql Playground 客户端连接服务设置
-            <!-- <li class="list-group-item" id="headerAuth">
-                <p>HTTP Headers</p>
-                <pre id="httpheader" style="overflow: hidden !important;"></pre>
-            </li> -->
         </ul>
     </div>
     <script src="/scripts/jquery-3.5.1.min.js"></script>
@@ -98,7 +99,6 @@
                 } else {
                     console.log('----退出登录', data);
                     if (data.data) {
-                        // TODO: 退出登录接口
                         localStorage.removeItem("accessToken")
                         localStorage.removeItem("refreshToken")
                         window.location = `/login`;
