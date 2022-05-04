@@ -9,7 +9,23 @@ services:
       - '3100:3100'
     env_file:
       - prisma/.env
+    depends_on:
+      - postgres-db
     volumes:
       - ./logs:/app/logs
       - ./uploadResource:/app/uploadResource
-    network_mode: host
+  postgres-db:
+    image: postgres:10.3
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+    volumes:
+      - ./volumes/database_postgres-data:/var/lib/postgresql/data
+networks:
+  prisma:
+    ipam:
+      config:
+        - subnet: 192.100.0.0/16

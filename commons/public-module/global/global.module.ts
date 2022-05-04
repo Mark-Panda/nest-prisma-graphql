@@ -60,7 +60,28 @@ export class GlobalModule {
                         configs = cloneDeepWith(configs, (value) => {
                             if (value === null) return '';
                         });
-
+                        // Redis设置取环境变量
+                        configs.cache.redis.host = process.env.CONFIG_CACHE_HOST
+                            ? process.env.CONFIG_CACHE_HOST
+                            : configs.cache.redis.host;
+                        configs.cache.redis.port = process.env.CONFIG_CACHE_PORT
+                            ? process.env.CONFIG_CACHE_PORT
+                            : configs.cache.redis.port;
+                        configs.cache.redis.db = process.env.CONFIG_CACHE_DB
+                            ? process.env.DB
+                            : configs.cache.redis.db;
+                        // 服务占用端口
+                        configs.serve.port = process.env.CONFIG_SERVE_PORT
+                            ? process.env.CONFIG_SERVE_PORT
+                            : configs.serve.port;
+                        //JWT token失效时间
+                        configs.jwt.expiresIn = process.env.CONFIG_JWT_EXPIRESIN
+                            ? process.env.CONFIG_JWT_EXPIRESIN
+                            : configs.jwt.expiresIn;
+                        configs.jwt.refreshExpiresIn = process.env
+                            .CONFIG_JWT_REFRESHEXPIRESIN
+                            ? process.env.CONFIG_JWT_REFRESHEXPIRESIN
+                            : configs.jwt.refreshExpiresIn;
                         return configs;
                     },
                 ],

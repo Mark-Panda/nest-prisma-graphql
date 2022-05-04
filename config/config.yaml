@@ -5,17 +5,7 @@ serve:
   prefix: # 路径前缀
 
 
-db:
-  postgres:
-    url: 'localhost'
-    port: 5432
-    database: 'yaml-db'
-
-  sqlite:
-    database: 'sqlite.db'
-    
 # 缓存配置
-
 cache:
   redis: # 有值时，使用 redis 做缓存服务器
     host: 'localhost'
@@ -27,12 +17,7 @@ encryption:
   saltOrRounds: 10
 
 # Swagger 配置
-
 swagger:
   title: 项目接口文档
   description: '[Base URL: localhost:3100]'
   path: v1/swagger
-
-# 日志存放目录
-
-logsPath: apps

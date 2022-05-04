@@ -52,7 +52,8 @@ export async function bootstrap(
             { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
             'Authorization',
         )
-        .addServer(serve.prefix)
+        .setVersion('1.0')
+        .addServer('serve.prefix')
         .build();
     const document = SwaggerModule.createDocument(app, documentBuilder, {
         ignoreGlobalPrefix: true,
