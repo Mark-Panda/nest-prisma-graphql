@@ -1,9 +1,9 @@
-import { join } from 'path';
+import { join, resolve } from 'path';
 
 /**
  * 根目录
  */
-export const rootPath = join(__dirname, '../../../');
+export const rootPath = resolve(process.cwd());
 export const uploadDir = join(rootPath, 'uploadResource/appResource');
 
 export * from './bootstrap';
