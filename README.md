@@ -39,3 +39,76 @@
 ## 备注
 
 > 因为有GraphQL的存在所以响应拦截器需要在restful接口的controller文件中引用，不能全局引用 报错拦截器同理, GraphQL有自己的返回类型
+
+## 代码结构树
+
+```text
+.
+├── @generated  prisma生成的GraphQL类型用于在services中引用 通过npm run regen生成最新的
+│   ├── prisma
+│   └── user
+├── Dockerfile
+├── docker-compose.yml
+├── logs  日志文件夹
+├── nest-cli.json
+├── package-lock.json
+├── package.json
+├── README.md
+├── commons  抽离的公共方法
+│   ├── public-decorator
+│   ├── public-module
+│   └── public-tool
+├── config  配置文件夹
+│   ├── config.jwt.yaml
+│   └── config.yaml
+├── prisma  prisma文件夹
+│   └── schema.prisma
+├── prismaClient  prisma连接客户端文件夹  通过npm run prisma:g生成最新的
+├── public  静态公共资源
+│   ├── content
+│   ├── playground-offline  playground离线版
+│   └── scripts
+├── services prisma生成的GraphQL的CRUD方法
+│   ├── index.ts
+│   └── user
+├── src   服务独立文件夹
+│   ├── app.module.ts
+│   ├── main.ts
+│   ├── datos  自定义公共属性
+│   │   ├── common.dto.ts
+│   │   └── tasks.dto.ts
+│   ├── graphqlDirective  GraphQL指令文件夹
+│   │   ├── index.directive.ts
+│   │   ├── lower-case.directive.ts
+│   │   └── upper-case.directive.ts
+│   ├── graphqlResolver  GraphQL自定义方法文件夹
+│   │   ├── index.ts
+│   │   └── simple
+│   ├── resolver  Restful自定义方法文件夹
+│   │   ├── auth  登录认证
+│   │   ├── index.ts
+│   │   └── page  静态路由
+│   ├── tasks  定时任务
+│   │   ├── tasks.controller.ts
+│   │   ├── tasks.module.ts
+│   │   └── tasks.service.ts
+│   └── upload  文件上传
+│       ├── upload.controller.ts
+│       ├── upload.module.ts
+│       └── upload.service.ts
+├── test
+│   ├── app.e2e-spec.ts
+│   └── jest-e2e.json
+├── tools  命令 npm run batch 对应的代码位置，用于生成services文件夹的内容
+│   └── index.ts
+├── tsconfig.build.json
+├── tsconfig.json
+├── uploadResource  文件上传位置文件夹
+├── views  静态资源文件夹
+│   ├── dev.ejs
+│   ├── index.ejs
+│   ├── login.ejs
+│   ├── playground.ejs
+│   └── upload.ejs
+└── ~schema.gql
+```
