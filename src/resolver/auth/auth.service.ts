@@ -178,7 +178,19 @@ export class AuthService {
                 this.configService.get<number>('encryption.saltOrRounds'),
             );
             const bcryptPwd = await bcrypt.hash(password, salt);
-            await prisma.user.create({
+            const userByemail = await prisma.user.findUnique({
+                where: { email },
+            });
+            const userByusername = await prisma.user.findUnique({
+                where: { username },
+            });
+            if (userByemail || userByusername) {
+                return {
+                    error: '当前用户已被创建',
+                    message: '邮箱或用户名已存在',
+                };
+            }
+            const user = await prisma.user.create({
                 data: {
                     username,
                     password: bcryptPwd,
@@ -187,9 +199,8 @@ export class AuthService {
                     role: 'USER',
                 },
             });
-            const user = await prisma.user.findUnique({
-                where: { email_username: { email, username } },
-            });
+            // 删除用户密码
+            delete user.password;
             // 获取鉴权 token
             const access_token = this.genToken(user);
             // 写入Redis中
@@ -212,7 +223,7 @@ export class AuthService {
             return { ...user, ...access_token };
         } catch (error) {
             this.logger.log(error, '注册异常信息');
-            return { error: '当前用户已被创建', message: error.message };
+            return { error: '用户创建失败', message: error.message };
         }
     }
 }
