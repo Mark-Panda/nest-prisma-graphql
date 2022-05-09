@@ -43,6 +43,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型单个查询GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.findUnique(args);
     }
 
@@ -61,6 +63,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型首个查询GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.findFirst(args);
     }
 
@@ -79,6 +83,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型多个查询GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.findMany(args);
     }
 
@@ -97,6 +103,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型单体创建GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.create(args);
     }
 
@@ -115,6 +123,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型单体更新GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.update(args);
     }
 
@@ -133,6 +143,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型单体增补GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.upsert(args);
     }
 
@@ -151,6 +163,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型单体删除GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.delete(args);
     }
 
@@ -169,6 +183,8 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         this.logger.log(select, 'User模型统计GraphQL请求参数');
         args = Object.assign(args, select);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return prisma.user.aggregate(args);
     }
 
@@ -201,6 +217,8 @@ export class UserResolver {
     @UseGuards(GqlAuthGuard)
     async createManyUsers(@Args() args: CreateManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个创建GraphQL请求参数');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         const result = await prisma.user.createMany(args);
         return result;
     }
@@ -214,6 +232,8 @@ export class UserResolver {
     @UseGuards(GqlAuthGuard)
     async updateManyUsers(@Args() args: UpdateManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个更新GraphQL请求参数');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.updateMany(args);
     }
 
@@ -226,6 +246,8 @@ export class UserResolver {
     @UseGuards(GqlAuthGuard)
     async deleteManyUsers(@Args() args: DeleteManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个删除GraphQL请求参数');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         return await prisma.user.deleteMany(args);
     }
 }

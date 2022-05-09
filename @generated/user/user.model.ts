@@ -5,7 +5,9 @@ import { Directive } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
 
-/** 用户信息 */
+/**
+ * 用户信息
+ */
 @ObjectType({ description: '用户信息' })
 export class User {
     @Field(() => ID, { nullable: false })
@@ -20,7 +22,9 @@ export class User {
     @Field(() => String, { nullable: false })
     email!: string;
 
-    /** User's name */
+    /**
+     * User's name
+     */
     @Field(() => String, { nullable: false, description: "User's name" })
     @Directive('@upper')
     username!: string;

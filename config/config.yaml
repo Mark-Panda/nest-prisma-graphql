@@ -3,6 +3,7 @@
 serve:
   port: 3100
   prefix: # 路径前缀
+  gqlAuth: false  #是否开启GraphQL鉴权认证
 
 
 # 缓存配置
