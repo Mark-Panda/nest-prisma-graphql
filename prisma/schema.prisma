@@ -38,7 +38,7 @@ generator nestgraphql {
 
 /// 用户信息
 model User {
-    id          String    @id @default(cuid())
+    id          String    @id @default(cuid()) @db.Char(25)
     create_date DateTime  @default(now())
     update_date DateTime  @updatedAt
     /// @FieldType('Scalars.GraphQLEmailAddress')
