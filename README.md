@@ -2,7 +2,7 @@
 
 > Nest Prisma Graphql 可以使用指令
 > prisma的指令实现通过 `prisma-nestjs-graphql` 来实现
-> 切换node版本为12版本再启动
+> 切换node版本为16版本再启动
 
 ## 服务操作步骤
 
@@ -39,6 +39,7 @@
 ## 备注
 
 > 因为有GraphQL的存在所以响应拦截器需要在restful接口的controller文件中引用，不能全局引用 报错拦截器同理, GraphQL有自己的返回类型
+> 打包docker镜像时需要先build好dist文件再打包
 
 ## 代码结构树
 
