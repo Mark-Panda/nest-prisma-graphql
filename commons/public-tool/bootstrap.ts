@@ -53,7 +53,7 @@ export async function bootstrap(
             'Authorization',
         )
         .setVersion('1.0')
-        .addServer('serve.prefix')
+        .addServer(serve.prefix)
         .build();
     const document = SwaggerModule.createDocument(app, documentBuilder, {
         ignoreGlobalPrefix: true,

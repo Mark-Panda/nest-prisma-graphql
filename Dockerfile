@@ -1,27 +1,22 @@
-FROM node:16.14.2 AS builder
+FROM node:16.14.2-alpine
 
 # Create app directory
 WORKDIR /app
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
-COPY prisma ./prisma/
+COPY ./prisma ./prisma
+COPY ./dist ./dist
 
-# Install app dependencies
-RUN npm install
+RUN \
+    npm config set registry https://registry.npmmirror.com && \
+    npm install --production && \
+    npm i -g prisma@3.10.0 && \
+    prisma generate 
 
-RUN npm run prisma:g
 
-COPY . .
-
-RUN npm run build
-
-FROM node:16.14.2
-
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/dist ./dist
+WORKDIR /app
+CMD [ "npm", "run", "start:prod" ]
 
 EXPOSE 3100
-# CMD [ "node", "run", "start:dev" ]
-CMD [ "npm", "run", "start:prod" ]
+
