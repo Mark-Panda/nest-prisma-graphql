@@ -22,3 +22,10 @@ swagger:
   title: 项目接口文档
   description: '[Base URL: localhost:3100]'
   path: v1/swagger
+
+# 限流
+httpLimiter:
+  tokenKey: 'nestHttpLimiter' #剩余tokenKey
+  timestampKey: 'nestHttpLimiterStamp' #刷新时间Key
+  capacity: 10 #桶容量
+  rate: 1 #每秒生成token数量即token生成速度

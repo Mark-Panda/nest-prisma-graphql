@@ -4,9 +4,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
-import { LoggerService } from '../public-module';
 import { mw } from 'request-ip';
 import * as express from 'express';
+import { LoggerService, limiterMiddleware } from '../public-module';
 
 type BootstrapOptions = NestApplicationOptions & {
     // 在服务启动之前执行
@@ -33,6 +33,8 @@ export async function bootstrap(
     app.set('view engine', 'ejs');
     // 获取客户端真实IP
     app.use(mw());
+    // 限流中间件
+    app.use(limiterMiddleware);
     // 获取配置服务
     const configService = app.get<ConfigService>(ConfigService);
 

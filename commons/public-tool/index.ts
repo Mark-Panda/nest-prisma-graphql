@@ -11,3 +11,5 @@ export * from './prisma';
 export * from './all.exception.filter';
 export * from './transform.interceptor';
 export * from './data';
+export * from './redis';
+export * from './config';

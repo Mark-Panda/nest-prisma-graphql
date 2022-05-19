@@ -5,15 +5,16 @@ import {
     ValidationPipe,
     CacheModule,
 } from '@nestjs/common';
-import type { ClientOpts } from 'redis';
+import type { RedisOptions } from 'ioredis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
-import * as redisStore from 'cache-manager-redis-store';
+import * as redisStore from 'cache-manager-ioredis';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { load } from 'js-yaml';
 import { merge, cloneDeepWith } from 'lodash';
 import { rootPath } from 'commons/public-tool';
+import { configYml } from 'commons/public-tool';
 
 export interface GlobalModuleOptions {
     yamlFilePath?: string[]; // 配置文件路径
@@ -38,13 +39,8 @@ export class GlobalModule {
                 cache: true,
                 load: [
                     () => {
-                        let configs: any = {};
-                        const configPath = [
-                            'config.yaml',
-                            'config.jwt.yaml',
-                            `${process.env.NODE_ENV || 'development'}.yaml`,
-                            ...yamlFilePath,
-                        ];
+                        let configs = configYml;
+                        const configPath = [...yamlFilePath];
                         for (const path of configPath) {
                             try {
                                 // 读取并解析配置文件
@@ -60,28 +56,6 @@ export class GlobalModule {
                         configs = cloneDeepWith(configs, (value) => {
                             if (value === null) return '';
                         });
-                        // Redis设置取环境变量
-                        configs.cache.redis.host = process.env.CONFIG_CACHE_HOST
-                            ? process.env.CONFIG_CACHE_HOST
-                            : configs.cache.redis.host;
-                        configs.cache.redis.port = process.env.CONFIG_CACHE_PORT
-                            ? process.env.CONFIG_CACHE_PORT
-                            : configs.cache.redis.port;
-                        configs.cache.redis.db = process.env.CONFIG_CACHE_DB
-                            ? process.env.DB
-                            : configs.cache.redis.db;
-                        // 服务占用端口
-                        configs.serve.port = process.env.CONFIG_SERVE_PORT
-                            ? process.env.CONFIG_SERVE_PORT
-                            : configs.serve.port;
-                        //JWT token失效时间
-                        configs.jwt.expiresIn = process.env.CONFIG_JWT_EXPIRESIN
-                            ? process.env.CONFIG_JWT_EXPIRESIN
-                            : configs.jwt.expiresIn;
-                        configs.jwt.refreshExpiresIn = process.env
-                            .CONFIG_JWT_REFRESHEXPIRESIN
-                            ? process.env.CONFIG_JWT_REFRESHEXPIRESIN
-                            : configs.jwt.refreshExpiresIn;
                         return configs;
                     },
                 ],
@@ -110,7 +84,7 @@ export class GlobalModule {
         // 开启缓存模块
         if (cache) {
             imports.push({
-                ...CacheModule.registerAsync<ClientOpts>({
+                ...CacheModule.registerAsync<RedisOptions>({
                     useFactory: (configService: ConfigService) => {
                         const { redis } = configService.get('cache');
                         // 使用 redis 做缓存服务
