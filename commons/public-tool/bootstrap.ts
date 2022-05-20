@@ -3,6 +3,7 @@ import { NestApplicationOptions, INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
+import { WsAdapter } from '@nestjs/platform-ws';
 import { join } from 'path';
 import { mw } from 'request-ip';
 import * as express from 'express';
@@ -35,6 +36,8 @@ export async function bootstrap(
     app.use(mw());
     // 限流中间件
     app.use(limiterMiddleware);
+    // websocket
+    app.useWebSocketAdapter(new WsAdapter(app));
     // 获取配置服务
     const configService = app.get<ConfigService>(ConfigService);
 

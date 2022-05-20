@@ -12,6 +12,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'commons/public-module/roles/role.guard';
 import { UploadModule } from './upload/upload.module';
+import { EventsModule } from './wsResolver/events/events.module';
 
 @Module({
     imports: [
@@ -46,6 +47,7 @@ import { UploadModule } from './upload/upload.module';
                 ],
             },
         }),
+        EventsModule,
     ],
     providers: [
         {
