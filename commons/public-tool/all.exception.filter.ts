@@ -5,9 +5,7 @@ import {
     HttpException,
     HttpStatus,
 } from '@nestjs/common';
-import { TcpContext } from '@nestjs/microservices';
 import { LoggerService } from '../public-module';
-import { throwError } from 'rxjs';
 
 const line = '-'.repeat(50);
 
@@ -60,10 +58,6 @@ export class AllExceptionFilter implements ExceptionFilter {
         // 错误日志
         loggerService.error(resJson, '响应错误');
         loggerService.log(line, '请求结束');
-
-        if (response instanceof TcpContext) {
-            return throwError(exception);
-        }
 
         response.status(code).json(resJson);
     }

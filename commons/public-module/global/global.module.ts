@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import type { RedisOptions } from 'ioredis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ClientsModule } from '@nestjs/microservices';
 import * as redisStore from 'cache-manager-ioredis';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -18,9 +17,7 @@ import { configYml } from 'commons/public-tool';
 
 export interface GlobalModuleOptions {
     yamlFilePath?: string[]; // 配置文件路径
-    microservice?: string[]; // 开启微服务模块
     cache?: boolean; // 开启缓存模块
-    graphq?: boolean; // 开启GraphQL
 }
 /**
  * 全局模块
@@ -31,7 +28,7 @@ export class GlobalModule {
      * 全局模块初始化
      */
     static forRoot(options: GlobalModuleOptions): DynamicModule {
-        const { yamlFilePath = [], cache, microservice } = options || {};
+        const { yamlFilePath = [], cache } = options || {};
         const imports: DynamicModule['imports'] = [
             // 配置模块
             ConfigModule.forRoot({
@@ -61,25 +58,6 @@ export class GlobalModule {
                 ],
             }),
         ];
-
-        // 开启微服务模块
-        if (microservice) {
-            imports.push({
-                ...ClientsModule.registerAsync(
-                    microservice.map((name) => ({
-                        name,
-                        useFactory: (configService: ConfigService) => {
-                            const microserviceClient = configService.get(
-                                `microserviceClients.${name}`,
-                            );
-                            return microserviceClient;
-                        },
-                        inject: [ConfigService],
-                    })),
-                ),
-                global: true,
-            });
-        }
 
         // 开启缓存模块
         if (cache) {
