@@ -584,8 +584,9 @@
             const reg = /(\w+):\/\/([^/:]+)(:\d*)?/g; // 匹配协议://IP:端口
             const accessUrl = reqUrl.match(reg)
             root.classList.add('playgroundIn');
-            const configText = document.getElementById('playground-config').innerText
+            const configText = document.getElementById('playground-config').innerText;
             const configJson = JSON.parse(configText);
+            configJson.endpoint = '<%= path %>';
             configJson.tabs[0].endpoint = accessUrl + configJson.endpoint;
             configJson.tabs[0].headers['Authorization'] = "Bearer " + accessToken;
             configJson.tabs[0].headers['RefreshToken'] = refreshToken;

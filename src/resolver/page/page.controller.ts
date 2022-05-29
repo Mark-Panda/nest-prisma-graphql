@@ -38,6 +38,8 @@ export class PageController {
         if (process.env.NODE_ENV === 'production') {
             return res.json({ message: '生产环境不允许使用playground!' });
         }
-        return res.render('playground');
+        return res.render('playground', {
+            path: configYml.serve.graphqlPath,
+        });
     }
 }
