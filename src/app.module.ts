@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GlobalModule } from 'commons/public-module';
+import { configYml } from 'commons/public-tool';
 import { AllModules } from 'services/index';
 import { mergeDirectiveTransformer } from './graphqlDirective/index.directive';
 import { AllResolverModules } from './resolver/index';
@@ -13,7 +14,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'commons/public-module/roles/role.guard';
 import { UploadModule } from './upload/upload.module';
 import { EventsModule } from './wsResolver/events/events.module';
-
 @Module({
     imports: [
         GlobalModule.forRoot({
@@ -27,7 +27,7 @@ import { EventsModule } from './wsResolver/events/events.module';
         UploadModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             cors: true,
-            path: '/data/graphql',
+            path: configYml.serve.graphqlPath,
             driver: ApolloDriver,
             // 多个指令如何实现
             transformSchema: (schema) => mergeDirectiveTransformer(schema),
