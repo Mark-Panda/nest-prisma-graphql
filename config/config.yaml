@@ -4,7 +4,7 @@ serve:
   port: 3100
   prefix: # 路径前缀
   gqlAuth: false  #是否开启GraphQL鉴权认证
-  graphqlPath: '/data/graphql' #GraphQL请求路径
+  graphqlPath: '/data/graphql' #GraphQL请求路径  修改时需要同步修改views/playground.ejs里的配置
 
 
 # 缓存配置
