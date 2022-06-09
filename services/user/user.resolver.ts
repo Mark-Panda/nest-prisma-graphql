@@ -186,7 +186,7 @@ export class UserResolver {
      */
     @Query(() => AggregateUser)
     @UseGuards(GqlAuthGuard)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.System, Role.User)
     async userAggregate(
         @Args() args: UserAggregateArgs,
         @Info() info: GraphQLResolveInfo,
@@ -207,7 +207,7 @@ export class UserResolver {
      */
     @Query(() => [UserGroupBy])
     @UseGuards(GqlAuthGuard)
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.System, Role.User)
     async userGroupBy(
         @Args() args: UserGroupByArgs,
         @Info() info: GraphQLResolveInfo,
@@ -228,7 +228,7 @@ export class UserResolver {
     @Mutation(() => AffectedRows, { nullable: true })
     @UseGuards(GqlAuthGuard)
     @Roles(Role.Admin)
-    async createManyUsers(@Args() args: CreateManyUserArgs): Promise<any> {
+    async createManyusers(@Args() args: CreateManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个创建GraphQL请求参数');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
@@ -244,7 +244,7 @@ export class UserResolver {
     @Mutation(() => AffectedRows, { nullable: true })
     @UseGuards(GqlAuthGuard)
     @Roles(Role.Admin)
-    async updateManyUsers(@Args() args: UpdateManyUserArgs): Promise<any> {
+    async updateManyusers(@Args() args: UpdateManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个更新GraphQL请求参数');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
@@ -259,7 +259,7 @@ export class UserResolver {
     @Mutation(() => AffectedRows, { nullable: true })
     @UseGuards(GqlAuthGuard)
     @Roles(Role.Admin)
-    async deleteManyUsers(@Args() args: DeleteManyUserArgs): Promise<any> {
+    async deleteManyusers(@Args() args: DeleteManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个删除GraphQL请求参数');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore

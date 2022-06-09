@@ -1630,7 +1630,7 @@ type Query {
   organizeGroupBy(where: OrganizeWhereInput, orderBy: [OrganizeOrderByWithAggregationInput!], by: [OrganizeScalarFieldEnum!]!, having: OrganizeScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: OrganizeCountAggregateInput, _min: OrganizeMinAggregateInput, _max: OrganizeMaxAggregateInput): [OrganizeGroupBy!]!
   person(where: PersonWhereUniqueInput!): Person!
   personFirst(where: PersonWhereInput, orderBy: [PersonOrderByWithRelationAndSearchRelevanceInput!], cursor: PersonWhereUniqueInput, take: Int, skip: Int, distinct: [PersonScalarFieldEnum!]): Person!
-  persons(where: PersonWhereInput, orderBy: [PersonOrderByWithRelationAndSearchRelevanceInput!], cursor: PersonWhereUniqueInput, take: Int, skip: Int, distinct: [PersonScalarFieldEnum!]): [Person!]!
+  people(where: PersonWhereInput, orderBy: [PersonOrderByWithRelationAndSearchRelevanceInput!], cursor: PersonWhereUniqueInput, take: Int, skip: Int, distinct: [PersonScalarFieldEnum!]): [Person!]!
   personAggregate(where: PersonWhereInput, orderBy: [PersonOrderByWithRelationAndSearchRelevanceInput!], cursor: PersonWhereUniqueInput, take: Int, skip: Int, _count: PersonCountAggregateInput, _min: PersonMinAggregateInput, _max: PersonMaxAggregateInput): AggregatePerson!
   personGroupBy(where: PersonWhereInput, orderBy: [PersonOrderByWithAggregationInput!], by: [PersonScalarFieldEnum!]!, having: PersonScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: PersonCountAggregateInput, _min: PersonMinAggregateInput, _max: PersonMaxAggregateInput): [PersonGroupBy!]!
   user(where: UserWhereUniqueInput!): User!
@@ -1665,7 +1665,7 @@ type Query {
   actionGroupBy(where: ActionWhereInput, orderBy: [ActionOrderByWithAggregationInput!], by: [ActionScalarFieldEnum!]!, having: ActionScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: ActionCountAggregateInput, _min: ActionMinAggregateInput, _max: ActionMaxAggregateInput): [ActionGroupBy!]!
   actionbasis(where: ActionBasisWhereUniqueInput!): ActionBasis!
   actionbasisFirst(where: ActionBasisWhereInput, orderBy: [ActionBasisOrderByWithRelationAndSearchRelevanceInput!], cursor: ActionBasisWhereUniqueInput, take: Int, skip: Int, distinct: [ActionBasisScalarFieldEnum!]): ActionBasis!
-  actionbasiss(where: ActionBasisWhereInput, orderBy: [ActionBasisOrderByWithRelationAndSearchRelevanceInput!], cursor: ActionBasisWhereUniqueInput, take: Int, skip: Int, distinct: [ActionBasisScalarFieldEnum!]): [ActionBasis!]!
+  actionbases(where: ActionBasisWhereInput, orderBy: [ActionBasisOrderByWithRelationAndSearchRelevanceInput!], cursor: ActionBasisWhereUniqueInput, take: Int, skip: Int, distinct: [ActionBasisScalarFieldEnum!]): [ActionBasis!]!
   actionbasisAggregate(where: ActionBasisWhereInput, orderBy: [ActionBasisOrderByWithRelationAndSearchRelevanceInput!], cursor: ActionBasisWhereUniqueInput, take: Int, skip: Int, _count: ActionBasisCountAggregateInput, _min: ActionBasisMinAggregateInput, _max: ActionBasisMaxAggregateInput): AggregateActionBasis!
   actionbasisGroupBy(where: ActionBasisWhereInput, orderBy: [ActionBasisOrderByWithAggregationInput!], by: [ActionBasisScalarFieldEnum!]!, having: ActionBasisScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: ActionBasisCountAggregateInput, _min: ActionBasisMinAggregateInput, _max: ActionBasisMaxAggregateInput): [ActionBasisGroupBy!]!
   permission(where: PermissionWhereUniqueInput!): Permission!
@@ -4997,107 +4997,107 @@ type Mutation {
   updateOneOrganize(data: OrganizeUpdateInput!, where: OrganizeWhereUniqueInput!): Organize
   upsertOneOrganize(where: OrganizeWhereUniqueInput!, create: OrganizeCreateInput!, update: OrganizeUpdateInput!): Organize
   deleteOneOrganize(where: OrganizeWhereUniqueInput!): Organize
-  createManyOrganizes(data: [OrganizeCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyOrganizes(data: OrganizeUpdateManyMutationInput!, where: OrganizeWhereInput): AffectedRows
-  deleteManyOrganizes(where: OrganizeWhereInput): AffectedRows
+  createManyorganizes(data: [OrganizeCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyorganizes(data: OrganizeUpdateManyMutationInput!, where: OrganizeWhereInput): AffectedRows
+  deleteManyorganizes(where: OrganizeWhereInput): AffectedRows
   createOnePerson(data: PersonCreateInput!): Person
   updateOnePerson(data: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person
   upsertOnePerson(where: PersonWhereUniqueInput!, create: PersonCreateInput!, update: PersonUpdateInput!): Person
   deleteOnePerson(where: PersonWhereUniqueInput!): Person
-  createManyPersons(data: [PersonCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyPersons(data: PersonUpdateManyMutationInput!, where: PersonWhereInput): AffectedRows
-  deleteManyPersons(where: PersonWhereInput): AffectedRows
+  createManypeople(data: [PersonCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManypeople(data: PersonUpdateManyMutationInput!, where: PersonWhereInput): AffectedRows
+  deleteManypeople(where: PersonWhereInput): AffectedRows
   createOneUser(data: UserCreateInput!): User
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User
   deleteOneUser(where: UserWhereUniqueInput!): User
-  createManyUsers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRows
-  deleteManyUsers(where: UserWhereInput): AffectedRows
+  createManyusers(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyusers(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRows
+  deleteManyusers(where: UserWhereInput): AffectedRows
   createOneUserGroup(data: UserGroupCreateInput!): UserGroup
   updateOneUserGroup(data: UserGroupUpdateInput!, where: UserGroupWhereUniqueInput!): UserGroup
   upsertOneUserGroup(where: UserGroupWhereUniqueInput!, create: UserGroupCreateInput!, update: UserGroupUpdateInput!): UserGroup
   deleteOneUserGroup(where: UserGroupWhereUniqueInput!): UserGroup
-  createManyUserGroups(data: [UserGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyUserGroups(data: UserGroupUpdateManyMutationInput!, where: UserGroupWhereInput): AffectedRows
-  deleteManyUserGroups(where: UserGroupWhereInput): AffectedRows
+  createManyusergroups(data: [UserGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyusergroups(data: UserGroupUpdateManyMutationInput!, where: UserGroupWhereInput): AffectedRows
+  deleteManyusergroups(where: UserGroupWhereInput): AffectedRows
   createOneModule(data: ModuleCreateInput!): Module
   updateOneModule(data: ModuleUpdateInput!, where: ModuleWhereUniqueInput!): Module
   upsertOneModule(where: ModuleWhereUniqueInput!, create: ModuleCreateInput!, update: ModuleUpdateInput!): Module
   deleteOneModule(where: ModuleWhereUniqueInput!): Module
-  createManyModules(data: [ModuleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyModules(data: ModuleUpdateManyMutationInput!, where: ModuleWhereInput): AffectedRows
-  deleteManyModules(where: ModuleWhereInput): AffectedRows
+  createManymodules(data: [ModuleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManymodules(data: ModuleUpdateManyMutationInput!, where: ModuleWhereInput): AffectedRows
+  deleteManymodules(where: ModuleWhereInput): AffectedRows
   createOneMenu(data: MenuCreateInput!): Menu
   updateOneMenu(data: MenuUpdateInput!, where: MenuWhereUniqueInput!): Menu
   upsertOneMenu(where: MenuWhereUniqueInput!, create: MenuCreateInput!, update: MenuUpdateInput!): Menu
   deleteOneMenu(where: MenuWhereUniqueInput!): Menu
-  createManyMenus(data: [MenuCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyMenus(data: MenuUpdateManyMutationInput!, where: MenuWhereInput): AffectedRows
-  deleteManyMenus(where: MenuWhereInput): AffectedRows
+  createManymenus(data: [MenuCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManymenus(data: MenuUpdateManyMutationInput!, where: MenuWhereInput): AffectedRows
+  deleteManymenus(where: MenuWhereInput): AffectedRows
   createOneActionGroup(data: ActionGroupCreateInput!): ActionGroup
   updateOneActionGroup(data: ActionGroupUpdateInput!, where: ActionGroupWhereUniqueInput!): ActionGroup
   upsertOneActionGroup(where: ActionGroupWhereUniqueInput!, create: ActionGroupCreateInput!, update: ActionGroupUpdateInput!): ActionGroup
   deleteOneActionGroup(where: ActionGroupWhereUniqueInput!): ActionGroup
-  createManyActionGroups(data: [ActionGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyActionGroups(data: ActionGroupUpdateManyMutationInput!, where: ActionGroupWhereInput): AffectedRows
-  deleteManyActionGroups(where: ActionGroupWhereInput): AffectedRows
+  createManyactiongroups(data: [ActionGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyactiongroups(data: ActionGroupUpdateManyMutationInput!, where: ActionGroupWhereInput): AffectedRows
+  deleteManyactiongroups(where: ActionGroupWhereInput): AffectedRows
   createOneAction(data: ActionCreateInput!): Action
   updateOneAction(data: ActionUpdateInput!, where: ActionWhereUniqueInput!): Action
   upsertOneAction(where: ActionWhereUniqueInput!, create: ActionCreateInput!, update: ActionUpdateInput!): Action
   deleteOneAction(where: ActionWhereUniqueInput!): Action
-  createManyActions(data: [ActionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyActions(data: ActionUpdateManyMutationInput!, where: ActionWhereInput): AffectedRows
-  deleteManyActions(where: ActionWhereInput): AffectedRows
+  createManyactions(data: [ActionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyactions(data: ActionUpdateManyMutationInput!, where: ActionWhereInput): AffectedRows
+  deleteManyactions(where: ActionWhereInput): AffectedRows
   createOneActionBasis(data: ActionBasisCreateInput!): ActionBasis
   updateOneActionBasis(data: ActionBasisUpdateInput!, where: ActionBasisWhereUniqueInput!): ActionBasis
   upsertOneActionBasis(where: ActionBasisWhereUniqueInput!, create: ActionBasisCreateInput!, update: ActionBasisUpdateInput!): ActionBasis
   deleteOneActionBasis(where: ActionBasisWhereUniqueInput!): ActionBasis
-  createManyActionBasiss(data: [ActionBasisCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyActionBasiss(data: ActionBasisUpdateManyMutationInput!, where: ActionBasisWhereInput): AffectedRows
-  deleteManyActionBasiss(where: ActionBasisWhereInput): AffectedRows
+  createManyactionbases(data: [ActionBasisCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyactionbases(data: ActionBasisUpdateManyMutationInput!, where: ActionBasisWhereInput): AffectedRows
+  deleteManyactionbases(where: ActionBasisWhereInput): AffectedRows
   createOnePermission(data: PermissionCreateInput!): Permission
   updateOnePermission(data: PermissionUpdateInput!, where: PermissionWhereUniqueInput!): Permission
   upsertOnePermission(where: PermissionWhereUniqueInput!, create: PermissionCreateInput!, update: PermissionUpdateInput!): Permission
   deleteOnePermission(where: PermissionWhereUniqueInput!): Permission
-  createManyPermissions(data: [PermissionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyPermissions(data: PermissionUpdateManyMutationInput!, where: PermissionWhereInput): AffectedRows
-  deleteManyPermissions(where: PermissionWhereInput): AffectedRows
+  createManypermissions(data: [PermissionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManypermissions(data: PermissionUpdateManyMutationInput!, where: PermissionWhereInput): AffectedRows
+  deleteManypermissions(where: PermissionWhereInput): AffectedRows
   createOnePermissionGroup(data: PermissionGroupCreateInput!): PermissionGroup
   updateOnePermissionGroup(data: PermissionGroupUpdateInput!, where: PermissionGroupWhereUniqueInput!): PermissionGroup
   upsertOnePermissionGroup(where: PermissionGroupWhereUniqueInput!, create: PermissionGroupCreateInput!, update: PermissionGroupUpdateInput!): PermissionGroup
   deleteOnePermissionGroup(where: PermissionGroupWhereUniqueInput!): PermissionGroup
-  createManyPermissionGroups(data: [PermissionGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManyPermissionGroups(data: PermissionGroupUpdateManyMutationInput!, where: PermissionGroupWhereInput): AffectedRows
-  deleteManyPermissionGroups(where: PermissionGroupWhereInput): AffectedRows
+  createManypermissiongroups(data: [PermissionGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManypermissiongroups(data: PermissionGroupUpdateManyMutationInput!, where: PermissionGroupWhereInput): AffectedRows
+  deleteManypermissiongroups(where: PermissionGroupWhereInput): AffectedRows
   createOneSignatureRule(data: SignatureRuleCreateInput!): SignatureRule
   updateOneSignatureRule(data: SignatureRuleUpdateInput!, where: SignatureRuleWhereUniqueInput!): SignatureRule
   upsertOneSignatureRule(where: SignatureRuleWhereUniqueInput!, create: SignatureRuleCreateInput!, update: SignatureRuleUpdateInput!): SignatureRule
   deleteOneSignatureRule(where: SignatureRuleWhereUniqueInput!): SignatureRule
-  createManySignatureRules(data: [SignatureRuleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManySignatureRules(data: SignatureRuleUpdateManyMutationInput!, where: SignatureRuleWhereInput): AffectedRows
-  deleteManySignatureRules(where: SignatureRuleWhereInput): AffectedRows
+  createManysignaturerules(data: [SignatureRuleCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManysignaturerules(data: SignatureRuleUpdateManyMutationInput!, where: SignatureRuleWhereInput): AffectedRows
+  deleteManysignaturerules(where: SignatureRuleWhereInput): AffectedRows
   createOneSignaturePermission(data: SignaturePermissionCreateInput!): SignaturePermission
   updateOneSignaturePermission(data: SignaturePermissionUpdateInput!, where: SignaturePermissionWhereUniqueInput!): SignaturePermission
   upsertOneSignaturePermission(where: SignaturePermissionWhereUniqueInput!, create: SignaturePermissionCreateInput!, update: SignaturePermissionUpdateInput!): SignaturePermission
   deleteOneSignaturePermission(where: SignaturePermissionWhereUniqueInput!): SignaturePermission
-  createManySignaturePermissions(data: [SignaturePermissionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManySignaturePermissions(data: SignaturePermissionUpdateManyMutationInput!, where: SignaturePermissionWhereInput): AffectedRows
-  deleteManySignaturePermissions(where: SignaturePermissionWhereInput): AffectedRows
+  createManysignaturepermissions(data: [SignaturePermissionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManysignaturepermissions(data: SignaturePermissionUpdateManyMutationInput!, where: SignaturePermissionWhereInput): AffectedRows
+  deleteManysignaturepermissions(where: SignaturePermissionWhereInput): AffectedRows
   createOneSignatureGroup(data: SignatureGroupCreateInput!): SignatureGroup
   updateOneSignatureGroup(data: SignatureGroupUpdateInput!, where: SignatureGroupWhereUniqueInput!): SignatureGroup
   upsertOneSignatureGroup(where: SignatureGroupWhereUniqueInput!, create: SignatureGroupCreateInput!, update: SignatureGroupUpdateInput!): SignatureGroup
   deleteOneSignatureGroup(where: SignatureGroupWhereUniqueInput!): SignatureGroup
-  createManySignatureGroups(data: [SignatureGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManySignatureGroups(data: SignatureGroupUpdateManyMutationInput!, where: SignatureGroupWhereInput): AffectedRows
-  deleteManySignatureGroups(where: SignatureGroupWhereInput): AffectedRows
+  createManysignaturegroups(data: [SignatureGroupCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManysignaturegroups(data: SignatureGroupUpdateManyMutationInput!, where: SignatureGroupWhereInput): AffectedRows
+  deleteManysignaturegroups(where: SignatureGroupWhereInput): AffectedRows
   createOneSignatureMethod(data: SignatureMethodCreateInput!): SignatureMethod
   updateOneSignatureMethod(data: SignatureMethodUpdateInput!, where: SignatureMethodWhereUniqueInput!): SignatureMethod
   upsertOneSignatureMethod(where: SignatureMethodWhereUniqueInput!, create: SignatureMethodCreateInput!, update: SignatureMethodUpdateInput!): SignatureMethod
   deleteOneSignatureMethod(where: SignatureMethodWhereUniqueInput!): SignatureMethod
-  createManySignatureMethods(data: [SignatureMethodCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
-  updateManySignatureMethods(data: SignatureMethodUpdateManyMutationInput!, where: SignatureMethodWhereInput): AffectedRows
-  deleteManySignatureMethods(where: SignatureMethodWhereInput): AffectedRows
+  createManysignaturemethods(data: [SignatureMethodCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManysignaturemethods(data: SignatureMethodUpdateManyMutationInput!, where: SignatureMethodWhereInput): AffectedRows
+  deleteManysignaturemethods(where: SignatureMethodWhereInput): AffectedRows
 }
 
 input OrganizeCreateInput {

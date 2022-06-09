@@ -33,5 +33,5 @@ httpLimiter:
 
 # 角色使用方法权限
 rolePermission:
-  system: [ user, users, person, persons ]
-  user: [ user, users, person, persons ]
+  system: [ user, users, person, persons, userGroupBy, userAggregate ]
+  user: [ user, users, person, persons, userGroupBy, userAggregate ]
