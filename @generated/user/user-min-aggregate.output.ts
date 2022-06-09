@@ -2,6 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
+import { Float } from '@nestjs/graphql';
+import { UserStatus } from '../prisma/user-status.enum';
 
 @ObjectType()
 export class UserMinAggregate {
@@ -14,33 +16,30 @@ export class UserMinAggregate {
     @Field(() => Date, { nullable: true })
     update_date?: Date | string;
 
-    @Field(() => String, { nullable: true })
-    email?: string;
+    @Field(() => Boolean, { nullable: true })
+    isDelete?: boolean;
 
     @Field(() => String, { nullable: true })
     username?: string;
 
+    @Field(() => String, { nullable: true })
+    email?: string;
+
     @HideField()
     password?: string;
 
-    @Field(() => String, { nullable: true })
-    reg_ip?: string;
-
-    @Field(() => String, { nullable: true })
-    login_ip?: string;
-
-    @Field(() => Date, { nullable: true })
-    login_date?: Date | string;
-
-    @Field(() => String, { nullable: true })
-    phone?: string;
-
-    @Field(() => String, { nullable: true })
-    nickname?: string;
-
-    @Field(() => String, { nullable: true })
-    avatar?: string;
-
     @Field(() => Role, { nullable: true })
     role?: keyof typeof Role;
+
+    @Field(() => String, { nullable: true })
+    RFID?: string;
+
+    @Field(() => String, { nullable: true })
+    description?: string;
+
+    @Field(() => Float, { nullable: true })
+    expired?: number;
+
+    @Field(() => UserStatus, { nullable: true })
+    status?: keyof typeof UserStatus;
 }

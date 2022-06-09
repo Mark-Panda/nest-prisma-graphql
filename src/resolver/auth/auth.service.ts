@@ -173,7 +173,7 @@ export class AuthService {
      */
     async register(req: any): Promise<object> {
         try {
-            const { username, password, email, phone } = req.body;
+            const { username, password, email } = req.body;
             const salt = await bcrypt.genSalt(
                 this.configService.get<number>('encryption.saltOrRounds'),
             );
@@ -195,7 +195,6 @@ export class AuthService {
                     username,
                     password: bcryptPwd,
                     email,
-                    phone,
                     role: 'USER',
                 },
             });

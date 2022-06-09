@@ -1,14 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Directive } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
+import { UserGroup } from '../user-group/user-group.model';
+import { Person } from '../person/person.model';
+import { Float } from '@nestjs/graphql';
+import { UserStatus } from '../prisma/user-status.enum';
+import { UserCount } from './user-count.output';
 
 /**
- * 用户信息
+ * 用户信息 登录、密码、鉴权
  */
-@ObjectType({ description: '用户信息' })
+@ObjectType({ description: '用户信息 登录、密码、鉴权' })
 export class User {
     @Field(() => ID, { nullable: false })
     id!: string;
@@ -19,37 +23,97 @@ export class User {
     @Field(() => Date, { nullable: false })
     update_date!: Date;
 
-    @Field(() => String, { nullable: false })
+    /**
+     * 删除的数据
+     */
+    @Field(() => Boolean, {
+        nullable: false,
+        defaultValue: false,
+        description: '删除的数据',
+    })
+    isDelete!: boolean;
+
+    /**
+     * "用户名称，用户登录字段"
+     */
+    @Field(() => String, {
+        nullable: false,
+        description: '"用户名称，用户登录字段"',
+    })
+    username!: string;
+
+    /**
+     * "用户邮箱，密码找回用"
+     */
+    @Field(() => String, {
+        nullable: false,
+        description: '"用户邮箱，密码找回用"',
+    })
     email!: string;
 
     /**
-     * User's name
+     * 密码
      */
-    @Field(() => String, { nullable: false, description: "User's name" })
-    @Directive('@upper')
-    username!: string;
-
     @HideField()
     password!: string;
 
-    @Field(() => String, { nullable: true })
-    reg_ip!: string | null;
+    /**
+     * "用户角色组"
+     */
+    @Field(() => Role, {
+        nullable: false,
+        defaultValue: 'USER',
+        description: '"用户角色组"',
+    })
+    role!: keyof typeof Role;
 
-    @Field(() => String, { nullable: true })
-    login_ip!: string | null;
+    /**
+     * "用户组"
+     */
+    @Field(() => [UserGroup], { nullable: true, description: '"用户组"' })
+    group?: Array<UserGroup>;
 
-    @Field(() => Date, { nullable: true })
-    login_date!: Date | null;
+    /**
+     * "RFID 可以为空不能重复"
+     */
+    @Field(() => String, {
+        nullable: true,
+        description: '"RFID 可以为空不能重复"',
+    })
+    RFID!: string | null;
 
-    @Field(() => String, { nullable: false })
-    phone!: string;
+    /**
+     * "用户对应人员"
+     */
+    @Field(() => [Person], { nullable: true, description: '"用户对应人员"' })
+    person?: Array<Person>;
 
-    @Field(() => String, { nullable: true })
-    nickname!: string | null;
+    /**
+     * "其他描述信息"
+     */
+    @Field(() => String, { nullable: true, description: '"其他描述信息"' })
+    description!: string | null;
 
-    @Field(() => String, { nullable: true })
-    avatar!: string | null;
+    /**
+     * "用户过期,时间戳"
+     */
+    @Field(() => Float, {
+        nullable: true,
+        defaultValue: 0,
+        description: '"用户过期,时间戳"',
+    })
+    expired!: number | null;
 
-    @Field(() => Role, { nullable: true })
-    role!: keyof typeof Role | null;
+    /**
+     * "用户状态"
+     */
+    @Field(() => UserStatus, {
+        nullable: false,
+        defaultValue: 'INACTIVATED',
+        description: '"用户状态"',
+    })
+    status!: keyof typeof UserStatus;
+
+    @Field(() => UserCount, { nullable: false })
+    _count?: UserCount;
 }

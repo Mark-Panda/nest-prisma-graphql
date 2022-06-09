@@ -2,9 +2,11 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
+import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input';
+import { EnumRoleWithAggregatesFilter } from '../prisma/enum-role-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
-import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
-import { EnumRoleNullableWithAggregatesFilter } from '../prisma/enum-role-nullable-with-aggregates-filter.input';
+import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
+import { EnumUserStatusWithAggregatesFilter } from '../prisma/enum-user-status-with-aggregates-filter.input';
 
 @InputType()
 export class UserScalarWhereWithAggregatesInput {
@@ -26,33 +28,30 @@ export class UserScalarWhereWithAggregatesInput {
     @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
     update_date?: DateTimeWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, { nullable: true })
-    email?: StringWithAggregatesFilter;
+    @Field(() => BoolWithAggregatesFilter, { nullable: true })
+    isDelete?: BoolWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, { nullable: true })
     username?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, { nullable: true })
-    password?: StringWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-    reg_ip?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-    login_ip?: StringNullableWithAggregatesFilter;
-
-    @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
-    login_date?: DateTimeNullableWithAggregatesFilter;
+    email?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, { nullable: true })
-    phone?: StringWithAggregatesFilter;
+    password?: StringWithAggregatesFilter;
+
+    @Field(() => EnumRoleWithAggregatesFilter, { nullable: true })
+    role?: EnumRoleWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-    nickname?: StringNullableWithAggregatesFilter;
+    RFID?: StringNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-    avatar?: StringNullableWithAggregatesFilter;
+    description?: StringNullableWithAggregatesFilter;
 
-    @Field(() => EnumRoleNullableWithAggregatesFilter, { nullable: true })
-    role?: EnumRoleNullableWithAggregatesFilter;
+    @Field(() => FloatNullableWithAggregatesFilter, { nullable: true })
+    expired?: FloatNullableWithAggregatesFilter;
+
+    @Field(() => EnumUserStatusWithAggregatesFilter, { nullable: true })
+    status?: EnumUserStatusWithAggregatesFilter;
 }

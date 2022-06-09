@@ -2,14 +2,11 @@ import { registerEnumType } from '@nestjs/graphql';
 
 export enum UserOrderByRelevanceFieldEnum {
     id = 'id',
-    email = 'email',
     username = 'username',
+    email = 'email',
     password = 'password',
-    reg_ip = 'reg_ip',
-    login_ip = 'login_ip',
-    phone = 'phone',
-    nickname = 'nickname',
-    avatar = 'avatar',
+    RFID = 'RFID',
+    description = 'description',
 }
 
 registerEnumType(UserOrderByRelevanceFieldEnum, {

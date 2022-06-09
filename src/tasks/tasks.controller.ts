@@ -15,6 +15,7 @@ import {
     ApiResponse,
     ApiQuery,
     ApiBearerAuth,
+    ApiHeader,
 } from '@nestjs/swagger';
 import { ApiOperation } from 'commons/public-decorator';
 import { CommonResponse } from 'src/datos/common.dto';
@@ -65,7 +66,7 @@ export class TasksController {
     @Roles(Role.Admin)
     @ApiOperation('暂停指定名称的定时任务')
     @ApiBody({ type: TasksBaseDto })
-    @ApiQuery({ name: 'roles', enum: Role })
+    @ApiHeader({ name: 'username', enum: '' })
     @ApiResponse({ status: 201, type: CommonResponse })
     @ApiBearerAuth('Authorization')
     @UseGuards(JwtAuthGuard)

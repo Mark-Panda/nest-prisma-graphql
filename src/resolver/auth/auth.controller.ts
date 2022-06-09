@@ -54,7 +54,9 @@ export class AuthController {
     @ApiResponse({ status: 201, type: UserInfoResponse })
     @ApiOperation('获取帐号信息')
     getInfo(@Req() req) {
-        return this.authService.getInfo(req.user.id);
+        const userInfo = this.authService.getInfo(req.user.id);
+        req.user = userInfo;
+        return userInfo;
     }
 
     @Get('logout')

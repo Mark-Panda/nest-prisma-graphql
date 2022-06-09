@@ -2,7 +2,11 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
+import { Float } from '@nestjs/graphql';
+import { UserStatus } from '../prisma/user-status.enum';
 import { UserCountAggregate } from './user-count-aggregate.output';
+import { UserAvgAggregate } from './user-avg-aggregate.output';
+import { UserSumAggregate } from './user-sum-aggregate.output';
 import { UserMinAggregate } from './user-min-aggregate.output';
 import { UserMaxAggregate } from './user-max-aggregate.output';
 
@@ -17,38 +21,41 @@ export class UserGroupBy {
     @Field(() => Date, { nullable: false })
     update_date!: Date | string;
 
-    @Field(() => String, { nullable: false })
-    email!: string;
+    @Field(() => Boolean, { nullable: false })
+    isDelete!: boolean;
 
     @Field(() => String, { nullable: false })
     username!: string;
 
+    @Field(() => String, { nullable: false })
+    email!: string;
+
     @HideField()
     password!: string;
 
-    @Field(() => String, { nullable: true })
-    reg_ip?: string;
+    @Field(() => Role, { nullable: false })
+    role!: keyof typeof Role;
 
     @Field(() => String, { nullable: true })
-    login_ip?: string;
-
-    @Field(() => Date, { nullable: true })
-    login_date?: Date | string;
-
-    @Field(() => String, { nullable: false })
-    phone!: string;
+    RFID?: string;
 
     @Field(() => String, { nullable: true })
-    nickname?: string;
+    description?: string;
 
-    @Field(() => String, { nullable: true })
-    avatar?: string;
+    @Field(() => Float, { nullable: true })
+    expired?: number;
 
-    @Field(() => Role, { nullable: true })
-    role?: keyof typeof Role;
+    @Field(() => UserStatus, { nullable: false })
+    status!: keyof typeof UserStatus;
 
     @Field(() => UserCountAggregate, { nullable: true })
     _count?: UserCountAggregate;
+
+    @Field(() => UserAvgAggregate, { nullable: true })
+    _avg?: UserAvgAggregate;
+
+    @Field(() => UserSumAggregate, { nullable: true })
+    _sum?: UserSumAggregate;
 
     @Field(() => UserMinAggregate, { nullable: true })
     _min?: UserMinAggregate;

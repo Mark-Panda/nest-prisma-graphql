@@ -1,6 +1,5 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { QueryMode } from './query-mode.enum';
 import { NestedStringNullableWithAggregatesFilter } from './nested-string-nullable-with-aggregates-filter.input';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
 import { NestedStringNullableFilter } from './nested-string-nullable-filter.input';
@@ -39,9 +38,6 @@ export class StringNullableWithAggregatesFilter {
 
     @Field(() => String, { nullable: true })
     search?: string;
-
-    @Field(() => QueryMode, { nullable: true })
-    mode?: keyof typeof QueryMode;
 
     @Field(() => NestedStringNullableWithAggregatesFilter, { nullable: true })
     not?: NestedStringNullableWithAggregatesFilter;

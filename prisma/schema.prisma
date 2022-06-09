@@ -1,5 +1,5 @@
 datasource db {
-    provider = "postgresql"
+    provider = "mysql"
     url      = env("DATABASE_URL")
 }
 
@@ -36,34 +36,412 @@ generator nestgraphql {
     decorate_2_namedImport                = true
 }
 
-/// 用户信息
-model User {
-    id          String    @id @default(cuid()) @db.Char(25)
-    create_date DateTime  @default(now())
-    update_date DateTime  @updatedAt
-    /// @FieldType('Scalars.GraphQLEmailAddress')
-    email       String    @unique
-    /// User's name
-    /// @Validator.MinLength(3)
-    /// @Validator.MaxLength(50)
-    /// @Directive({ arguments: ['@upper'] })
-    username    String    @unique
-    /// @HideField()
-    password    String
-    reg_ip      String?
-    login_ip    String?
-    login_date  DateTime? @default(now())
-    phone       String
-    nickname    String?
-    avatar      String?
-    role        Role?
-
-
-    @@unique([email, username])
+/// 组织机构- 对应集团，公司，部门
+model Organize {
+    id          String       @id @default(cuid()) @db.Char(25)
+    create_date DateTime     @default(now())
+    update_date DateTime     @updatedAt
+    ///删除的数据
+    isDelete    Boolean      @default(false)
+    /// "编码，不能为空"
+    code        String       @unique
+    ///   "名称不可重复"
+    name        String
+    ///   "人员信息"
+    persons     Person[]
+    ///   "组织类型"
+    type        OrganizeType
+    ///   "说明"
+    description String?
+    ///   "父组织:一"
+    parentId    String?      @db.Char(25)
+    parent      Organize?    @relation(name: "OrganizeOneToManyRelation", fields: [parentId], references: [id])
+    ///   "子结构:多"
+    organizes   Organize[]   @relation(name: "OrganizeOneToManyRelation")
 }
 
+/// 人员信息  一个人员对应一个用户
+model Person {
+    id          String        @id @default(cuid()) @db.Char(25)
+    create_date DateTime      @default(now())
+    update_date DateTime      @updatedAt
+    ///删除的数据
+    isDelete    Boolean       @default(false)
+    /// "员工编码，不能重复"
+    code        String        @unique
+    ///   "人员名称，中文名称等"
+    name        String?
+    ///   "个人头像"
+    avatar      String?
+    ///   "对应的登录用户，可以为空"
+    user        User[]
+    ///   "生日"
+    birthday    DateTime?
+    ///   "手机号"
+    mobile      String?
+    ///   "性别"
+    sex         SexType?      @default(MALE)
+    ///   "组织 用户至少从属１个组织"
+    organize    Organize[]
+    ///   "状态"
+    status      PersonStatus?
+    ///   "其他描述信息"
+    description String?
+}
+
+/// 用户信息 登录、密码、鉴权
+model User {
+    id          String      @id @default(cuid()) @db.Char(25)
+    create_date DateTime    @default(now())
+    update_date DateTime    @updatedAt
+    ///删除的数据
+    isDelete    Boolean     @default(false)
+    /// "用户名称，用户登录字段"
+    username    String      @unique
+    ///   "用户邮箱，密码找回用"
+    /// @FieldType('Scalars.GraphQLEmailAddress')
+    email       String      @unique
+    ///  密码
+    /// @HideField()
+    password    String
+    ///   "用户角色组"
+    role        Role        @default(USER)
+    ///   "用户组"
+    group       UserGroup[]
+    ///   "RFID 可以为空不能重复"
+    RFID        String?
+    ///   "用户对应人员"
+    person      Person[]
+    ///   "其他描述信息"
+    description String?
+    ///   "用户过期,时间戳"
+    expired     Float?      @default(0)
+    ///   "用户状态"
+    status      UserStatus  @default(INACTIVATED)
+
+}
+
+/// 用户组 -- 用户分组，菜单和功能操作权限对应用户组进行分配
+model UserGroup {
+    id          String       @id @default(cuid()) @db.Char(25)
+    create_date DateTime     @default(now())
+    update_date DateTime     @updatedAt
+    ///删除的数据
+    isDelete    Boolean      @default(false)
+    /// "用户组编码，不能重复"
+    code        String       @unique
+    ///   "用户组名称"
+    name        String
+    ///   "用户列表"
+    users       User[]
+    ///   "其他描述信息"
+    description String?
+    permission  Permission[]
+}
+
+/// 模块列表
+model Module {
+    id                  String               @id @default(cuid()) @db.Char(25)
+    create_date         DateTime             @default(now())
+    update_date         DateTime             @updatedAt
+    ///删除的数据
+    isDelete            Boolean              @default(false)
+    /// "模块编码"
+    code                String               @unique
+    ///   "模块名称"
+    name                String
+    ///   "数据路径-数据权限使用"
+    path                String?
+    ///   "模块说明"
+    description         String?
+    ///   "是否启用"
+    enable              Boolean              @default(true)
+    Menu                Menu[]
+    SignaturePermission SignaturePermission?
+}
+
+/// 菜单列表 树形结构
+model Menu {
+    id           String        @id @default(cuid()) @db.Char(25)
+    create_date  DateTime      @default(now())
+    update_date  DateTime      @updatedAt
+    ///删除的数据
+    isDelete     Boolean       @default(false)
+    ///   "菜单编码，不能重复"
+    code         String        @unique
+    ///   "菜单名称，展示名称"
+    name         String
+    ///   "父菜单:一"
+    parentId     String?
+    parent       Menu?         @relation("MenuOneToManyRelation", fields: [parentId], references: [id])
+    ///  "子菜单"
+    menus        Menu[]        @relation(name: "MenuOneToManyRelation")
+    ///   "菜单类型"
+    menuType     MenuType      @default(INTERNAL)
+    ///  "所属模块"
+    moduleId     String        @db.Char(25)
+    module       Module        @relation(fields: [moduleId], references: [id])
+    ///   "URL地址"
+    url          String?
+    ///   "多语言标识"
+    i18N         String?
+    ///   "图标标示"
+    icon         String?
+    ///   "排序号"
+    orderNo      Int?          @default(0)
+    ///   "菜单说明"
+    description  String?
+    ///   "是否可用"
+    enable       Boolean       @default(true)
+    ///   "对应操作"
+    actionGroups ActionGroup[]
+    /// 权限列表
+    permission   Permission[]
+}
+
+///功能操作组 - 要求:不可在Menu中复用
+model ActionGroup {
+    id              String           @id @default(cuid()) @db.Char(25)
+    create_date     DateTime         @default(now())
+    update_date     DateTime         @updatedAt
+    ///删除的数据
+    isDelete        Boolean          @default(false)
+    /// "分组编码-相同菜单下不能重复"
+    code            String
+    ///   "分组名称"
+    name            String
+    ///   "多语言标识"
+    i18N            String?
+    ///   "菜单"
+    menuId          String?          @db.Char(25)
+    menu            Menu?            @relation(fields: [menuId], references: [id])
+    ///   "操作"
+    actions         Action[]
+    ///   "分组说明"
+    description     String?
+    permissionGroup PermissionGroup?
+}
+
+///功能操作 - 要求:不可在ActionGroup中复用
+model Action {
+    id                  String               @id @default(cuid()) @db.Char(25)
+    create_date         DateTime             @default(now())
+    update_date         DateTime             @updatedAt
+    ///删除的数据
+    isDelete            Boolean              @default(false)
+    ///操作编码
+    code                String?
+    /// 操作名称，显示名称
+    name                String
+    ///多语言标识
+    i18N                String?
+    ///是否需要签名
+    signature           Boolean?             @default(value: false)
+    ///分组
+    groupId             String               @db.Char(25)
+    group               ActionGroup          @relation(fields: [groupId], references: [id])
+    ///操作说明
+    description         String
+    permissionGroup     PermissionGroup[]
+    signaturePermission SignaturePermission?
+}
+
+/// 功能操作基础配置信息
+model ActionBasis {
+    id          String   @id @default(cuid()) @db.Char(25)
+    create_date DateTime @default(now())
+    update_date DateTime @updatedAt
+    ///删除的数据
+    isDelete    Boolean  @default(false)
+    /// "操作编码"
+    code        String?
+    ///   "操作名称，显示名称"
+    name        String
+    ///   "多语言标识"
+    i18N        String?
+    ///   "操作说明"
+    description String?
+}
+
+/// 权限列表 -- 不同用户组，在相同菜单下有不同的操作组
+model Permission {
+    id               String            @id @default(cuid()) @db.Char(25)
+    create_date      DateTime          @default(now())
+    update_date      DateTime          @updatedAt
+    ///删除的数据
+    isDelete         Boolean           @default(false)
+    /// "菜单信息"
+    menu             Menu[]
+    ///   "用户组"
+    userGroup        UserGroup[]
+    ///   "操作权限组"
+    permissionGroups PermissionGroup[]
+    ///   "权限说明"
+    description      String?
+}
+
+/// 操作权限分组 -- 存储已经分配的操作组与操作的对应关系
+model PermissionGroup {
+    id            String       @id @default(cuid()) @db.Char(25)
+    create_date   DateTime     @default(now())
+    update_date   DateTime     @updatedAt
+    ///删除的数据
+    isDelete      Boolean      @default(false)
+    /// "权限组"
+    actionGroupId String       @unique @db.Char(25)
+    actionGroup   ActionGroup  @relation(fields: [actionGroupId], references: [id])
+    ///   "操作列表"
+    actions       Action[]
+    ///   "操作说明"
+    description   String?
+    /// 权限列表
+    permission    Permission[]
+}
+
+/// 签名规则 --  一个用户组中的任意用户签名有效  一个用户组中的任意用户，但不包含当前登录用户，签名有效 两个或两个以上用户组中的任意用户进行联合签名有效 两个或两个以上用户组中的任意用户签名，但不包含当前登录用户，签名有效
+model SignatureRule {
+    id          String            @id @default(cuid()) @db.Char(25)
+    create_date DateTime          @default(now())
+    update_date DateTime          @updatedAt
+    ///删除的数据
+    isDelete    Boolean           @default(false)
+    /// "规则名称"
+    name        String
+    ///   "分类"
+    category    SignatureCategory
+    ///   "规则值 user.name | userGroup.code"
+    value       String
+    ///   "动作"
+    action      SignatureAction
+    ///   "规则分组"
+    group       SignatureGroup[]
+    ///   "规则说明"
+    description String?
+}
+
+///签名权限 - 不包括数据查询外的数据操作签名控制 签名控制以Action为细粒度索引签名规则
+model SignaturePermission {
+    id               String         @id @default(cuid()) @db.Char(25)
+    create_date      DateTime       @default(now())
+    update_date      DateTime       @updatedAt
+    ///删除的数据
+    isDelete         Boolean        @default(false)
+    /// "菜单功能操作,数据唯一"
+    actionId         String         @unique @db.Char(25)
+    action           Action         @relation(fields: [actionId], references: [id])
+    ///   "分组"
+    signatureGroupId String         @unique @db.Char(25)
+    signatureGroup   SignatureGroup @relation(fields: [signatureGroupId], references: [id])
+    ///   "菜单所属模块,冗余校验"
+    moduleId         String         @unique @db.Char(25)
+    module           Module?        @relation(fields: [moduleId], references: [id])
+    ///   "权限说明"
+    description      String?
+}
+
+/// 签名分组
+model SignatureGroup {
+    id                  String               @id @default(cuid()) @db.Char(25)
+    create_date         DateTime             @default(now())
+    update_date         DateTime             @updatedAt
+    ///删除的数据
+    isDelete            Boolean              @default(false)
+    /// "分组名称"
+    name                String               @unique
+    ///   "签名规则"
+    rules               SignatureRule[]
+    ///   "分组说明"
+    description         String?
+    signaturePermission SignaturePermission?
+}
+
+/// 签名方法 - 系统内置的方法,必须通过签名才能调用
+model SignatureMethod {
+    id          String   @id @default(cuid()) @db.Char(25)
+    create_date DateTime @default(now())
+    update_date DateTime @updatedAt
+    ///删除的数据
+    isDelete    Boolean  @default(false)
+    /// "方法路径 /data/system"
+    path        String
+    ///   "方法名称 Mutation.updateUser"
+    method      String
+    ///   "说明"
+    description String?
+}
+
+///菜单类型
+enum MenuType {
+    ///内部
+    INTERNAL
+    /// 内部链接
+    INTERNALLINK
+    ///外部
+    EXTERNAL
+    ///外部弹出
+    EXTERNALPOPUP
+}
+
+/// 签名规则
+enum SignatureAction {
+    ///   "允许"
+    ALLOW
+    ///   "禁止"
+    DENY
+}
+
+/// 签名规则分类
+enum SignatureCategory {
+    ///   "用户组"
+    USERGROUP
+    ///   "当前登录用户"
+    LOGINUSER
+}
+
+/// 组织类型
+enum OrganizeType {
+    /// "集团"
+    GROUP
+    ///   "公司"
+    COMPANY
+    ///   "部门"
+    DEPARTMENT
+}
+
+/// 人员状态
+enum PersonStatus {
+    ///   "在职"
+    INCUMBENCY
+    ///   "离职"
+    LEAVING
+}
+
+/// 性别
+enum SexType {
+    ///   "男"
+    MALE
+    ///   "女"
+    FEMALE
+    ///   "其他"
+    OTHER
+}
+
+/// 角色定义
 enum Role {
-    USER
-    SYSTEM
+    ///   "超级管理员"
     ADMIN
+    ///   "系统管理员"
+    SYSTEM
+    ///   "普通用户"
+    USER
+}
+
+/// 用户状态
+enum UserStatus {
+    ///   "锁定"
+    LOCK
+    ///   "活动"
+    ACTIVITY
+    ///   "未激活"
+    INACTIVATED
 }

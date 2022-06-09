@@ -15,34 +15,31 @@ export class UserCountAggregate {
     update_date!: number;
 
     @Field(() => Int, { nullable: false })
-    email!: number;
+    isDelete!: number;
 
     @Field(() => Int, { nullable: false })
     username!: number;
+
+    @Field(() => Int, { nullable: false })
+    email!: number;
 
     @HideField()
     password!: number;
 
     @Field(() => Int, { nullable: false })
-    reg_ip!: number;
-
-    @Field(() => Int, { nullable: false })
-    login_ip!: number;
-
-    @Field(() => Int, { nullable: false })
-    login_date!: number;
-
-    @Field(() => Int, { nullable: false })
-    phone!: number;
-
-    @Field(() => Int, { nullable: false })
-    nickname!: number;
-
-    @Field(() => Int, { nullable: false })
-    avatar!: number;
-
-    @Field(() => Int, { nullable: false })
     role!: number;
+
+    @Field(() => Int, { nullable: false })
+    RFID!: number;
+
+    @Field(() => Int, { nullable: false })
+    description!: number;
+
+    @Field(() => Int, { nullable: false })
+    expired!: number;
+
+    @Field(() => Int, { nullable: false })
+    status!: number;
 
     @Field(() => Int, { nullable: false })
     _all!: number;

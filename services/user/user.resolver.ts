@@ -5,6 +5,9 @@ import { UseGuards } from '@nestjs/common';
 import { LoggerService, GqlAuthGuard } from 'commons/public-module';
 import { prisma } from 'commons/public-tool';
 
+import { Roles } from 'commons/public-module/roles/role.decorator';
+import { Role } from 'commons/public-module/roles/role.enum';
+
 import { User } from '@generated/user/user.model';
 import { AggregateUser } from '@generated/user/aggregate-user.output';
 import { UserAggregateArgs } from '@generated/user/user-aggregate.args';
@@ -36,6 +39,7 @@ export class UserResolver {
      */
     @Query(() => User)
     @UseGuards(GqlAuthGuard)
+    @Roles(Role.Admin)
     async user(
         @Args() args: FindUniqueUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -76,6 +80,7 @@ export class UserResolver {
      */
     @Query(() => [User])
     @UseGuards(GqlAuthGuard)
+    @Roles(Role.Admin)
     async users(
         @Args() args: FindManyUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -176,7 +181,7 @@ export class UserResolver {
      */
     @Query(() => AggregateUser)
     @UseGuards(GqlAuthGuard)
-    userAggregate(
+    async userAggregate(
         @Args() args: UserAggregateArgs,
         @Info() info: GraphQLResolveInfo,
     ) {
@@ -185,7 +190,7 @@ export class UserResolver {
         args = Object.assign(args, select);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
-        return prisma.user.aggregate(args);
+        return await prisma.user.aggregate(args);
     }
 
     /**

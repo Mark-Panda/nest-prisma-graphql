@@ -4,16 +4,15 @@ export enum UserScalarFieldEnum {
     id = 'id',
     create_date = 'create_date',
     update_date = 'update_date',
-    email = 'email',
+    isDelete = 'isDelete',
     username = 'username',
+    email = 'email',
     password = 'password',
-    reg_ip = 'reg_ip',
-    login_ip = 'login_ip',
-    login_date = 'login_date',
-    phone = 'phone',
-    nickname = 'nickname',
-    avatar = 'avatar',
     role = 'role',
+    RFID = 'RFID',
+    description = 'description',
+    expired = 'expired',
+    status = 'status',
 }
 
 registerEnumType(UserScalarFieldEnum, {

@@ -63,9 +63,6 @@ export class RegisternInfoDto {
 
     @ApiProperty('邮箱')
     email!: string;
-
-    @ApiProperty('手机号')
-    phone: string;
 }
 
 export class AccountAdmin {

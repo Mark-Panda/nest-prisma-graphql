@@ -30,3 +30,9 @@ httpLimiter:
   timestampKey: 'nestHttpLimiterStamp' #刷新时间Key
   capacity: 10 #桶容量
   rate: 1 #每秒生成token数量即token生成速度
+
+# 角色使用方法权限
+rolePermission:
+  admin: [ user, users, person, persons  ]
+  system: [ person, persons ]
+  user: [ menu, menus ]

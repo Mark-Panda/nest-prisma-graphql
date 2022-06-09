@@ -21,7 +21,7 @@
 - swagger接口文档
 - GraphQL的playground调试界面(开发环境下使用)
 - 定时任务
-- 简单角色权限控制
+- 简单角色权限控制 (依据用户角色权限，restful和GraphQL使用一套逻辑，目前header中存放username用户名，判断权限是否匹配)
 - 跨域
 - 报错过滤器(restful)
 - 响应拦截器(restful)

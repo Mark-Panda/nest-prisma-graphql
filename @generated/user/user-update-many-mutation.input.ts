@@ -2,9 +2,11 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
+import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
-import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
+import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
+import { EnumUserStatusFieldUpdateOperationsInput } from '../prisma/enum-user-status-field-update-operations.input';
 
 @InputType()
 export class UserUpdateManyMutationInput {
@@ -17,33 +19,30 @@ export class UserUpdateManyMutationInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
     update_date?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    email?: StringFieldUpdateOperationsInput;
+    @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+    isDelete?: BoolFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     username?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    password?: StringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    reg_ip?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    login_ip?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
-    login_date?: NullableDateTimeFieldUpdateOperationsInput;
+    email?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    phone?: StringFieldUpdateOperationsInput;
+    password?: StringFieldUpdateOperationsInput;
+
+    @Field(() => EnumRoleFieldUpdateOperationsInput, { nullable: true })
+    role?: EnumRoleFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    nickname?: NullableStringFieldUpdateOperationsInput;
+    RFID?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    avatar?: NullableStringFieldUpdateOperationsInput;
+    description?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-    role?: NullableEnumRoleFieldUpdateOperationsInput;
+    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
+    expired?: NullableFloatFieldUpdateOperationsInput;
+
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, { nullable: true })
+    status?: EnumUserStatusFieldUpdateOperationsInput;
 }
