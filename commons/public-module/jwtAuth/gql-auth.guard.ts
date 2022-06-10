@@ -23,18 +23,18 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
         const ctx = GqlExecutionContext.create(context);
         const req = ctx.getContext().req;
         const res = ctx.getContext().req.res;
-        const isAuth = this.configService.get('serve.gqlAuth');
         try {
-            if (!isAuth) {
-                return ctx.getContext().req;
-            }
             const accessToken = req.get('Authorization');
             if (!accessToken) throw new UnauthorizedException('请先登录');
             const atUserId = await this.authService.verifyToken(
                 accessToken,
                 'accessToken',
             );
-            if (atUserId) return ctx.getContext().req;
+            if (atUserId) {
+                // 给req存放userInfo信息,用于角色判断用户来源
+                ctx.getContext().req.userInfo = { username: atUserId.username };
+                return ctx.getContext().req;
+            }
             const refreshToken = req.get('RefreshToken');
             const tokenInfo = await this.authService.verifyToken(
                 refreshToken,
@@ -68,6 +68,8 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
                         ),
                     },
                 );
+                // 给req存放userInfo信息,用于角色判断用户来源
+                ctx.getContext().req.userInfo = { username: userInfo.username };
                 // request headers 对象 prop 属性全自动转成小写，
                 // 所以 获取 request.headers['authorization'] 或 request.get('Authorization')
                 // 重置属性 request.headers[authorization] = value

@@ -2,7 +2,7 @@ import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
 import { UseGuards } from '@nestjs/common';
-import { LoggerService, GqlAuthGuard } from 'commons/public-module';
+import { LoggerService, GqlAuthGuard, RolesGuard } from 'commons/public-module';
 import { prisma } from 'commons/public-tool';
 
 import { Roles } from 'commons/public-module/roles/role.decorator';
@@ -38,8 +38,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => User)
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.System, Role.User)
+    @UseGuards(GqlAuthGuard)
     async user(
         @Args() args: FindUniqueUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -59,8 +60,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => User)
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async userFirst(
         @Args() args: FindFirstUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -80,8 +82,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => [User])
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.System, Role.User)
+    @UseGuards(GqlAuthGuard)
     async users(
         @Args() args: FindManyUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -101,8 +104,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async createOneUser(
         @Args() args: CreateOneUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -122,8 +126,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async updateOneUser(
         @Args() args: UpdateOneUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -143,8 +148,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async upsertOneUser(
         @Args() args: UpsertOneUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -164,8 +170,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => User, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async deleteOneUser(
         @Args() args: DeleteOneUserArgs,
         @Info() info: GraphQLResolveInfo,
@@ -185,8 +192,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => AggregateUser)
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.System, Role.User)
+    @UseGuards(GqlAuthGuard)
     async userAggregate(
         @Args() args: UserAggregateArgs,
         @Info() info: GraphQLResolveInfo,
@@ -206,8 +214,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Query(() => [UserGroupBy])
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.System, Role.User)
+    @UseGuards(GqlAuthGuard)
     async userGroupBy(
         @Args() args: UserGroupByArgs,
         @Info() info: GraphQLResolveInfo,
@@ -226,8 +235,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => AffectedRows, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async createManyusers(@Args() args: CreateManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个创建GraphQL请求参数');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -242,8 +252,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => AffectedRows, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async updateManyusers(@Args() args: UpdateManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个更新GraphQL请求参数');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -257,8 +268,9 @@ export class UserResolver {
      * @returns 返回
      */
     @Mutation(() => AffectedRows, { nullable: true })
-    @UseGuards(GqlAuthGuard)
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
+    @UseGuards(GqlAuthGuard)
     async deleteManyusers(@Args() args: DeleteManyUserArgs): Promise<any> {
         this.logger.log(args, 'User模型多个删除GraphQL请求参数');
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

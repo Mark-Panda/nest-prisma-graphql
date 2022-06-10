@@ -18,9 +18,10 @@ export class RolesGuard implements CanActivate {
         if (!requiredRoles) {
             return true;
         }
+        // 查询来自JWT中给req中增加的userInfo，判断用户是谁
         const username = context.switchToHttp().getRequest()
-            ? context.switchToHttp().getRequest().get('username')
-            : ctx.getContext().req.get('username');
+            ? context.switchToHttp().getRequest().userInfo.username
+            : ctx.getContext().req.userInfo.username;
         if (!username) return false;
         const userRole = await prisma.user.findUnique({
             where: { username },

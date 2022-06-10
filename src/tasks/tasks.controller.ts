@@ -7,13 +7,12 @@ import {
     UseInterceptors,
     UseFilters,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'commons/public-module';
+import { JwtAuthGuard, RolesGuard } from 'commons/public-module';
 import { TasksService } from './tasks.service';
 import {
     ApiTags,
     ApiBody,
     ApiResponse,
-    ApiQuery,
     ApiBearerAuth,
     ApiHeader,
 } from '@nestjs/swagger';
@@ -63,10 +62,10 @@ export class TasksController {
     }
 
     @Post('stopCron')
+    @UseGuards(RolesGuard)
     @Roles(Role.Admin)
     @ApiOperation('暂停指定名称的定时任务')
     @ApiBody({ type: TasksBaseDto })
-    @ApiHeader({ name: 'username', enum: '' })
     @ApiResponse({ status: 201, type: CommonResponse })
     @ApiBearerAuth('Authorization')
     @UseGuards(JwtAuthGuard)

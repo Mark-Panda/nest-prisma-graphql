@@ -569,8 +569,6 @@
                             localStorage.accessToken = headerMap.authorization;
                             localStorage.refreshToken = headerMap.refreshtoken;
                         }
-                        localStorage.removeItem("username")
-                        localStorage.username = data.data.username
                     },
                     error: function(res, error, exception) {
                         window.location = `/login`;
@@ -592,7 +590,6 @@
             configJson.tabs[0].endpoint = accessUrl + configJson.endpoint;
             configJson.tabs[0].headers['Authorization'] = "Bearer " + accessToken;
             configJson.tabs[0].headers['RefreshToken'] = refreshToken;
-            configJson.tabs[0].headers['username'] = localStorage.username;
             if (configText && configText.length) {
                 try {
                     GraphQLPlayground.init(root, configJson)

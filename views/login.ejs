@@ -79,10 +79,8 @@
                     console.log('data', data)
                     localStorage.removeItem("accessToken")
                     localStorage.removeItem("refreshToken")
-                    localStorage.removeItem("username")
                     localStorage.accessToken = data.data.accessToken;
                     localStorage.refreshToken = data.data.refreshToken;
-                    localStorage.username = data.data.username
                     window.location = `/dev`;
                 });
             }

@@ -10,8 +10,6 @@ import { AllResolverModules } from './resolver/index';
 import { CustomGraphqlModules } from './graphqlResolver/index';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from 'commons/public-module/roles/role.guard';
 import { UploadModule } from './upload/upload.module';
 import { EventsModule } from './wsResolver/events/events.module';
 @Module({
@@ -48,12 +46,6 @@ import { EventsModule } from './wsResolver/events/events.module';
             },
         }),
         EventsModule,
-    ],
-    providers: [
-        {
-            provide: APP_GUARD,
-            useClass: RolesGuard,
-        },
     ],
 })
 export class AppModule {}

@@ -27,7 +27,13 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
                 accessToken,
                 'accessToken',
             );
-            if (atUserInfo) return this.activate(context);
+            if (atUserInfo) {
+                // 给req存放userInfo信息,用于角色判断用户来源
+                context.switchToHttp().getRequest().userInfo = {
+                    username: atUserInfo.username,
+                };
+                return this.activate(context);
+            }
             const refreshToken = req.get('refreshToken');
             const tokenInfo = await this.authService.verifyToken(
                 refreshToken,
@@ -61,6 +67,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
                         ),
                     },
                 );
+                // 给req存放userInfo信息,用于角色判断用户来源
+                context.switchToHttp().getRequest().userInfo = {
+                    username: userInfo.username,
+                };
                 // request headers 对象 prop 属性全自动转成小写，
                 // 所以 获取 request.headers['authorization'] 或 request.get('Authorization')
                 // 重置属性 request.headers[authorization] = value
