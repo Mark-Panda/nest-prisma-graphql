@@ -3,10 +3,9 @@ import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
 import { UseGuards } from '@nestjs/common';
 import { LoggerService, GqlAuthGuard, RolesGuard } from 'commons/public-module';
-import { prisma } from 'commons/public-tool';
-
 import { Roles } from 'commons/public-module/roles/role.decorator';
 import { Role } from 'commons/public-module/roles/role.enum';
+import { prisma } from 'commons/public-tool';
 
 import { User } from '@generated/user/user.model';
 import { AggregateUser } from '@generated/user/aggregate-user.output';

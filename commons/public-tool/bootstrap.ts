@@ -50,21 +50,22 @@ export async function bootstrap(
     app.setGlobalPrefix(serve.prefix);
     // swagger 接口文档
     const swagger = configService.get('swagger');
-    const documentBuilder = new DocumentBuilder()
-        .setTitle(swagger.title)
-        .setDescription(swagger.description)
-        .addBearerAuth(
-            { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-            'Authorization',
-        )
-        .setVersion('1.0')
-        .addServer(serve.prefix)
-        .build();
-    const document = SwaggerModule.createDocument(app, documentBuilder, {
-        ignoreGlobalPrefix: true,
-    });
-    SwaggerModule.setup(swagger.path, app, document);
-
+    if (process.env.NODE_ENV !== 'production') {
+        const documentBuilder = new DocumentBuilder()
+            .setTitle(swagger.title)
+            .setDescription(swagger.description)
+            .addBearerAuth(
+                { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+                'Authorization',
+            )
+            .setVersion('1.0')
+            .addServer(serve.prefix)
+            .build();
+        const document = SwaggerModule.createDocument(app, documentBuilder, {
+            ignoreGlobalPrefix: true,
+        });
+        SwaggerModule.setup(swagger.path, app, document);
+    }
     // 启动HTTP服务
     await app.listen(serve.port);
     // 捕获进程错误
