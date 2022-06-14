@@ -2,6 +2,8 @@ import {
     IsIn as IsInSource,
     Matches as MatchesSource,
     IsInt as IsIntSource,
+    IsString as IsStringSource,
+    IsObject as IsObjectSource,
     IsNotEmpty as IsNotEmptySource,
     IsDate as IsDateSource,
     ValidationOptions,
@@ -51,8 +53,22 @@ export const IsInt = (message: string, options?: ValidationOptions) => {
 };
 
 /**
+ * 验证是否字符串
+ */
+export const IsString = (message: string, options?: ValidationOptions) => {
+    return IsStringSource({ message: `${message}只能为字符串`, ...options });
+};
+
+/**
  * 验证是否时间类型
  */
 export const IsDate = (message: string, options?: ValidationOptions) => {
     return IsDateSource({ message: `${message}只能为时间类型`, ...options });
+};
+
+/**
+ * 验证是否对象类型
+ */
+export const IsObject = (message: string, options?: ValidationOptions) => {
+    return IsObjectSource({ message: `${message}只能为对象类型`, ...options });
 };

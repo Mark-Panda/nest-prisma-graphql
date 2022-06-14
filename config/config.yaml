@@ -3,8 +3,10 @@
 serve:
   port: 3100
   prefix: # 路径前缀
-  graphqlPath: '/data/ff/graphql' #GraphQL请求路径  
 
+graphql:
+  queryMaxRows: 200
+  path: '/data/ff/graphql' #GraphQL请求路径
 
 # 缓存配置
 cache:
@@ -27,7 +29,7 @@ swagger:
 httpLimiter:
   tokenKey: 'nestHttpLimiter' #剩余tokenKey
   timestampKey: 'nestHttpLimiterStamp' #刷新时间Key
-  capacity: 10 #桶容量
+  capacity: 100 #桶容量
   rate: 1 #每秒生成token数量即token生成速度
 
 # 角色使用方法权限

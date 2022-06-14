@@ -30,7 +30,7 @@ export class PageController {
         if (process.env.NODE_ENV === 'production') {
             return res.json({ message: '生产环境不允许使用graph!' });
         }
-        return res.render('view', { path: configYml.serve.graphqlPath });
+        return res.render('view', { path: configYml.graphql.path });
     }
 
     @Get('playground')
@@ -38,8 +38,9 @@ export class PageController {
         if (process.env.NODE_ENV === 'production') {
             return res.json({ message: '生产环境不允许使用playground!' });
         }
+        console.log('--configYml.graphql.path', configYml.graphql.path);
         return res.render('playground', {
-            path: configYml.serve.graphqlPath,
+            path: configYml.graphql.path,
         });
     }
 }

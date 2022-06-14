@@ -4,6 +4,8 @@ import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GlobalModule } from 'commons/public-module';
 import { configYml } from 'commons/public-tool';
+import * as innerErrors from 'commons/public-module/errors/errorsGql';
+import { formatError } from 'commons/public-module/errors/errorsGql';
 import { AllModules } from 'services/index';
 import { mergeDirectiveTransformer } from './graphqlDirective/index.directive';
 import { AllResolverModules } from './resolver/index';
@@ -12,6 +14,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
 import { UploadModule } from './upload/upload.module';
 import { EventsModule } from './wsResolver/events/events.module';
+
 @Module({
     imports: [
         GlobalModule.forRoot({
@@ -25,8 +28,13 @@ import { EventsModule } from './wsResolver/events/events.module';
         UploadModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             cors: true,
-            path: configYml.serve.graphqlPath,
+            path: configYml.graphql.path,
             driver: ApolloDriver,
+            context: (req) => ({
+                ...req,
+                innerErrors,
+            }),
+            formatError,
             // 多个指令如何实现
             transformSchema: (schema) => mergeDirectiveTransformer(schema),
             installSubscriptionHandlers: true,

@@ -1,4 +1,4 @@
-# Nest项目
+# 基于NestJS的单体服务
 
 > Nest Prisma Graphql 可以使用指令
 > prisma的指令实现通过 `prisma-nestjs-graphql` 来实现
@@ -21,7 +21,7 @@
 - swagger接口文档
 - GraphQL的playground调试界面(开发环境下使用)
 - 定时任务
-- 简单角色权限控制
+- 角色权限控制 依据token查询用户角色
 - 跨域
 - 报错过滤器(restful)
 - 响应拦截器(restful)
@@ -30,6 +30,8 @@
 - 数据库连接信息和Redis的连接信息可以使用环境变量进行覆盖
 - 限流 令牌桶 使用lua脚本和Redis实现
 - websocket集成
+- GraphQL中间件
+- GraphQL异常友好型提示(自定义异常)
 
 ## 待办事项
 
@@ -39,9 +41,14 @@
 ## 备注
 
 > 因为有GraphQL的存在所以响应拦截器需要在restful接口的controller文件中引用，不能全局引用 报错拦截器同理, GraphQL有自己的返回类型
+
 > 打包docker镜像时需要先build好dist文件再打包
+
 > 角色守卫由全局改为控制器使用，因为要和JWT协同，JWT是控制器级别的。删除GraphQL的权限开关，变为永久需要验证JWT。
+
 > 当使用角色控制方法权限时，需要将权限的装饰器写在认证的上方，让代码先走jwt的认证权限，jwt会将username存放在req中，在角色Guard判断时就可以获取到真正的用户信息，判断用户角色，防止网络拦截判断。
+
+> 为了使用`graphql-middleware`中间件包（由于该包当前仍未支持`graphql`16版本，当支持可以将后面两个包升级），降低了`graphql`版本`16.3->15.8.0`和`prisma-graphql-type-decimal`版本 `2.0->1.0`。
 
 ## 代码结构树
 
