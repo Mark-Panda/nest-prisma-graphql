@@ -3,7 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GlobalModule } from 'commons/public-module';
-import { configYml } from 'commons/public-tool';
+import { configYml, FunctionPlugin } from 'commons/public-tool';
 import * as innerErrors from 'commons/public-module/errors/errorsGql';
 import { formatError } from 'commons/public-module/errors/errorsGql';
 import { AllModules } from 'services/index';
@@ -55,5 +55,6 @@ import { EventsModule } from './wsResolver/events/events.module';
         }),
         EventsModule,
     ],
+    providers: [FunctionPlugin],
 })
 export class AppModule {}

@@ -445,3 +445,24 @@ enum UserStatus {
     ///   "未激活"
     INACTIVATED
 }
+
+model Animal {
+    id          String   @id @default(cuid()) @db.Char(25)
+    create_date DateTime @default(now())
+    update_date DateTime @updatedAt
+    ///删除的数据
+    isDelete    Boolean  @default(false)
+    code        String
+    name        String
+    dogId       String
+}
+
+model Dog {
+    id          String   @id @default(cuid()) @db.Char(25)
+    create_date DateTime @default(now())
+    update_date DateTime @updatedAt
+    ///删除的数据
+    isDelete    Boolean  @default(false)
+    code        String
+    name        String
+}

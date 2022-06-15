@@ -94,6 +94,16 @@ export class DataQueryError extends SystemError {
     }
 }
 
+/**
+ * 多任务执行错误
+ */
+export class MultiTaskError extends SystemError {
+    constructor(message, exceptions) {
+        const code = 'MultiTaskError';
+        super(message, exceptions, code);
+    }
+}
+
 export {
     ApolloError,
     SyntaxError,

@@ -271,7 +271,7 @@ type Module {
   code: String!
 
   """
-  "模块名称"
+  "模���名称"
   """
   name: String!
 
@@ -543,7 +543,7 @@ type PersonCount {
   organize: Int!
 }
 
-"""人员信息  ��个人员对应一个用户"""
+"""人员信息  一个人员对应一个用户"""
 type Person {
   id: ID!
   create_date: DateTime!
@@ -1613,6 +1613,125 @@ type SignatureMethodGroupBy {
   _max: SignatureMethodMaxAggregate
 }
 
+type Animal {
+  id: ID!
+  create_date: DateTime!
+  update_date: DateTime!
+
+  """删除的数据"""
+  isDelete: Boolean!
+  code: String!
+  name: String!
+  dogId: String!
+}
+
+type AnimalCountAggregate {
+  id: Int!
+  create_date: Int!
+  update_date: Int!
+  isDelete: Int!
+  code: Int!
+  name: Int!
+  dogId: Int!
+  _all: Int!
+}
+
+type AnimalMinAggregate {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String
+  name: String
+  dogId: String
+}
+
+type AnimalMaxAggregate {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String
+  name: String
+  dogId: String
+}
+
+type AggregateAnimal {
+  _count: AnimalCountAggregate
+  _min: AnimalMinAggregate
+  _max: AnimalMaxAggregate
+}
+
+type AnimalGroupBy {
+  id: String!
+  create_date: DateTime!
+  update_date: DateTime!
+  isDelete: Boolean!
+  code: String!
+  name: String!
+  dogId: String!
+  _count: AnimalCountAggregate
+  _min: AnimalMinAggregate
+  _max: AnimalMaxAggregate
+}
+
+type Dog {
+  id: ID!
+  create_date: DateTime!
+  update_date: DateTime!
+
+  """删除的数据"""
+  isDelete: Boolean!
+  code: String!
+  name: String!
+}
+
+type DogCountAggregate {
+  id: Int!
+  create_date: Int!
+  update_date: Int!
+  isDelete: Int!
+  code: Int!
+  name: Int!
+  _all: Int!
+}
+
+type DogMinAggregate {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String
+  name: String
+}
+
+type DogMaxAggregate {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String
+  name: String
+}
+
+type AggregateDog {
+  _count: DogCountAggregate
+  _min: DogMinAggregate
+  _max: DogMaxAggregate
+}
+
+type DogGroupBy {
+  id: String!
+  create_date: DateTime!
+  update_date: DateTime!
+  isDelete: Boolean!
+  code: String!
+  name: String!
+  _count: DogCountAggregate
+  _min: DogMinAggregate
+  _max: DogMaxAggregate
+}
+
 """Simple 描述"""
 type Simple {
   """Simple的邮件地址"""
@@ -1698,6 +1817,16 @@ type Query {
   signaturemethods(where: SignatureMethodWhereInput, orderBy: [SignatureMethodOrderByWithRelationAndSearchRelevanceInput!], cursor: SignatureMethodWhereUniqueInput, take: Int, skip: Int, distinct: [SignatureMethodScalarFieldEnum!]): [SignatureMethod!]!
   signaturemethodAggregate(where: SignatureMethodWhereInput, orderBy: [SignatureMethodOrderByWithRelationAndSearchRelevanceInput!], cursor: SignatureMethodWhereUniqueInput, take: Int, skip: Int, _count: SignatureMethodCountAggregateInput, _min: SignatureMethodMinAggregateInput, _max: SignatureMethodMaxAggregateInput): AggregateSignatureMethod!
   signaturemethodGroupBy(where: SignatureMethodWhereInput, orderBy: [SignatureMethodOrderByWithAggregationInput!], by: [SignatureMethodScalarFieldEnum!]!, having: SignatureMethodScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: SignatureMethodCountAggregateInput, _min: SignatureMethodMinAggregateInput, _max: SignatureMethodMaxAggregateInput): [SignatureMethodGroupBy!]!
+  animal(where: AnimalWhereUniqueInput!): Animal!
+  animalFirst(where: AnimalWhereInput, orderBy: [AnimalOrderByWithRelationAndSearchRelevanceInput!], cursor: AnimalWhereUniqueInput, take: Int, skip: Int, distinct: [AnimalScalarFieldEnum!]): Animal!
+  animals(where: AnimalWhereInput, orderBy: [AnimalOrderByWithRelationAndSearchRelevanceInput!], cursor: AnimalWhereUniqueInput, take: Int, skip: Int, distinct: [AnimalScalarFieldEnum!]): [Animal!]!
+  animalAggregate(where: AnimalWhereInput, orderBy: [AnimalOrderByWithRelationAndSearchRelevanceInput!], cursor: AnimalWhereUniqueInput, take: Int, skip: Int, _count: AnimalCountAggregateInput, _min: AnimalMinAggregateInput, _max: AnimalMaxAggregateInput): AggregateAnimal!
+  animalGroupBy(where: AnimalWhereInput, orderBy: [AnimalOrderByWithAggregationInput!], by: [AnimalScalarFieldEnum!]!, having: AnimalScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: AnimalCountAggregateInput, _min: AnimalMinAggregateInput, _max: AnimalMaxAggregateInput): [AnimalGroupBy!]!
+  dog(where: DogWhereUniqueInput!): Dog!
+  dogFirst(where: DogWhereInput, orderBy: [DogOrderByWithRelationAndSearchRelevanceInput!], cursor: DogWhereUniqueInput, take: Int, skip: Int, distinct: [DogScalarFieldEnum!]): Dog!
+  dogs(where: DogWhereInput, orderBy: [DogOrderByWithRelationAndSearchRelevanceInput!], cursor: DogWhereUniqueInput, take: Int, skip: Int, distinct: [DogScalarFieldEnum!]): [Dog!]!
+  dogAggregate(where: DogWhereInput, orderBy: [DogOrderByWithRelationAndSearchRelevanceInput!], cursor: DogWhereUniqueInput, take: Int, skip: Int, _count: DogCountAggregateInput, _min: DogMinAggregateInput, _max: DogMaxAggregateInput): AggregateDog!
+  dogGroupBy(where: DogWhereInput, orderBy: [DogOrderByWithAggregationInput!], by: [DogScalarFieldEnum!]!, having: DogScalarWhereWithAggregatesInput, take: Int, skip: Int, _count: DogCountAggregateInput, _min: DogMinAggregateInput, _max: DogMaxAggregateInput): [DogGroupBy!]!
   simple(data: String!): Simple!
 }
 
@@ -4992,6 +5121,270 @@ input SignatureMethodScalarWhereWithAggregatesInput {
   description: StringNullableWithAggregatesFilter
 }
 
+input AnimalWhereUniqueInput {
+  id: String
+}
+
+input AnimalWhereInput {
+  AND: [AnimalWhereInput!]
+  OR: [AnimalWhereInput!]
+  NOT: [AnimalWhereInput!]
+  id: StringFilter
+  create_date: DateTimeFilter
+  update_date: DateTimeFilter
+  isDelete: BoolFilter
+  code: StringFilter
+  name: StringFilter
+  dogId: StringFilter
+}
+
+input AnimalOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  dogId: SortOrder
+  _relevance: AnimalOrderByRelevanceInput
+}
+
+input AnimalOrderByRelevanceInput {
+  fields: [AnimalOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum AnimalOrderByRelevanceFieldEnum {
+  id
+  code
+  name
+  dogId
+}
+
+enum AnimalScalarFieldEnum {
+  id
+  create_date
+  update_date
+  isDelete
+  code
+  name
+  dogId
+}
+
+input AnimalCountAggregateInput {
+  id: Boolean
+  create_date: Boolean
+  update_date: Boolean
+  isDelete: Boolean
+  code: Boolean
+  name: Boolean
+  dogId: Boolean
+  _all: Boolean
+}
+
+input AnimalMinAggregateInput {
+  id: Boolean
+  create_date: Boolean
+  update_date: Boolean
+  isDelete: Boolean
+  code: Boolean
+  name: Boolean
+  dogId: Boolean
+}
+
+input AnimalMaxAggregateInput {
+  id: Boolean
+  create_date: Boolean
+  update_date: Boolean
+  isDelete: Boolean
+  code: Boolean
+  name: Boolean
+  dogId: Boolean
+}
+
+input AnimalOrderByWithAggregationInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  dogId: SortOrder
+  _count: AnimalCountOrderByAggregateInput
+  _max: AnimalMaxOrderByAggregateInput
+  _min: AnimalMinOrderByAggregateInput
+}
+
+input AnimalCountOrderByAggregateInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  dogId: SortOrder
+}
+
+input AnimalMaxOrderByAggregateInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  dogId: SortOrder
+}
+
+input AnimalMinOrderByAggregateInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  dogId: SortOrder
+}
+
+input AnimalScalarWhereWithAggregatesInput {
+  AND: [AnimalScalarWhereWithAggregatesInput!]
+  OR: [AnimalScalarWhereWithAggregatesInput!]
+  NOT: [AnimalScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  create_date: DateTimeWithAggregatesFilter
+  update_date: DateTimeWithAggregatesFilter
+  isDelete: BoolWithAggregatesFilter
+  code: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  dogId: StringWithAggregatesFilter
+}
+
+input DogWhereUniqueInput {
+  id: String
+}
+
+input DogWhereInput {
+  AND: [DogWhereInput!]
+  OR: [DogWhereInput!]
+  NOT: [DogWhereInput!]
+  id: StringFilter
+  create_date: DateTimeFilter
+  update_date: DateTimeFilter
+  isDelete: BoolFilter
+  code: StringFilter
+  name: StringFilter
+}
+
+input DogOrderByWithRelationAndSearchRelevanceInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  _relevance: DogOrderByRelevanceInput
+}
+
+input DogOrderByRelevanceInput {
+  fields: [DogOrderByRelevanceFieldEnum!]!
+  sort: SortOrder!
+  search: String!
+}
+
+enum DogOrderByRelevanceFieldEnum {
+  id
+  code
+  name
+}
+
+enum DogScalarFieldEnum {
+  id
+  create_date
+  update_date
+  isDelete
+  code
+  name
+}
+
+input DogCountAggregateInput {
+  id: Boolean
+  create_date: Boolean
+  update_date: Boolean
+  isDelete: Boolean
+  code: Boolean
+  name: Boolean
+  _all: Boolean
+}
+
+input DogMinAggregateInput {
+  id: Boolean
+  create_date: Boolean
+  update_date: Boolean
+  isDelete: Boolean
+  code: Boolean
+  name: Boolean
+}
+
+input DogMaxAggregateInput {
+  id: Boolean
+  create_date: Boolean
+  update_date: Boolean
+  isDelete: Boolean
+  code: Boolean
+  name: Boolean
+}
+
+input DogOrderByWithAggregationInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+  _count: DogCountOrderByAggregateInput
+  _max: DogMaxOrderByAggregateInput
+  _min: DogMinOrderByAggregateInput
+}
+
+input DogCountOrderByAggregateInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+}
+
+input DogMaxOrderByAggregateInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+}
+
+input DogMinOrderByAggregateInput {
+  id: SortOrder
+  create_date: SortOrder
+  update_date: SortOrder
+  isDelete: SortOrder
+  code: SortOrder
+  name: SortOrder
+}
+
+input DogScalarWhereWithAggregatesInput {
+  AND: [DogScalarWhereWithAggregatesInput!]
+  OR: [DogScalarWhereWithAggregatesInput!]
+  NOT: [DogScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  create_date: DateTimeWithAggregatesFilter
+  update_date: DateTimeWithAggregatesFilter
+  isDelete: BoolWithAggregatesFilter
+  code: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+}
+
 type Mutation {
   createOneOrganize(data: OrganizeCreateInput!): Organize
   updateOneOrganize(data: OrganizeUpdateInput!, where: OrganizeWhereUniqueInput!): Organize
@@ -5098,6 +5491,21 @@ type Mutation {
   createManysignaturemethods(data: [SignatureMethodCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
   updateManysignaturemethods(data: SignatureMethodUpdateManyMutationInput!, where: SignatureMethodWhereInput): AffectedRows
   deleteManysignaturemethods(where: SignatureMethodWhereInput): AffectedRows
+  createOneAnimal(data: AnimalCreateInput!): Animal
+  updateOneAnimal(data: AnimalUpdateInput!, where: AnimalWhereUniqueInput!): Animal
+  upsertOneAnimal(where: AnimalWhereUniqueInput!, create: AnimalCreateInput!, update: AnimalUpdateInput!): Animal
+  deleteOneAnimal(where: AnimalWhereUniqueInput!): Animal
+  createManyanimals(data: [AnimalCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManyanimals(data: AnimalUpdateManyMutationInput!, where: AnimalWhereInput): AffectedRows
+  deleteManyanimals(where: AnimalWhereInput): AffectedRows
+  createOneDog(data: DogCreateInput!): Dog
+  updateOneDog(data: DogUpdateInput!, where: DogWhereUniqueInput!): Dog
+  upsertOneDog(where: DogWhereUniqueInput!, create: DogCreateInput!, update: DogUpdateInput!): Dog
+  deleteOneDog(where: DogWhereUniqueInput!): Dog
+  createManydogs(data: [DogCreateManyInput!]!, skipDuplicates: Boolean): AffectedRows
+  updateManydogs(data: DogUpdateManyMutationInput!, where: DogWhereInput): AffectedRows
+  deleteManydogs(where: DogWhereInput): AffectedRows
+  multiTasking: JSONObject!
 }
 
 input OrganizeCreateInput {
@@ -8265,3 +8673,84 @@ input SignatureMethodUpdateManyMutationInput {
   method: StringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
 }
+
+input AnimalCreateInput {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String!
+  name: String!
+  dogId: String!
+}
+
+input AnimalUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  create_date: DateTimeFieldUpdateOperationsInput
+  update_date: DateTimeFieldUpdateOperationsInput
+  isDelete: BoolFieldUpdateOperationsInput
+  code: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  dogId: StringFieldUpdateOperationsInput
+}
+
+input AnimalCreateManyInput {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String!
+  name: String!
+  dogId: String!
+}
+
+input AnimalUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  create_date: DateTimeFieldUpdateOperationsInput
+  update_date: DateTimeFieldUpdateOperationsInput
+  isDelete: BoolFieldUpdateOperationsInput
+  code: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  dogId: StringFieldUpdateOperationsInput
+}
+
+input DogCreateInput {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String!
+  name: String!
+}
+
+input DogUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  create_date: DateTimeFieldUpdateOperationsInput
+  update_date: DateTimeFieldUpdateOperationsInput
+  isDelete: BoolFieldUpdateOperationsInput
+  code: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+input DogCreateManyInput {
+  id: String
+  create_date: DateTime
+  update_date: DateTime
+  isDelete: Boolean
+  code: String!
+  name: String!
+}
+
+input DogUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  create_date: DateTimeFieldUpdateOperationsInput
+  update_date: DateTimeFieldUpdateOperationsInput
+  isDelete: BoolFieldUpdateOperationsInput
+  code: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")

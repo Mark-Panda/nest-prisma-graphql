@@ -14,6 +14,8 @@ import { SignatureRuleModule } from './signature-rule/signature-rule.module';
 import { SignaturePermissionModule } from './signature-permission/signature-permission.module';
 import { SignatureGroupModule } from './signature-group/signature-group.module';
 import { SignatureMethodModule } from './signature-method/signature-method.module';
+import { AnimalModule } from './animal/animal.module';
+import { DogModule } from './dog/dog.module';
 @Module({
     imports: [
         OrganizeModule,
@@ -31,6 +33,8 @@ import { SignatureMethodModule } from './signature-method/signature-method.modul
         SignaturePermissionModule,
         SignatureGroupModule,
         SignatureMethodModule,
+        AnimalModule,
+        DogModule,
     ],
 })
 export class AllModules {}

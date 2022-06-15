@@ -13,3 +13,4 @@ export * from './transform.interceptor';
 export * from './data';
 export * from './redis';
 export * from './config';
+export * from './plugins';

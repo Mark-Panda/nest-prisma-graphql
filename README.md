@@ -50,6 +50,78 @@
 
 > 为了使用`graphql-middleware`中间件包（由于该包当前仍未支持`graphql`16版本，当支持可以将后面两个包升级），降低了`graphql`版本`16.3->15.8.0`和`prisma-graphql-type-decimal`版本 `2.0->1.0`。
 
+## 多任务执行方法
+
+> 适用于GraphQL方法
+
+### 规则说明
+
+1. 必须传一个multiTasking方法
+2. 必须采用参数和请求体分开写的格式
+3. 仅适用于业务模型的CRUD，不支持批量CRUD方法和自定义方法
+
+示例如下
+```graphql
+mutation (
+  $createOneDogData:DogCreateInput!,
+  $createOneUser:UserCreateInput!, 
+  $updateOneAnimalData: AnimalUpdateInput!,
+  $updateOneAnimalWhere:AnimalWhereUniqueInput!
+){
+  multiTasking
+  createOneDog(data:$createOneDogData){
+    id
+    code
+    name
+  }
+  updateOneAnimal(data:$updateOneAnimalData, where:$updateOneAnimalWhere){
+    code
+    name
+  }
+   createOneUser(data:$createOneUser){
+    username
+    person{
+      code
+      name
+    }
+  }
+}
+
+{
+  "createOneUser": {
+    "username": "lisha",
+    "email": "lisha@qq.com",
+    "password": "123456",
+    "person": {
+      "create": [
+        {
+          "code": "GH001"
+        }
+      ]
+    }
+  },
+  "createOneDogData": {
+    "code": "D001",
+    "name": "泰迪"
+  },
+  "updateOneAnimalData": {
+    "code": {
+      "set": "A001"
+    },
+    "name": {
+      "set": "走兽"
+    },
+    "dogId": {
+      "set": "D001"
+    }
+  },
+  "updateOneAnimalWhere": {
+    "id": "cl4ew915800257kw8emter805"
+  }
+}
+
+```
+
 ## 代码结构树
 
 ```text

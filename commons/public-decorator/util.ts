@@ -36,3 +36,21 @@ export const queryCharacterCheck = (values) => {
 export const isString = (obj) => {
     return Object.prototype.toString.call(obj) === '[object String]';
 };
+
+/**
+ * 构造prisma查询字段select格式
+ * @param list
+ * @param selectObj select构造对象
+ * @returns
+ */
+export function selectInfo(selectList: any, selectObj: any) {
+    for (const item of selectList) {
+        if (item.selectionSet) {
+            const signInfo = selectInfo(item.selectionSet.selections, {});
+            selectObj[`${item.name.value}`] = { select: signInfo };
+        } else {
+            selectObj[`${item.name.value}`] = true;
+        }
+    }
+    return selectObj;
+}
