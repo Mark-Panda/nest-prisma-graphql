@@ -4,7 +4,6 @@ import {
     GraphQLRequestListener,
 } from 'apollo-server-plugin-base';
 import { parse } from 'graphql';
-import { MultiTaskError } from 'commons/public-module/errors/errorsGql';
 
 @Plugin()
 export class FunctionPlugin implements ApolloServerPlugin {

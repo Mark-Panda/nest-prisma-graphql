@@ -10,11 +10,14 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { GraphQLResolveInfo } from 'graphql';
 import { GraphQLJSONObject } from 'graphql-type-json';
 import { PrismaSelect } from '@paljs/plugins';
-import { LoggerService, GqlAuthGuard } from 'commons/public-module';
-import { Simple } from './simple.model';
+import {
+    LoggerService,
+    GqlAuthGuard,
+    MultiTaskError,
+} from 'commons/public-module';
 import { prisma } from 'commons/public-tool/prisma';
-import { MultiTaskError } from 'commons/public-module/errors/errorsGql';
 import { selectInfo } from 'commons/public-decorator';
+import { Simple } from './simple.model';
 
 /**
  * Resolves User object type.
