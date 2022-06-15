@@ -14,9 +14,12 @@ import {
     LoggerService,
     GqlAuthGuard,
     MultiTaskError,
+    RolesGuard,
 } from 'commons/public-module';
 import { prisma } from 'commons/public-tool/prisma';
 import { selectInfo } from 'commons/public-decorator';
+import { Roles } from 'commons/public-module/roles/role.decorator';
+import { Role } from 'commons/public-module/roles/role.enum';
 import { Simple } from './simple.model';
 
 /**
@@ -48,6 +51,8 @@ export class SimpleResolver {
      * @returns 返回
      */
     @Mutation(() => GraphQLJSONObject)
+    @UseGuards(RolesGuard)
+    @Roles(Role.Admin)
     @UseGuards(GqlAuthGuard)
     async multiTasking(@Info() info: GraphQLResolveInfo, @Context() ctx: any) {
         try {

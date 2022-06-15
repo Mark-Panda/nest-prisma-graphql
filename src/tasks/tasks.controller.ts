@@ -9,13 +9,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard, RolesGuard } from 'commons/public-module';
 import { TasksService } from './tasks.service';
-import {
-    ApiTags,
-    ApiBody,
-    ApiResponse,
-    ApiBearerAuth,
-    ApiHeader,
-} from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { ApiOperation } from 'commons/public-decorator';
 import { CommonResponse } from 'src/datos/common.dto';
 import { TasksBaseDto, TasksExecDto } from 'src/datos/tasks.dto';
