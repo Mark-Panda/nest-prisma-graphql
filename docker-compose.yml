@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3100:3100'
-    env_file:
-      - prisma/.env.docker
+    environment:
+      DATABASE_URL: 'mysql://root:prisma@localhost:3306/menuPermissions'
     depends_on:
       - postgres-db
       - redis
