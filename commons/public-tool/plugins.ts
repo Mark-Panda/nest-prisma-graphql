@@ -77,8 +77,35 @@ export class FunctionPlugin implements ApolloServerPlugin {
                     }
                     requestContext.context.multiTaskQuery = gqls;
                     requestContext.context.multiTaskArgs = paramInfo;
+                    // 所有的执行方法记录下来用于willSendResponse
+                    requestContext.context.realAllFunc = allFuncList;
+                    // 让多任务只走 multiTasking 方法
                     requestContext.operation.selectionSet.selections =
                         multiTaskFunc;
+                }
+            },
+            /**
+             * 干预最后服务器响应graphql的执行，针对多任务的情况，将有异常的数据，放到data中展示出来。
+             */
+            async willSendResponse(requestContext) {
+                if (requestContext.context.multiTaskQuery) {
+                    // 需要将所有的执行方法重新放回原处 否则会出现再次请求失效的情况
+                    requestContext.operation.selectionSet.selections =
+                        requestContext.context.realAllFunc;
+                    if (
+                        requestContext.response.data &&
+                        requestContext.response.data.multiTasking
+                    ) {
+                        // 重组返回信息
+                        for (const item of requestContext.response.data
+                            .multiTasking.data) {
+                            for (const key in item) {
+                                requestContext.response.data[key] = [item[key]];
+                            }
+                        }
+                        // 删除multiTasking方法返回信息
+                        delete requestContext.response.data.multiTasking;
+                    }
                 }
             },
         };
