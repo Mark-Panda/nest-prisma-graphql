@@ -6,10 +6,12 @@
 
 ## 服务操作步骤
 
-1. 映射 `prisma` 文件为数据库的命令 `npm run prisma:p`
-2. GraphQL类型自动生成脚本 `npm run regen`
-3. 根据 `schema.prisma` 文件自动生成增删改查业务文件的脚本命令 `npm run batch`
-4. 服务启动命令 `npm run start:dev`
+1. 拉取仓库代码
+2. 安装依赖包 `npm install`
+3. 映射 `prisma` 文件为数据库的命令 `npm run prisma:p`
+4. GraphQL类型自动生成脚本 `npm run regen`
+5. 根据 `schema.prisma` 文件自动生成增删改查业务文件的脚本命令 `npm run batch`
+6. 服务启动命令 `npm run start:dev`
 
 ## 已有功能
 
