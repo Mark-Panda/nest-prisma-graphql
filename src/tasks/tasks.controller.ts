@@ -4,6 +4,7 @@ import {
     Post,
     Get,
     Req,
+    UseInterceptors,
     UseFilters,
 } from '@nestjs/common';
 import { JwtAuthGuard, RolesGuard } from 'commons/public-module';
@@ -14,10 +15,11 @@ import { CommonResponse } from 'src/datos/common.dto';
 import { TasksBaseDto, TasksExecDto } from 'src/datos/tasks.dto';
 import { Roles } from 'commons/public-module/roles/role.decorator';
 import { Role } from 'commons/public-module/roles/role.enum';
-import { AllExceptionFilter } from 'commons/public-tool';
+import { AllExceptionFilter, TransformInterceptor } from 'commons/public-tool';
 
 @ApiTags('定时任务')
 @Controller('cron')
+@UseInterceptors(TransformInterceptor)
 @UseFilters(AllExceptionFilter)
 export class TasksController {
     constructor(private readonly taskService: TasksService) {}

@@ -9,7 +9,7 @@ import { mw } from 'request-ip';
 import * as express from 'express';
 import { LoggerService, limiterMiddleware } from '../public-module';
 import { connectLogger } from 'log4js';
-import { toIp } from './data';
+import { toIp, getIPAdress } from './data';
 
 type BootstrapOptions = NestApplicationOptions & {
     // 在服务启动之前执行
@@ -88,13 +88,22 @@ export async function bootstrap(
     process.on('uncaughtException', function (err) {
         loggerService.error(err, '进程异常');
     });
-    loggerService.log(`http://localhost:${serve.port}/dev`, '服务地址');
+    loggerService.log(`http://localhost:${serve.port}/dev`, '本地服务地址');
     loggerService.log(
         `http://localhost:${serve.port}/playground`,
-        'GraphQL调试地址',
+        '本地GraphQL调试地址',
     );
     loggerService.log(
         `http://localhost:${serve.port}/${swagger.path}`,
+        '本地Swagger' + swagger.title,
+    );
+    loggerService.log(`http://${getIPAdress()}:${serve.port}/dev`, '服务地址');
+    loggerService.log(
+        `http://${getIPAdress()}:${serve.port}/playground`,
+        'GraphQL调试地址',
+    );
+    loggerService.log(
+        `http://${getIPAdress()}:${serve.port}/${swagger.path}`,
         swagger.title,
     );
 }

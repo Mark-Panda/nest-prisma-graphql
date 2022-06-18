@@ -26,6 +26,7 @@
 - 角色权限控制 依据token查询用户角色
 - 跨域
 - 报错过滤器(restful)
+- 响应拦截器(restful)  用于统一restful返回信息的格式
 - 文件上传之分片上传
 - docker打包
 - 数据库连接信息和Redis的连接信息可以使用环境变量进行覆盖
@@ -41,7 +42,7 @@
 
 ## 备注
 
-> 因为有GraphQL的存在所以报错拦截器需要在restful接口的controller文件中引用，不能全局引用  GraphQL有自己的返回类型
+> 因为有GraphQL的存在所以响应拦截器需要在restful接口的controller文件中引用，不能全局引用 报错拦截器同理, GraphQL有自己的返回类型
 
 > 打包docker镜像时需要先build好dist文件再打包
 
