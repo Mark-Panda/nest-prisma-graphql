@@ -33,9 +33,7 @@ export class TransformInterceptor<T>
 
         loggerService.log(interval, `第 ${++num} 次请求`);
         loggerService.log(line, '请求接收');
-
         let resNext = next.handle();
-
         const { url, clientIp, method, body } = req;
         loggerService.log(url, `${toIp(clientIp)} ${method}`);
         Object.keys(body).length && loggerService.log(body, '请求参数');

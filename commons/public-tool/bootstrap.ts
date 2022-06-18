@@ -8,6 +8,8 @@ import { join } from 'path';
 import { mw } from 'request-ip';
 import * as express from 'express';
 import { LoggerService, limiterMiddleware } from '../public-module';
+import { connectLogger } from 'log4js';
+import { toIp } from './data';
 
 type BootstrapOptions = NestApplicationOptions & {
     // 在服务启动之前执行
@@ -45,7 +47,21 @@ export async function bootstrap(
     const serve = configService.get('serve');
     // 注入日志
     const loggerService = new LoggerService();
-    app.useLogger(loggerService);
+    app.use(
+        connectLogger(loggerService.log4js, {
+            level: 'info',
+            format: (req, res, format) => {
+                const logInfo = `请求IP: ${toIp(
+                    req.clientIp,
+                )}\n请求方法: :method\n请求路径: :url\n请求实例: ${JSON.stringify(
+                    req.body,
+                )}\n响应时间: ${
+                    res.responseTime || '-'
+                }ms\nHTTP状态: :status\n请求来源: :referrer`;
+                return format(logInfo);
+            },
+        }),
+    );
     // 接口请求前缀
     app.setGlobalPrefix(serve.prefix);
     // swagger 接口文档

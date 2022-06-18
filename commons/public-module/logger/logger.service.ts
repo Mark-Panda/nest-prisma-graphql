@@ -32,7 +32,7 @@ export class LoggerService extends ConsoleLogger {
                     // 输出的日志文件名是都始终包含 pattern 日期结尾
                     alwaysIncludePattern: true,
                     // 指定日志保留的天数
-                    // daysToKeep: 10,
+                    numBackups: 10,
                 },
             },
             categories: { default: { appenders: ['all'], level: 'all' } },
