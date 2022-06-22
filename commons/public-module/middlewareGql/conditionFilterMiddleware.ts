@@ -6,11 +6,11 @@ import { configYml } from 'commons/public-tool/config';
  * 条件过滤
  */
 export const conditionFilterMiddleware = async (
-    resolve,
-    root,
-    args,
-    context,
-    info,
+    resolve: any,
+    root: any,
+    args: any,
+    context: any,
+    info: any,
 ) => {
     const operationName = info.operation.operation;
     switch (operationName) {

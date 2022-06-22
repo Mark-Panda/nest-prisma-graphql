@@ -2,7 +2,7 @@
 
 > Nest Prisma Graphql 可以使用指令
 > prisma的指令实现通过 `prisma-nestjs-graphql` 来实现
-> 切换node版本为16版本再启动
+> 切换node版本为18.4.0版本再启动
 
 ## 服务操作步骤
 
@@ -147,7 +147,6 @@ mutation (
 │   └── config.yaml
 ├── prisma  prisma文件夹
 │   └── schema.prisma
-├── prismaClient  prisma连接客户端文件夹  通过npm run prisma:g生成最新的
 ├── public  静态公共资源
 │   ├── content
 │   ├── playground-offline  playground离线版

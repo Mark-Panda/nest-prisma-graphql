@@ -27,6 +27,9 @@ configs = cloneDeepWith(configs, (value) => {
 configs.cache.redis.host = process.env.CONFIG_CACHE_HOST
     ? process.env.CONFIG_CACHE_HOST
     : configs.cache.redis.host;
+configs.cache.redis.password = process.env.CONFIG_CACHE_PWD
+    ? process.env.CONFIG_CACHE_PWD
+    : configs.cache.redis.password;
 configs.cache.redis.port = process.env.CONFIG_CACHE_PORT
     ? process.env.CONFIG_CACHE_PORT
     : configs.cache.redis.port;

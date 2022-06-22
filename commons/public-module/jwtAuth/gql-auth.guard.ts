@@ -9,7 +9,6 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from 'src/resolver/auth/auth.service';
 import { AuthenticationError } from 'commons/public-module/errors/errorsGql';
-// import { AuthenticationError } from '../errors/errorsGql';
 
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {

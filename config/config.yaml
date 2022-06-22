@@ -13,7 +13,6 @@ cache:
   redis: # 有值时，使用 redis 做缓存服务器
     host: 'localhost'
     port: 6379
-    db: 0
 
 # 加密
 encryption:
