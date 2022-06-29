@@ -17,7 +17,7 @@ export class PageController {
 
     @Get('dev')
     async devHtml(@Res() res) {
-        return res.render('dev');
+        return res.render('dev', { swaggerPath: configYml.swagger.path });
     }
 
     @Get('upload')

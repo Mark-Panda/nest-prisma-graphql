@@ -4,9 +4,9 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
-import { UserGroupUpdateManyWithoutUsersInput } from '../user-group/user-group-update-many-without-users.input';
+import { UserGroupUpdateManyWithoutUsersNestedInput } from '../user-group/user-group-update-many-without-users-nested.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { PersonUpdateManyWithoutUserInput } from '../person/person-update-many-without-user.input';
+import { PersonUpdateManyWithoutUserNestedInput } from '../person/person-update-many-without-user-nested.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { EnumUserStatusFieldUpdateOperationsInput } from '../prisma/enum-user-status-field-update-operations.input';
 
@@ -36,14 +36,14 @@ export class UserUpdateInput {
     @Field(() => EnumRoleFieldUpdateOperationsInput, { nullable: true })
     role?: EnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => UserGroupUpdateManyWithoutUsersInput, { nullable: true })
-    group?: UserGroupUpdateManyWithoutUsersInput;
+    @Field(() => UserGroupUpdateManyWithoutUsersNestedInput, { nullable: true })
+    group?: UserGroupUpdateManyWithoutUsersNestedInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     RFID?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => PersonUpdateManyWithoutUserInput, { nullable: true })
-    person?: PersonUpdateManyWithoutUserInput;
+    @Field(() => PersonUpdateManyWithoutUserNestedInput, { nullable: true })
+    person?: PersonUpdateManyWithoutUserNestedInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     description?: NullableStringFieldUpdateOperationsInput;

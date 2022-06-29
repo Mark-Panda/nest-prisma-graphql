@@ -271,7 +271,7 @@ type Module {
   code: String!
 
   """
-  "模���名称"
+  "模块名称"
   """
   name: String!
 
@@ -1680,7 +1680,7 @@ type Dog {
   create_date: DateTime!
   update_date: DateTime!
 
-  """删除的数据"""
+  """删除的数���"""
   isDelete: Boolean!
   code: String!
   name: String!
@@ -6413,11 +6413,11 @@ input OrganizeUpdateInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  persons: PersonUpdateManyWithoutOrganizeInput
+  persons: PersonUpdateManyWithoutOrganizeNestedInput
   type: EnumOrganizeTypeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  parent: OrganizeUpdateOneWithoutOrganizesInput
-  organizes: OrganizeUpdateManyWithoutParentInput
+  parent: OrganizeUpdateOneWithoutOrganizesNestedInput
+  organizes: OrganizeUpdateManyWithoutParentNestedInput
 }
 
 input StringFieldUpdateOperationsInput {
@@ -6432,7 +6432,7 @@ input BoolFieldUpdateOperationsInput {
   set: Boolean
 }
 
-input PersonUpdateManyWithoutOrganizeInput {
+input PersonUpdateManyWithoutOrganizeNestedInput {
   create: [PersonCreateWithoutOrganizeInput!]
   connectOrCreate: [PersonCreateOrConnectWithoutOrganizeInput!]
   upsert: [PersonUpsertWithWhereUniqueWithoutOrganizeInput!]
@@ -6459,7 +6459,7 @@ input PersonUpdateWithoutOrganizeInput {
   code: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
-  user: UserUpdateManyWithoutPersonInput
+  user: UserUpdateManyWithoutPersonNestedInput
   birthday: NullableDateTimeFieldUpdateOperationsInput
   mobile: NullableStringFieldUpdateOperationsInput
   sex: NullableEnumSexTypeFieldUpdateOperationsInput
@@ -6471,7 +6471,7 @@ input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
-input UserUpdateManyWithoutPersonInput {
+input UserUpdateManyWithoutPersonNestedInput {
   create: [UserCreateWithoutPersonInput!]
   connectOrCreate: [UserCreateOrConnectWithoutPersonInput!]
   upsert: [UserUpsertWithWhereUniqueWithoutPersonInput!]
@@ -6499,7 +6499,7 @@ input UserUpdateWithoutPersonInput {
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  group: UserGroupUpdateManyWithoutUsersInput
+  group: UserGroupUpdateManyWithoutUsersNestedInput
   RFID: NullableStringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   expired: NullableFloatFieldUpdateOperationsInput
@@ -6510,7 +6510,7 @@ input EnumRoleFieldUpdateOperationsInput {
   set: Role
 }
 
-input UserGroupUpdateManyWithoutUsersInput {
+input UserGroupUpdateManyWithoutUsersNestedInput {
   create: [UserGroupCreateWithoutUsersInput!]
   connectOrCreate: [UserGroupCreateOrConnectWithoutUsersInput!]
   upsert: [UserGroupUpsertWithWhereUniqueWithoutUsersInput!]
@@ -6537,10 +6537,10 @@ input UserGroupUpdateWithoutUsersInput {
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  permission: PermissionUpdateManyWithoutUserGroupInput
+  permission: PermissionUpdateManyWithoutUserGroupNestedInput
 }
 
-input PermissionUpdateManyWithoutUserGroupInput {
+input PermissionUpdateManyWithoutUserGroupNestedInput {
   create: [PermissionCreateWithoutUserGroupInput!]
   connectOrCreate: [PermissionCreateOrConnectWithoutUserGroupInput!]
   upsert: [PermissionUpsertWithWhereUniqueWithoutUserGroupInput!]
@@ -6564,12 +6564,12 @@ input PermissionUpdateWithoutUserGroupInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  menu: MenuUpdateManyWithoutPermissionInput
-  permissionGroups: PermissionGroupUpdateManyWithoutPermissionInput
+  menu: MenuUpdateManyWithoutPermissionNestedInput
+  permissionGroups: PermissionGroupUpdateManyWithoutPermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input MenuUpdateManyWithoutPermissionInput {
+input MenuUpdateManyWithoutPermissionNestedInput {
   create: [MenuCreateWithoutPermissionInput!]
   connectOrCreate: [MenuCreateOrConnectWithoutPermissionInput!]
   upsert: [MenuUpsertWithWhereUniqueWithoutPermissionInput!]
@@ -6595,20 +6595,20 @@ input MenuUpdateWithoutPermissionInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  parent: MenuUpdateOneWithoutMenusInput
-  menus: MenuUpdateManyWithoutParentInput
+  parent: MenuUpdateOneWithoutMenusNestedInput
+  menus: MenuUpdateManyWithoutParentNestedInput
   menuType: EnumMenuTypeFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutMenuInput
+  module: ModuleUpdateOneRequiredWithoutMenuNestedInput
   url: NullableStringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   icon: NullableStringFieldUpdateOperationsInput
   orderNo: NullableIntFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  actionGroups: ActionGroupUpdateManyWithoutMenuInput
+  actionGroups: ActionGroupUpdateManyWithoutMenuNestedInput
 }
 
-input MenuUpdateOneWithoutMenusInput {
+input MenuUpdateOneWithoutMenusNestedInput {
   create: MenuCreateWithoutMenusInput
   connectOrCreate: MenuCreateOrConnectWithoutMenusInput
   upsert: MenuUpsertWithoutMenusInput
@@ -6630,24 +6630,24 @@ input MenuUpdateWithoutMenusInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  parent: MenuUpdateOneWithoutMenusInput
+  parent: MenuUpdateOneWithoutMenusNestedInput
   menuType: EnumMenuTypeFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutMenuInput
+  module: ModuleUpdateOneRequiredWithoutMenuNestedInput
   url: NullableStringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   icon: NullableStringFieldUpdateOperationsInput
   orderNo: NullableIntFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  actionGroups: ActionGroupUpdateManyWithoutMenuInput
-  permission: PermissionUpdateManyWithoutMenuInput
+  actionGroups: ActionGroupUpdateManyWithoutMenuNestedInput
+  permission: PermissionUpdateManyWithoutMenuNestedInput
 }
 
 input EnumMenuTypeFieldUpdateOperationsInput {
   set: MenuType
 }
 
-input ModuleUpdateOneRequiredWithoutMenuInput {
+input ModuleUpdateOneRequiredWithoutMenuNestedInput {
   create: ModuleCreateWithoutMenuInput
   connectOrCreate: ModuleCreateOrConnectWithoutMenuInput
   upsert: ModuleUpsertWithoutMenuInput
@@ -6670,10 +6670,10 @@ input ModuleUpdateWithoutMenuInput {
   path: NullableStringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  SignaturePermission: SignaturePermissionUpdateOneWithoutModuleInput
+  SignaturePermission: SignaturePermissionUpdateOneWithoutModuleNestedInput
 }
 
-input SignaturePermissionUpdateOneWithoutModuleInput {
+input SignaturePermissionUpdateOneWithoutModuleNestedInput {
   create: SignaturePermissionCreateWithoutModuleInput
   connectOrCreate: SignaturePermissionCreateOrConnectWithoutModuleInput
   upsert: SignaturePermissionUpsertWithoutModuleInput
@@ -6693,12 +6693,12 @@ input SignaturePermissionUpdateWithoutModuleInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  action: ActionUpdateOneRequiredWithoutSignaturePermissionInput
-  signatureGroup: SignatureGroupUpdateOneRequiredWithoutSignaturePermissionInput
+  action: ActionUpdateOneRequiredWithoutSignaturePermissionNestedInput
+  signatureGroup: SignatureGroupUpdateOneRequiredWithoutSignaturePermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input ActionUpdateOneRequiredWithoutSignaturePermissionInput {
+input ActionUpdateOneRequiredWithoutSignaturePermissionNestedInput {
   create: ActionCreateWithoutSignaturePermissionInput
   connectOrCreate: ActionCreateOrConnectWithoutSignaturePermissionInput
   upsert: ActionUpsertWithoutSignaturePermissionInput
@@ -6720,16 +6720,16 @@ input ActionUpdateWithoutSignaturePermissionInput {
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   signature: NullableBoolFieldUpdateOperationsInput
-  group: ActionGroupUpdateOneRequiredWithoutActionsInput
+  group: ActionGroupUpdateOneRequiredWithoutActionsNestedInput
   description: StringFieldUpdateOperationsInput
-  permissionGroup: PermissionGroupUpdateManyWithoutActionsInput
+  permissionGroup: PermissionGroupUpdateManyWithoutActionsNestedInput
 }
 
 input NullableBoolFieldUpdateOperationsInput {
   set: Boolean
 }
 
-input ActionGroupUpdateOneRequiredWithoutActionsInput {
+input ActionGroupUpdateOneRequiredWithoutActionsNestedInput {
   create: ActionGroupCreateWithoutActionsInput
   connectOrCreate: ActionGroupCreateOrConnectWithoutActionsInput
   upsert: ActionGroupUpsertWithoutActionsInput
@@ -6750,12 +6750,12 @@ input ActionGroupUpdateWithoutActionsInput {
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
-  menu: MenuUpdateOneWithoutActionGroupsInput
+  menu: MenuUpdateOneWithoutActionGroupsNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permissionGroup: PermissionGroupUpdateOneWithoutActionGroupInput
+  permissionGroup: PermissionGroupUpdateOneWithoutActionGroupNestedInput
 }
 
-input MenuUpdateOneWithoutActionGroupsInput {
+input MenuUpdateOneWithoutActionGroupsNestedInput {
   create: MenuCreateWithoutActionGroupsInput
   connectOrCreate: MenuCreateOrConnectWithoutActionGroupsInput
   upsert: MenuUpsertWithoutActionGroupsInput
@@ -6777,20 +6777,20 @@ input MenuUpdateWithoutActionGroupsInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  parent: MenuUpdateOneWithoutMenusInput
-  menus: MenuUpdateManyWithoutParentInput
+  parent: MenuUpdateOneWithoutMenusNestedInput
+  menus: MenuUpdateManyWithoutParentNestedInput
   menuType: EnumMenuTypeFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutMenuInput
+  module: ModuleUpdateOneRequiredWithoutMenuNestedInput
   url: NullableStringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   icon: NullableStringFieldUpdateOperationsInput
   orderNo: NullableIntFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  permission: PermissionUpdateManyWithoutMenuInput
+  permission: PermissionUpdateManyWithoutMenuNestedInput
 }
 
-input MenuUpdateManyWithoutParentInput {
+input MenuUpdateManyWithoutParentNestedInput {
   create: [MenuCreateWithoutParentInput!]
   connectOrCreate: [MenuCreateOrConnectWithoutParentInput!]
   upsert: [MenuUpsertWithWhereUniqueWithoutParentInput!]
@@ -6817,17 +6817,17 @@ input MenuUpdateWithoutParentInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  menus: MenuUpdateManyWithoutParentInput
+  menus: MenuUpdateManyWithoutParentNestedInput
   menuType: EnumMenuTypeFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutMenuInput
+  module: ModuleUpdateOneRequiredWithoutMenuNestedInput
   url: NullableStringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   icon: NullableStringFieldUpdateOperationsInput
   orderNo: NullableIntFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  actionGroups: ActionGroupUpdateManyWithoutMenuInput
-  permission: PermissionUpdateManyWithoutMenuInput
+  actionGroups: ActionGroupUpdateManyWithoutMenuNestedInput
+  permission: PermissionUpdateManyWithoutMenuNestedInput
 }
 
 input NullableIntFieldUpdateOperationsInput {
@@ -6838,7 +6838,7 @@ input NullableIntFieldUpdateOperationsInput {
   divide: Int
 }
 
-input ActionGroupUpdateManyWithoutMenuInput {
+input ActionGroupUpdateManyWithoutMenuNestedInput {
   create: [ActionGroupCreateWithoutMenuInput!]
   connectOrCreate: [ActionGroupCreateOrConnectWithoutMenuInput!]
   upsert: [ActionGroupUpsertWithWhereUniqueWithoutMenuInput!]
@@ -6866,12 +6866,12 @@ input ActionGroupUpdateWithoutMenuInput {
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
-  actions: ActionUpdateManyWithoutGroupInput
+  actions: ActionUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permissionGroup: PermissionGroupUpdateOneWithoutActionGroupInput
+  permissionGroup: PermissionGroupUpdateOneWithoutActionGroupNestedInput
 }
 
-input ActionUpdateManyWithoutGroupInput {
+input ActionUpdateManyWithoutGroupNestedInput {
   create: [ActionCreateWithoutGroupInput!]
   connectOrCreate: [ActionCreateOrConnectWithoutGroupInput!]
   upsert: [ActionUpsertWithWhereUniqueWithoutGroupInput!]
@@ -6901,11 +6901,11 @@ input ActionUpdateWithoutGroupInput {
   i18N: NullableStringFieldUpdateOperationsInput
   signature: NullableBoolFieldUpdateOperationsInput
   description: StringFieldUpdateOperationsInput
-  permissionGroup: PermissionGroupUpdateManyWithoutActionsInput
-  signaturePermission: SignaturePermissionUpdateOneWithoutActionInput
+  permissionGroup: PermissionGroupUpdateManyWithoutActionsNestedInput
+  signaturePermission: SignaturePermissionUpdateOneWithoutActionNestedInput
 }
 
-input PermissionGroupUpdateManyWithoutActionsInput {
+input PermissionGroupUpdateManyWithoutActionsNestedInput {
   create: [PermissionGroupCreateWithoutActionsInput!]
   connectOrCreate: [PermissionGroupCreateOrConnectWithoutActionsInput!]
   upsert: [PermissionGroupUpsertWithWhereUniqueWithoutActionsInput!]
@@ -6929,12 +6929,12 @@ input PermissionGroupUpdateWithoutActionsInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  actionGroup: ActionGroupUpdateOneRequiredWithoutPermissionGroupInput
+  actionGroup: ActionGroupUpdateOneRequiredWithoutPermissionGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permission: PermissionUpdateManyWithoutPermissionGroupsInput
+  permission: PermissionUpdateManyWithoutPermissionGroupsNestedInput
 }
 
-input ActionGroupUpdateOneRequiredWithoutPermissionGroupInput {
+input ActionGroupUpdateOneRequiredWithoutPermissionGroupNestedInput {
   create: ActionGroupCreateWithoutPermissionGroupInput
   connectOrCreate: ActionGroupCreateOrConnectWithoutPermissionGroupInput
   upsert: ActionGroupUpsertWithoutPermissionGroupInput
@@ -6955,12 +6955,12 @@ input ActionGroupUpdateWithoutPermissionGroupInput {
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
-  menu: MenuUpdateOneWithoutActionGroupsInput
-  actions: ActionUpdateManyWithoutGroupInput
+  menu: MenuUpdateOneWithoutActionGroupsNestedInput
+  actions: ActionUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input PermissionUpdateManyWithoutPermissionGroupsInput {
+input PermissionUpdateManyWithoutPermissionGroupsNestedInput {
   create: [PermissionCreateWithoutPermissionGroupsInput!]
   connectOrCreate: [PermissionCreateOrConnectWithoutPermissionGroupsInput!]
   upsert: [PermissionUpsertWithWhereUniqueWithoutPermissionGroupsInput!]
@@ -6984,12 +6984,12 @@ input PermissionUpdateWithoutPermissionGroupsInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  menu: MenuUpdateManyWithoutPermissionInput
-  userGroup: UserGroupUpdateManyWithoutPermissionInput
+  menu: MenuUpdateManyWithoutPermissionNestedInput
+  userGroup: UserGroupUpdateManyWithoutPermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input UserGroupUpdateManyWithoutPermissionInput {
+input UserGroupUpdateManyWithoutPermissionNestedInput {
   create: [UserGroupCreateWithoutPermissionInput!]
   connectOrCreate: [UserGroupCreateOrConnectWithoutPermissionInput!]
   upsert: [UserGroupUpsertWithWhereUniqueWithoutPermissionInput!]
@@ -7015,11 +7015,11 @@ input UserGroupUpdateWithoutPermissionInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  users: UserUpdateManyWithoutGroupInput
+  users: UserUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input UserUpdateManyWithoutGroupInput {
+input UserUpdateManyWithoutGroupNestedInput {
   create: [UserCreateWithoutGroupInput!]
   connectOrCreate: [UserCreateOrConnectWithoutGroupInput!]
   upsert: [UserUpsertWithWhereUniqueWithoutGroupInput!]
@@ -7048,13 +7048,13 @@ input UserUpdateWithoutGroupInput {
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
   RFID: NullableStringFieldUpdateOperationsInput
-  person: PersonUpdateManyWithoutUserInput
+  person: PersonUpdateManyWithoutUserNestedInput
   description: NullableStringFieldUpdateOperationsInput
   expired: NullableFloatFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
 }
 
-input PersonUpdateManyWithoutUserInput {
+input PersonUpdateManyWithoutUserNestedInput {
   create: [PersonCreateWithoutUserInput!]
   connectOrCreate: [PersonCreateOrConnectWithoutUserInput!]
   upsert: [PersonUpsertWithWhereUniqueWithoutUserInput!]
@@ -7084,7 +7084,7 @@ input PersonUpdateWithoutUserInput {
   birthday: NullableDateTimeFieldUpdateOperationsInput
   mobile: NullableStringFieldUpdateOperationsInput
   sex: NullableEnumSexTypeFieldUpdateOperationsInput
-  organize: OrganizeUpdateManyWithoutPersonsInput
+  organize: OrganizeUpdateManyWithoutPersonsNestedInput
   status: NullableEnumPersonStatusFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
 }
@@ -7097,7 +7097,7 @@ input NullableEnumSexTypeFieldUpdateOperationsInput {
   set: SexType
 }
 
-input OrganizeUpdateManyWithoutPersonsInput {
+input OrganizeUpdateManyWithoutPersonsNestedInput {
   create: [OrganizeCreateWithoutPersonsInput!]
   connectOrCreate: [OrganizeCreateOrConnectWithoutPersonsInput!]
   upsert: [OrganizeUpsertWithWhereUniqueWithoutPersonsInput!]
@@ -7125,15 +7125,15 @@ input OrganizeUpdateWithoutPersonsInput {
   name: StringFieldUpdateOperationsInput
   type: EnumOrganizeTypeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  parent: OrganizeUpdateOneWithoutOrganizesInput
-  organizes: OrganizeUpdateManyWithoutParentInput
+  parent: OrganizeUpdateOneWithoutOrganizesNestedInput
+  organizes: OrganizeUpdateManyWithoutParentNestedInput
 }
 
 input EnumOrganizeTypeFieldUpdateOperationsInput {
   set: OrganizeType
 }
 
-input OrganizeUpdateOneWithoutOrganizesInput {
+input OrganizeUpdateOneWithoutOrganizesNestedInput {
   create: OrganizeCreateWithoutOrganizesInput
   connectOrCreate: OrganizeCreateOrConnectWithoutOrganizesInput
   upsert: OrganizeUpsertWithoutOrganizesInput
@@ -7155,13 +7155,13 @@ input OrganizeUpdateWithoutOrganizesInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  persons: PersonUpdateManyWithoutOrganizeInput
+  persons: PersonUpdateManyWithoutOrganizeNestedInput
   type: EnumOrganizeTypeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  parent: OrganizeUpdateOneWithoutOrganizesInput
+  parent: OrganizeUpdateOneWithoutOrganizesNestedInput
 }
 
-input OrganizeUpdateManyWithoutParentInput {
+input OrganizeUpdateManyWithoutParentNestedInput {
   create: [OrganizeCreateWithoutParentInput!]
   connectOrCreate: [OrganizeCreateOrConnectWithoutParentInput!]
   upsert: [OrganizeUpsertWithWhereUniqueWithoutParentInput!]
@@ -7188,10 +7188,10 @@ input OrganizeUpdateWithoutParentInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  persons: PersonUpdateManyWithoutOrganizeInput
+  persons: PersonUpdateManyWithoutOrganizeNestedInput
   type: EnumOrganizeTypeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  organizes: OrganizeUpdateManyWithoutParentInput
+  organizes: OrganizeUpdateManyWithoutParentNestedInput
 }
 
 input OrganizeUpdateWithWhereUniqueWithoutParentInput {
@@ -7434,7 +7434,7 @@ input PermissionGroupUpdateManyMutationInput {
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input SignaturePermissionUpdateOneWithoutActionInput {
+input SignaturePermissionUpdateOneWithoutActionNestedInput {
   create: SignaturePermissionCreateWithoutActionInput
   connectOrCreate: SignaturePermissionCreateOrConnectWithoutActionInput
   upsert: SignaturePermissionUpsertWithoutActionInput
@@ -7454,12 +7454,12 @@ input SignaturePermissionUpdateWithoutActionInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  signatureGroup: SignatureGroupUpdateOneRequiredWithoutSignaturePermissionInput
-  module: ModuleUpdateOneWithoutSignaturePermissionInput
+  signatureGroup: SignatureGroupUpdateOneRequiredWithoutSignaturePermissionNestedInput
+  module: ModuleUpdateOneWithoutSignaturePermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input SignatureGroupUpdateOneRequiredWithoutSignaturePermissionInput {
+input SignatureGroupUpdateOneRequiredWithoutSignaturePermissionNestedInput {
   create: SignatureGroupCreateWithoutSignaturePermissionInput
   connectOrCreate: SignatureGroupCreateOrConnectWithoutSignaturePermissionInput
   upsert: SignatureGroupUpsertWithoutSignaturePermissionInput
@@ -7478,11 +7478,11 @@ input SignatureGroupUpdateWithoutSignaturePermissionInput {
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  rules: SignatureRuleUpdateManyWithoutGroupInput
+  rules: SignatureRuleUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input SignatureRuleUpdateManyWithoutGroupInput {
+input SignatureRuleUpdateManyWithoutGroupNestedInput {
   create: [SignatureRuleCreateWithoutGroupInput!]
   connectOrCreate: [SignatureRuleCreateOrConnectWithoutGroupInput!]
   upsert: [SignatureRuleUpsertWithWhereUniqueWithoutGroupInput!]
@@ -7558,7 +7558,7 @@ input SignatureRuleUpdateManyMutationInput {
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input ModuleUpdateOneWithoutSignaturePermissionInput {
+input ModuleUpdateOneWithoutSignaturePermissionNestedInput {
   create: ModuleCreateWithoutSignaturePermissionInput
   connectOrCreate: ModuleCreateOrConnectWithoutSignaturePermissionInput
   upsert: ModuleUpsertWithoutSignaturePermissionInput
@@ -7583,10 +7583,10 @@ input ModuleUpdateWithoutSignaturePermissionInput {
   path: NullableStringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  Menu: MenuUpdateManyWithoutModuleInput
+  Menu: MenuUpdateManyWithoutModuleNestedInput
 }
 
-input MenuUpdateManyWithoutModuleInput {
+input MenuUpdateManyWithoutModuleNestedInput {
   create: [MenuCreateWithoutModuleInput!]
   connectOrCreate: [MenuCreateOrConnectWithoutModuleInput!]
   upsert: [MenuUpsertWithWhereUniqueWithoutModuleInput!]
@@ -7613,8 +7613,8 @@ input MenuUpdateWithoutModuleInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  parent: MenuUpdateOneWithoutMenusInput
-  menus: MenuUpdateManyWithoutParentInput
+  parent: MenuUpdateOneWithoutMenusNestedInput
+  menus: MenuUpdateManyWithoutParentNestedInput
   menuType: EnumMenuTypeFieldUpdateOperationsInput
   url: NullableStringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
@@ -7622,11 +7622,11 @@ input MenuUpdateWithoutModuleInput {
   orderNo: NullableIntFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  actionGroups: ActionGroupUpdateManyWithoutMenuInput
-  permission: PermissionUpdateManyWithoutMenuInput
+  actionGroups: ActionGroupUpdateManyWithoutMenuNestedInput
+  permission: PermissionUpdateManyWithoutMenuNestedInput
 }
 
-input PermissionUpdateManyWithoutMenuInput {
+input PermissionUpdateManyWithoutMenuNestedInput {
   create: [PermissionCreateWithoutMenuInput!]
   connectOrCreate: [PermissionCreateOrConnectWithoutMenuInput!]
   upsert: [PermissionUpsertWithWhereUniqueWithoutMenuInput!]
@@ -7650,12 +7650,12 @@ input PermissionUpdateWithoutMenuInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  userGroup: UserGroupUpdateManyWithoutPermissionInput
-  permissionGroups: PermissionGroupUpdateManyWithoutPermissionInput
+  userGroup: UserGroupUpdateManyWithoutPermissionNestedInput
+  permissionGroups: PermissionGroupUpdateManyWithoutPermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input PermissionGroupUpdateManyWithoutPermissionInput {
+input PermissionGroupUpdateManyWithoutPermissionNestedInput {
   create: [PermissionGroupCreateWithoutPermissionInput!]
   connectOrCreate: [PermissionGroupCreateOrConnectWithoutPermissionInput!]
   upsert: [PermissionGroupUpsertWithWhereUniqueWithoutPermissionInput!]
@@ -7679,12 +7679,12 @@ input PermissionGroupUpdateWithoutPermissionInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  actionGroup: ActionGroupUpdateOneRequiredWithoutPermissionGroupInput
-  actions: ActionUpdateManyWithoutPermissionGroupInput
+  actionGroup: ActionGroupUpdateOneRequiredWithoutPermissionGroupNestedInput
+  actions: ActionUpdateManyWithoutPermissionGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input ActionUpdateManyWithoutPermissionGroupInput {
+input ActionUpdateManyWithoutPermissionGroupNestedInput {
   create: [ActionCreateWithoutPermissionGroupInput!]
   connectOrCreate: [ActionCreateOrConnectWithoutPermissionGroupInput!]
   upsert: [ActionUpsertWithWhereUniqueWithoutPermissionGroupInput!]
@@ -7712,9 +7712,9 @@ input ActionUpdateWithoutPermissionGroupInput {
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   signature: NullableBoolFieldUpdateOperationsInput
-  group: ActionGroupUpdateOneRequiredWithoutActionsInput
+  group: ActionGroupUpdateOneRequiredWithoutActionsNestedInput
   description: StringFieldUpdateOperationsInput
-  signaturePermission: SignaturePermissionUpdateOneWithoutActionInput
+  signaturePermission: SignaturePermissionUpdateOneWithoutActionNestedInput
 }
 
 input ActionUpdateWithWhereUniqueWithoutPermissionGroupInput {
@@ -7832,7 +7832,7 @@ input ActionUpdateManyWithWhereWithoutGroupInput {
   data: ActionUpdateManyMutationInput!
 }
 
-input PermissionGroupUpdateOneWithoutActionGroupInput {
+input PermissionGroupUpdateOneWithoutActionGroupNestedInput {
   create: PermissionGroupCreateWithoutActionGroupInput
   connectOrCreate: PermissionGroupCreateOrConnectWithoutActionGroupInput
   upsert: PermissionGroupUpsertWithoutActionGroupInput
@@ -7852,9 +7852,9 @@ input PermissionGroupUpdateWithoutActionGroupInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  actions: ActionUpdateManyWithoutPermissionGroupInput
+  actions: ActionUpdateManyWithoutPermissionGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permission: PermissionUpdateManyWithoutPermissionGroupsInput
+  permission: PermissionUpdateManyWithoutPermissionGroupsNestedInput
 }
 
 input ActionGroupUpdateWithWhereUniqueWithoutMenuInput {
@@ -7990,11 +7990,11 @@ input PersonUpdateInput {
   code: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
-  user: UserUpdateManyWithoutPersonInput
+  user: UserUpdateManyWithoutPersonNestedInput
   birthday: NullableDateTimeFieldUpdateOperationsInput
   mobile: NullableStringFieldUpdateOperationsInput
   sex: NullableEnumSexTypeFieldUpdateOperationsInput
-  organize: OrganizeUpdateManyWithoutPersonsInput
+  organize: OrganizeUpdateManyWithoutPersonsNestedInput
   status: NullableEnumPersonStatusFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
 }
@@ -8040,9 +8040,9 @@ input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  group: UserGroupUpdateManyWithoutUsersInput
+  group: UserGroupUpdateManyWithoutUsersNestedInput
   RFID: NullableStringFieldUpdateOperationsInput
-  person: PersonUpdateManyWithoutUserInput
+  person: PersonUpdateManyWithoutUserNestedInput
   description: NullableStringFieldUpdateOperationsInput
   expired: NullableFloatFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
@@ -8082,9 +8082,9 @@ input UserGroupUpdateInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  users: UserUpdateManyWithoutGroupInput
+  users: UserUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permission: PermissionUpdateManyWithoutUserGroupInput
+  permission: PermissionUpdateManyWithoutUserGroupNestedInput
 }
 
 input UserGroupCreateManyInput {
@@ -8121,8 +8121,8 @@ input ModuleUpdateInput {
   path: NullableStringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  Menu: MenuUpdateManyWithoutModuleInput
-  SignaturePermission: SignaturePermissionUpdateOneWithoutModuleInput
+  Menu: MenuUpdateManyWithoutModuleNestedInput
+  SignaturePermission: SignaturePermissionUpdateOneWithoutModuleNestedInput
 }
 
 input ModuleCreateManyInput {
@@ -8177,18 +8177,18 @@ input MenuUpdateInput {
   isDelete: BoolFieldUpdateOperationsInput
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  parent: MenuUpdateOneWithoutMenusInput
-  menus: MenuUpdateManyWithoutParentInput
+  parent: MenuUpdateOneWithoutMenusNestedInput
+  menus: MenuUpdateManyWithoutParentNestedInput
   menuType: EnumMenuTypeFieldUpdateOperationsInput
-  module: ModuleUpdateOneRequiredWithoutMenuInput
+  module: ModuleUpdateOneRequiredWithoutMenuNestedInput
   url: NullableStringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   icon: NullableStringFieldUpdateOperationsInput
   orderNo: NullableIntFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   enable: BoolFieldUpdateOperationsInput
-  actionGroups: ActionGroupUpdateManyWithoutMenuInput
-  permission: PermissionUpdateManyWithoutMenuInput
+  actionGroups: ActionGroupUpdateManyWithoutMenuNestedInput
+  permission: PermissionUpdateManyWithoutMenuNestedInput
 }
 
 input MenuCreateManyInput {
@@ -8231,10 +8231,10 @@ input ActionGroupUpdateInput {
   code: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
-  menu: MenuUpdateOneWithoutActionGroupsInput
-  actions: ActionUpdateManyWithoutGroupInput
+  menu: MenuUpdateOneWithoutActionGroupsNestedInput
+  actions: ActionUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permissionGroup: PermissionGroupUpdateOneWithoutActionGroupInput
+  permissionGroup: PermissionGroupUpdateOneWithoutActionGroupNestedInput
 }
 
 input ActionGroupCreateManyInput {
@@ -8273,10 +8273,10 @@ input ActionUpdateInput {
   name: StringFieldUpdateOperationsInput
   i18N: NullableStringFieldUpdateOperationsInput
   signature: NullableBoolFieldUpdateOperationsInput
-  group: ActionGroupUpdateOneRequiredWithoutActionsInput
+  group: ActionGroupUpdateOneRequiredWithoutActionsNestedInput
   description: StringFieldUpdateOperationsInput
-  permissionGroup: PermissionGroupUpdateManyWithoutActionsInput
-  signaturePermission: SignaturePermissionUpdateOneWithoutActionInput
+  permissionGroup: PermissionGroupUpdateManyWithoutActionsNestedInput
+  signaturePermission: SignaturePermissionUpdateOneWithoutActionNestedInput
 }
 
 input ActionCreateManyInput {
@@ -8352,9 +8352,9 @@ input PermissionUpdateInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  menu: MenuUpdateManyWithoutPermissionInput
-  userGroup: UserGroupUpdateManyWithoutPermissionInput
-  permissionGroups: PermissionGroupUpdateManyWithoutPermissionInput
+  menu: MenuUpdateManyWithoutPermissionNestedInput
+  userGroup: UserGroupUpdateManyWithoutPermissionNestedInput
+  permissionGroups: PermissionGroupUpdateManyWithoutPermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
@@ -8382,10 +8382,10 @@ input PermissionGroupUpdateInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  actionGroup: ActionGroupUpdateOneRequiredWithoutPermissionGroupInput
-  actions: ActionUpdateManyWithoutPermissionGroupInput
+  actionGroup: ActionGroupUpdateOneRequiredWithoutPermissionGroupNestedInput
+  actions: ActionUpdateManyWithoutPermissionGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  permission: PermissionUpdateManyWithoutPermissionGroupsInput
+  permission: PermissionUpdateManyWithoutPermissionGroupsNestedInput
 }
 
 input PermissionGroupCreateManyInput {
@@ -8461,11 +8461,11 @@ input SignatureRuleUpdateInput {
   category: EnumSignatureCategoryFieldUpdateOperationsInput
   value: StringFieldUpdateOperationsInput
   action: EnumSignatureActionFieldUpdateOperationsInput
-  group: SignatureGroupUpdateManyWithoutRulesInput
+  group: SignatureGroupUpdateManyWithoutRulesNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
-input SignatureGroupUpdateManyWithoutRulesInput {
+input SignatureGroupUpdateManyWithoutRulesNestedInput {
   create: [SignatureGroupCreateWithoutRulesInput!]
   connectOrCreate: [SignatureGroupCreateOrConnectWithoutRulesInput!]
   upsert: [SignatureGroupUpsertWithWhereUniqueWithoutRulesInput!]
@@ -8491,10 +8491,10 @@ input SignatureGroupUpdateWithoutRulesInput {
   isDelete: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  signaturePermission: SignaturePermissionUpdateOneWithoutSignatureGroupInput
+  signaturePermission: SignaturePermissionUpdateOneWithoutSignatureGroupNestedInput
 }
 
-input SignaturePermissionUpdateOneWithoutSignatureGroupInput {
+input SignaturePermissionUpdateOneWithoutSignatureGroupNestedInput {
   create: SignaturePermissionCreateWithoutSignatureGroupInput
   connectOrCreate: SignaturePermissionCreateOrConnectWithoutSignatureGroupInput
   upsert: SignaturePermissionUpsertWithoutSignatureGroupInput
@@ -8514,8 +8514,8 @@ input SignaturePermissionUpdateWithoutSignatureGroupInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  action: ActionUpdateOneRequiredWithoutSignaturePermissionInput
-  module: ModuleUpdateOneWithoutSignaturePermissionInput
+  action: ActionUpdateOneRequiredWithoutSignaturePermissionNestedInput
+  module: ModuleUpdateOneWithoutSignaturePermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
@@ -8578,9 +8578,9 @@ input SignaturePermissionUpdateInput {
   create_date: DateTimeFieldUpdateOperationsInput
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
-  action: ActionUpdateOneRequiredWithoutSignaturePermissionInput
-  signatureGroup: SignatureGroupUpdateOneRequiredWithoutSignaturePermissionInput
-  module: ModuleUpdateOneWithoutSignaturePermissionInput
+  action: ActionUpdateOneRequiredWithoutSignaturePermissionNestedInput
+  signatureGroup: SignatureGroupUpdateOneRequiredWithoutSignaturePermissionNestedInput
+  module: ModuleUpdateOneWithoutSignaturePermissionNestedInput
   description: NullableStringFieldUpdateOperationsInput
 }
 
@@ -8620,9 +8620,9 @@ input SignatureGroupUpdateInput {
   update_date: DateTimeFieldUpdateOperationsInput
   isDelete: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  rules: SignatureRuleUpdateManyWithoutGroupInput
+  rules: SignatureRuleUpdateManyWithoutGroupNestedInput
   description: NullableStringFieldUpdateOperationsInput
-  signaturePermission: SignaturePermissionUpdateOneWithoutSignatureGroupInput
+  signaturePermission: SignaturePermissionUpdateOneWithoutSignatureGroupNestedInput
 }
 
 input SignatureGroupCreateManyInput {

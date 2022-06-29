@@ -4,9 +4,9 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
-import { UserGroupUncheckedUpdateManyWithoutUsersInput } from '../user-group/user-group-unchecked-update-many-without-users.input';
+import { UserGroupUncheckedUpdateManyWithoutUsersNestedInput } from '../user-group/user-group-unchecked-update-many-without-users-nested.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { PersonUncheckedUpdateManyWithoutUserInput } from '../person/person-unchecked-update-many-without-user.input';
+import { PersonUncheckedUpdateManyWithoutUserNestedInput } from '../person/person-unchecked-update-many-without-user-nested.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { EnumUserStatusFieldUpdateOperationsInput } from '../prisma/enum-user-status-field-update-operations.input';
 
@@ -36,16 +36,18 @@ export class UserUncheckedUpdateInput {
     @Field(() => EnumRoleFieldUpdateOperationsInput, { nullable: true })
     role?: EnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => UserGroupUncheckedUpdateManyWithoutUsersInput, {
+    @Field(() => UserGroupUncheckedUpdateManyWithoutUsersNestedInput, {
         nullable: true,
     })
-    group?: UserGroupUncheckedUpdateManyWithoutUsersInput;
+    group?: UserGroupUncheckedUpdateManyWithoutUsersNestedInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     RFID?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => PersonUncheckedUpdateManyWithoutUserInput, { nullable: true })
-    person?: PersonUncheckedUpdateManyWithoutUserInput;
+    @Field(() => PersonUncheckedUpdateManyWithoutUserNestedInput, {
+        nullable: true,
+    })
+    person?: PersonUncheckedUpdateManyWithoutUserNestedInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     description?: NullableStringFieldUpdateOperationsInput;

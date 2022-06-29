@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob, time } from 'cron';
-import * as moment from 'moment';
+import moment from 'moment';
 import { LoggerService } from 'commons/public-module';
 
 @Injectable()

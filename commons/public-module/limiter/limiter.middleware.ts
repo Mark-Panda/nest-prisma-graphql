@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { redisClient, configYml } from 'commons/public-tool';
 import { rootPath } from 'commons/public-tool';
 import { readFileSync } from 'fs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 export async function limiterMiddleware(
     req: Request,
