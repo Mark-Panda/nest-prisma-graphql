@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-
+import { LoggerService } from '../public-module/logger/logger.service';
+const loggerService = new LoggerService();
 const prisma = new PrismaClient({
     errorFormat: 'colorless',
     log: [
@@ -13,7 +14,7 @@ const prisma = new PrismaClient({
 const { NODE_ENV } = process.env;
 if (NODE_ENV !== 'production') {
     prisma.$on('query', (event) => {
-        console.log('查询日志', event);
+        loggerService.debug(event, '查询日志');
     });
 }
 
@@ -22,9 +23,9 @@ if (NODE_ENV !== 'production') {
  */
 prisma.$use(async (params, next) => {
     const { model, action, args } = params;
-    console.log('prisma中间件拦截模型名称', model);
-    console.log('prisma中间件拦截模型操作', action);
-    console.log('prisma中间件拦截模型参数', args);
+    loggerService.debug(model, 'prisma中间件拦截模型名称');
+    loggerService.debug(action, 'prisma中间件拦截模型操作');
+    loggerService.debug(args, 'prisma中间件拦截模型参数');
     const result = await next(params);
     return result;
 });
