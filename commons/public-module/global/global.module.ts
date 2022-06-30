@@ -1,13 +1,6 @@
 import { APP_PIPE } from '@nestjs/core';
-import {
-    Module,
-    DynamicModule,
-    ValidationPipe,
-    CacheModule,
-} from '@nestjs/common';
-import type { RedisOptions } from 'ioredis';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as redisStore from 'cache-manager-ioredis';
+import { Module, DynamicModule, ValidationPipe } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { load } from 'js-yaml';
@@ -17,7 +10,6 @@ import { configYml } from 'commons/public-tool';
 
 export interface GlobalModuleOptions {
     yamlFilePath?: string[]; // 配置文件路径
-    cache?: boolean; // 开启缓存模块
 }
 /**
  * 全局模块
@@ -28,7 +20,7 @@ export class GlobalModule {
      * 全局模块初始化
      */
     static forRoot(options: GlobalModuleOptions): DynamicModule {
-        const { yamlFilePath = [], cache } = options || {};
+        const { yamlFilePath = [] } = options || {};
         const imports: DynamicModule['imports'] = [
             // 配置模块
             ConfigModule.forRoot({
@@ -58,23 +50,6 @@ export class GlobalModule {
                 ],
             }),
         ];
-
-        // 开启缓存模块
-        if (cache) {
-            imports.push({
-                ...CacheModule.registerAsync<RedisOptions>({
-                    useFactory: (configService: ConfigService) => {
-                        const { redis } = configService.get('cache');
-                        // 使用 redis 做缓存服务
-                        return redis?.host
-                            ? { store: redisStore, ...redis }
-                            : {};
-                    },
-                    inject: [ConfigService],
-                }),
-                global: true,
-            });
-        }
 
         return {
             module: GlobalModule,

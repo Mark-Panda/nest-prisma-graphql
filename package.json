@@ -21,6 +21,8 @@
         "prisma:g": "node node_modules/prisma/build/index.js generate",
         "prisma:p": "node node_modules/prisma/build/index.js db push",
         "prisma:i": "node node_modules/prisma/build/index.js db pull",
+        "prisma:s": "npx prisma studio",
+        "seed": "npx prisma db seed",
         "format:g": "npx prettier ./@generated --write",
         "format:s": "npx prettier ./services --write",
         "regen": "rm -rf @generated && npm run prisma:g && npm run format:g",
@@ -44,8 +46,6 @@
         "apollo-server-express": "^3.6.3",
         "apollo-server-plugin-base": "^3.5.1",
         "bcrypt": "^5.0.1",
-        "cache-manager": "^3.6.1",
-        "cache-manager-ioredis": "^2.1.0",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.13.2",
         "concat-files": "^0.1.1",
@@ -127,5 +127,8 @@
         ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node"
+    },
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
     }
 }

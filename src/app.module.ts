@@ -17,9 +17,7 @@ import { EventsModule } from './wsResolver/events/events.module';
 
 @Module({
     imports: [
-        GlobalModule.forRoot({
-            cache: true,
-        }),
+        GlobalModule.forRoot({}),
         AllModules,
         AllResolverModules,
         CustomGraphqlModules,

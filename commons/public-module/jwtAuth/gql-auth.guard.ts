@@ -1,21 +1,16 @@
-import {
-    ExecutionContext,
-    Injectable,
-    Inject,
-    CACHE_MANAGER,
-} from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from 'src/resolver/auth/auth.service';
 import { AuthenticationError } from 'commons/public-module/errors/errorsGql';
+import { redisClient } from 'commons/public-tool';
 
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {
     constructor(
         readonly authService: AuthService,
         readonly configService: ConfigService,
-        @Inject(CACHE_MANAGER) private readonly cacheManager,
     ) {
         super();
     }
@@ -31,6 +26,12 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
                 'accessToken',
             );
             if (atUserId) {
+                const redisAccessToken = await redisClient.get(
+                    `accessToken-${atUserId.username}`,
+                );
+                if (accessToken.replace('Bearer ', '') !== redisAccessToken) {
+                    throw new AuthenticationError('请先登录');
+                }
                 // 给req存放userInfo信息,用于角色判断用户来源
                 ctx.getContext().req.userInfo = { username: atUserId.username };
                 return ctx.getContext().req;
@@ -47,26 +48,28 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
                 tokenInfo[`secret-${this.configService.get('jwt.secret')}`],
             );
             if (userInfo) {
-                const tokens = this.authService.genToken({
+                const redisRefreshToken = await redisClient.get(
+                    `refreshToken-${userInfo.username}`,
+                );
+                if (refreshToken.replace('Bearer ', '') !== redisRefreshToken) {
+                    throw new AuthenticationError('请先登录');
+                }
+                const tokens: any = this.authService.genToken({
                     id: userInfo.id,
                     username: userInfo.username,
                 });
                 // 写入Redis中
-                await this.cacheManager.set(
-                    `accessToken-${userInfo.id}`,
+                await redisClient.set(
+                    `accessToken-${userInfo.username}`,
                     tokens.accessToken,
-                    {
-                        ttl: parseInt(this.configService.get('jwt.expiresIn')),
-                    },
+                    'EX',
+                    parseInt(this.configService.get('jwt.expiresIn')),
                 );
-                await this.cacheManager.set(
-                    `refreshToken-${userInfo.id}`,
+                await redisClient.set(
+                    `refreshToken-${userInfo.username}`,
                     tokens.refreshToken,
-                    {
-                        ttl: parseInt(
-                            this.configService.get('jwt.refreshExpiresIn'),
-                        ),
-                    },
+                    'EX',
+                    parseInt(this.configService.get('jwt.refreshExpiresIn')),
                 );
                 // 给req存放userInfo信息,用于角色判断用户来源
                 ctx.getContext().req.userInfo = { username: userInfo.username };

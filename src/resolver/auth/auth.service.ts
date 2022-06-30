@@ -1,4 +1,4 @@
-import { Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { LoggerService } from 'commons/public-module';
@@ -6,6 +6,7 @@ import { AccountAdmin } from './auth.entity';
 import { prisma } from 'commons/public-tool';
 import * as bcrypt from 'bcrypt';
 import { User } from '@generated/user/user.model';
+import { redisClient } from 'commons/public-tool';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,6 @@ export class AuthService {
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
         private readonly logger: LoggerService,
-        @Inject(CACHE_MANAGER) private readonly cacheManager,
     ) {}
 
     /**
@@ -61,9 +61,8 @@ export class AuthService {
                 token.replace('Bearer ', ''),
                 this.configService.get('jwt.secret'),
             );
-            const tokenKey = `secret-${this.configService.get('jwt.secret')}`;
-            const getToken = this.cacheManager.get(
-                `${type}-${tokenInfo[tokenKey]}`,
+            const getToken = await redisClient.get(
+                `${type}-${tokenInfo.username}`,
             );
             if (!getToken) {
                 return 0;
@@ -88,21 +87,19 @@ export class AuthService {
     async login(req: any) {
         const { user } = req;
         // 获取鉴权 token
-        const access_token = this.genToken(user);
+        const access_token: any = this.genToken(user);
         // 写入Redis中
-        await this.cacheManager.set(
-            `accessToken-${user.id}`,
+        await redisClient.set(
+            `accessToken-${user.username}`,
             access_token.accessToken,
-            {
-                ttl: parseInt(this.configService.get('jwt.expiresIn')),
-            },
+            'EX',
+            parseInt(this.configService.get('jwt.expiresIn')),
         );
-        await this.cacheManager.set(
-            `refreshToken-${user.id}`,
+        await redisClient.set(
+            `refreshToken-${user.username}`,
             access_token.refreshToken,
-            {
-                ttl: parseInt(this.configService.get('jwt.refreshExpiresIn')),
-            },
+            'EX',
+            parseInt(this.configService.get('jwt.refreshExpiresIn')),
         );
         return { ...user, ...access_token };
     }
@@ -116,9 +113,8 @@ export class AuthService {
             token.replace('Bearer ', ''),
             this.configService.get('jwt.secret'),
         );
-        const tokenKey = `secret-${this.configService.get('jwt.secret')}`;
-        await this.cacheManager.del(`accessToken-${tokenInfo[tokenKey]}`);
-        await this.cacheManager.del(`refreshToken-${tokenInfo[tokenKey]}`);
+        await redisClient.del(`accessToken-${tokenInfo.username}`);
+        await redisClient.del(`refreshToken-${tokenInfo.username}`);
         // 删除缓存的token
         return { data: 'SUCCESS', message: '退出登录' };
     }
@@ -140,9 +136,12 @@ export class AuthService {
         });
 
         // 账号权限写入缓存
-        await this.cacheManager.set(`permissions-${user.id}`, userInfo.role, {
-            ttl: parseInt(this.configService.get('jwt.expiresIn')),
-        });
+        await redisClient.set(
+            `permissions-${user.id}`,
+            userInfo.role,
+            'EX',
+            parseInt(this.configService.get('jwt.expiresIn')),
+        );
 
         return userInfo;
     }
@@ -201,23 +200,19 @@ export class AuthService {
             // 删除用户密码
             delete user.password;
             // 获取鉴权 token
-            const access_token = this.genToken(user);
+            const access_token: any = this.genToken(user);
             // 写入Redis中
-            await this.cacheManager.set(
-                `accessToken-${user.id}`,
+            await redisClient.set(
+                `accessToken-${user.username}`,
                 access_token.accessToken,
-                {
-                    ttl: parseInt(this.configService.get('jwt.expiresIn')),
-                },
+                'EX',
+                parseInt(this.configService.get('jwt.expiresIn')),
             );
-            await this.cacheManager.set(
-                `refreshToken-${user.id}`,
+            await redisClient.set(
+                `refreshToken-${user.username}`,
                 access_token.refreshToken,
-                {
-                    ttl: parseInt(
-                        this.configService.get('jwt.refreshExpiresIn'),
-                    ),
-                },
+                'EX',
+                parseInt(this.configService.get('jwt.refreshExpiresIn')),
             );
             return { ...user, ...access_token };
         } catch (error) {
