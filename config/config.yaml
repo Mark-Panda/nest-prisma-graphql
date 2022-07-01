@@ -2,7 +2,6 @@
 
 serve:
   port: 3100
-  prefix: # 路径前缀
 
 graphql:
   queryMaxRows: 200

@@ -61,7 +61,7 @@ export async function bootstrap(
                     Method: req.method,
                     URL: req.url,
                     Body: req.body,
-                    ResponseTime: res.responseTime + 'ms' || '-ms',
+                    ResponseTime: res.responseTime + ' - ms' || '-- ms',
                     Referer: req.headers.referer,
                 };
                 const logInfo = traceId + JSON.stringify(logInfoJson);
@@ -69,8 +69,6 @@ export async function bootstrap(
             },
         }),
     );
-    // 接口请求前缀
-    app.setGlobalPrefix(serve.prefix);
     // swagger 接口文档
     const swagger = configService.get('swagger');
     if (process.env.NODE_ENV !== 'production') {
@@ -82,7 +80,6 @@ export async function bootstrap(
                 'Authorization',
             )
             .setVersion('1.0')
-            .addServer(serve.prefix)
             .build();
         const document = SwaggerModule.createDocument(app, documentBuilder, {
             ignoreGlobalPrefix: true,
