@@ -47,17 +47,24 @@ export async function bootstrap(
     const serve = configService.get('serve');
     // 注入日志
     const loggerService = new LoggerService();
+    // 链路追踪
+    app.use((req: any, res: any, next: any) => loggerService.run(req, next));
     app.use(
         connectLogger(loggerService.log4js, {
             level: 'info',
             format: (req, res, format) => {
-                const logInfo = `请求IP: ${toIp(
-                    req.clientIp,
-                )}\n请求方法: :method\n请求路径: :url\n请求实例: ${JSON.stringify(
-                    req.body,
-                )}\n响应时间: ${
-                    res.responseTime || '-'
-                }ms\nHTTP状态: :status\n请求来源: :referrer`;
+                const traceId = req.headers.requestId
+                    ? '[' + req.headers.requestId + ']'
+                    : '';
+                const logInfo =
+                    traceId +
+                    `请求IP: ${toIp(
+                        req.clientIp,
+                    )}\n请求方法: :method\n请求路径: :url\n请求实例: ${JSON.stringify(
+                        req.body,
+                    )}\n响应时间: ${
+                        res.responseTime || '-'
+                    }ms\nHTTP状态: :status\n请求来源: :referrer`;
                 return format(logInfo);
             },
         }),

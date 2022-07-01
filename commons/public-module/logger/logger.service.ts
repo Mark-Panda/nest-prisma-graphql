@@ -1,5 +1,8 @@
 import { Injectable, ConsoleLogger } from '@nestjs/common';
+import cuid from 'cuid';
 import { Logger, Configuration, configure, getLogger } from 'log4js';
+import { AsyncLocalStorage } from 'async_hooks';
+const asyncLocalStorage = new AsyncLocalStorage();
 
 export type LoggerServiceOptions = Partial<Configuration> & {
     filename: string;
@@ -42,33 +45,49 @@ export class LoggerService extends ConsoleLogger {
         this.log4js = getLogger();
     }
 
+    // 链路追踪
+    run(req: any, callback: any) {
+        req.headers.requestId = req.headers.requestId || cuid();
+        asyncLocalStorage.run(req.headers.requestId, callback);
+    }
+
     log(message: any, trace: string) {
+        let traceId = asyncLocalStorage.getStore();
+        traceId = traceId ? '[' + traceId + ']' : '';
         // eslint-disable-next-line prefer-rest-params
         super.log.apply(this, arguments);
-        this.log4js.info(trace, message);
+        this.log4js.info(traceId + trace, message);
     }
 
     error(message: any, trace: string) {
+        let traceId = asyncLocalStorage.getStore();
+        traceId = traceId ? '[' + traceId + ']' : '';
         // eslint-disable-next-line prefer-rest-params
         super.error.apply(this, arguments);
-        this.log4js.error(trace, message);
+        this.log4js.error(traceId + trace, message);
     }
 
     warn(message: any, trace: string) {
+        let traceId = asyncLocalStorage.getStore();
+        traceId = traceId ? '[' + traceId + ']' : '';
         // eslint-disable-next-line prefer-rest-params
         super.warn.apply(this, arguments);
-        this.log4js.warn(trace, message);
+        this.log4js.warn(traceId + trace, message);
     }
 
     debug(message: any, trace: string) {
+        let traceId = asyncLocalStorage.getStore();
+        traceId = traceId ? '[' + traceId + ']' : '';
         // eslint-disable-next-line prefer-rest-params
         super.debug.apply(this, arguments);
-        this.log4js.debug(trace, message);
+        this.log4js.debug(traceId + trace, message);
     }
 
     verbose(message: any, trace: string) {
+        let traceId = asyncLocalStorage.getStore();
+        traceId = traceId ? '[' + traceId + ']' : '';
         // eslint-disable-next-line prefer-rest-params
         super.verbose.apply(this, arguments);
-        this.log4js.info(trace, message);
+        this.log4js.info(traceId + trace, message);
     }
 }

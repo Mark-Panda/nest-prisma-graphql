@@ -17,7 +17,7 @@ export const producerDLX = async ({
             deadLetterRoutingKey: testRoutingKeyDLX,
         });
         // 绑定队列
-        await ch.bindQueue(queueResult.queue, testExchange);
+        await ch.bindQueue(queueResult.queue, testExchange, 'direct');
         const msg = 'hello world!';
         console.log('生产者 msg：', testQueue + msg);
         // 发送到队列

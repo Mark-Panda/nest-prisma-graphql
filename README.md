@@ -34,6 +34,7 @@
 - websocket集成
 - GraphQL中间件
 - GraphQL异常友好型提示(自定义异常)
+- 链路追踪
 
 ## 待办事项
 
