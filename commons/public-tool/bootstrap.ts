@@ -56,15 +56,15 @@ export async function bootstrap(
                 const traceId = req.headers.requestId
                     ? '[' + req.headers.requestId + ']'
                     : '';
-                const logInfo =
-                    traceId +
-                    `请求IP: ${toIp(
-                        req.clientIp,
-                    )}\n请求方法: :method\n请求路径: :url\n请求实例: ${JSON.stringify(
-                        req.body,
-                    )}\n响应时间: ${
-                        res.responseTime || '-'
-                    }ms\nHTTP状态: :status\n请求来源: :referrer`;
+                const logInfoJson = {
+                    IP: toIp(req.clientIp),
+                    Method: req.method,
+                    URL: req.url,
+                    Body: req.body,
+                    ResponseTime: res.responseTime + 'ms' || '-ms',
+                    Referer: req.headers.referer,
+                };
+                const logInfo = traceId + JSON.stringify(logInfoJson);
                 return format(logInfo);
             },
         }),
