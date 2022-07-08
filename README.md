@@ -188,10 +188,5 @@ mutation (
 ├── tsconfig.json
 ├── uploadResource  文件上传位置文件夹
 ├── views  静态资源文件夹
-│   ├── dev.ejs
-│   ├── index.ejs
-│   ├── login.ejs
-│   ├── playground.ejs
-│   └── upload.ejs
 └── ~schema.gql
 ```
