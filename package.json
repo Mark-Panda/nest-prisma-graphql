@@ -63,7 +63,7 @@
         "lodash": "^4.17.21",
         "log4js": "^6.4.5",
         "moment": "^2.29.3",
-        "passport": "^0.5.2",
+        "passport": "^0.6.0",
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
         "prisma-graphql-type-decimal": "^1.0.0",
