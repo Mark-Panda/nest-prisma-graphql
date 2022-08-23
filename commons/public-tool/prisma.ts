@@ -3,6 +3,11 @@ import { LoggerService } from '../public-module/logger/logger.service';
 const loggerService = new LoggerService();
 const prisma = new PrismaClient({
     errorFormat: 'colorless',
+    datasources: {
+        db: {
+            url: 'mysql://root:prisma@localhost:3306/testPrisma', //覆盖@prisma/client中的连接方式
+        },
+    },
     log: [
         {
             emit: 'event',
