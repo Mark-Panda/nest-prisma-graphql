@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SchedulerRegistry } from '@nestjs/schedule';
+import { SchedulerRegistry, Cron } from '@nestjs/schedule';
 import { CronJob, time } from 'cron';
 import moment from 'moment';
 import { LoggerService } from 'commons/public-module';
@@ -122,5 +122,12 @@ export class TasksService {
         } catch (error) {
             return { error: `定时作业${name}重置失败`, message: error.message };
         }
+    }
+
+    @Cron('* * 8 * * *', {
+        name: 'customCronName',
+    })
+    async customCronName() {
+        this.logger.log('自定义定时任务逻辑', '定时任务');
     }
 }
